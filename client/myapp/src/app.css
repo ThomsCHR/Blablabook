@@ -48,6 +48,40 @@ header h1 a {
   color: #2c3e50;
 }
 
+/* Logo container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-container:hover {
+  transform: scale(1.05);
+}
+
+.logo-container h1 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.logo {
+  height: 45px;
+  width: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.logo:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 /* Navigation desktop */
 .desktop-nav {
   list-style: none;
@@ -643,6 +677,19 @@ footer a {
     text-align: center;
     margin: 0;
   }
+
+  /* Logo responsive mobile */
+  .logo-container {
+    gap: 8px;
+  }
+
+  .logo {
+    height: 35px;
+  }
+
+  .logo-container h1 {
+    font-size: 1.3em;
+  }
   
   /* Cache la navigation desktop */
   .desktop-nav {
@@ -766,6 +813,19 @@ footer a {
   
   /* Ajustements pour très petits écrans */
   @media (max-width: 480px) {
+    /* Logo encore plus petit sur très petits écrans */
+    .logo {
+      height: 30px;
+    }
+
+    .logo-container h1 {
+      font-size: 1.1em;
+    }
+
+    .logo-container {
+      gap: 6px;
+    }
+
     .banner {
       padding: 2.5rem 1rem;
       font-size: 1rem;

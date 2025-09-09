@@ -190,7 +190,7 @@
           {:else}
             <a href="#/login" on:click={toggleMobileMenu}>Se connecter</a>
             <a href="#/register" on:click={toggleMobileMenu}>Créer un compte</a>
-          {/if}a
+          {/if}
         </nav>
       </div>
     </div>
@@ -201,8 +201,11 @@
     <!-- Bouton hamburger pour ouvrir le menu mobile -->
     <button class="mobile-menu-btn" on:click={toggleMobileMenu}>☰</button>
 
-    <!-- Titre du site -->
-    <h1><a href="#/">Blabla-book</a></h1>
+    <!-- Logo et titre du site test -->
+    <a href="#/" class="logo-container">
+      <img src="/logo.png" alt="Blabla-book" class="logo" />
+      <h1>Blabla-book</h1>
+    </a>
 
     <!-- Formulaire de recherche mobile -->
     <div class="mobile-search-form {mobileSearchOpen ? 'expanded' : ''}">
