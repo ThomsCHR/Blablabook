@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Blabla-book</title>
+  <script defer src="../script/index.js"></script>
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/contact.css">
+</head>
+<body>
+  <header>
+    <!-- Menu hamburger mobile -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+      <div class="mobile-menu">
+        <button class="mobile-menu-close">&times;</button>
+        <nav class="mobile-nav">
+          <a href="index.html">Accueil</a>
+          <a href="my-library.html">Ma Bibliothèque</a>
+          <a href="login.html">Se connecter</a>
+          <a href="register.html">Créer un compte</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Bouton menu mobile -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    <h1>Blabla-book</h1>
+
+    <!-- Formulaire de recherche mobile -->
+    <div class="mobile-search-form" id="mobileSearchForm">
+      <input type="text" placeholder="Rechercher..." id="mobileSearchInput">
+      <button type="button" class="mobile-search-btn" id="mobileSearchBtn">🔍</button>
+    </div>
+
+    <!-- Navigation desktop -->
+    <nav class="desktop-nav">
+      <a href="index.html">Accueil</a>
+      <a href="my-library.html">Ma Bibliothèque</a>
+      <div class="search-box">
+        <input type="text" placeholder="Rechercher">
+        <button>🔍</button>
+      </div>
+      <li class="menu-deroulant">
+        <a href="#">Connexion</a>
+        <ul class="sous-menu">
+          <li><a href="login.html">Se connecter</a></li>
+          <li><a href="register.html">Créer un compte</a></li>
+        </ul>
+      </li>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="contact-title">Contactez-nous</h1>
+
+    <div class="contact-container">
+      <div class="contact-grid">
+        <!-- Informations de contact -->
+        <div class="contact-info">
+          <h2>Nos coordonnées</h2>
+
+          <div class="info-item">
+            <h3>📍 Adresse</h3>
+            <p>Blabla-book SARL<br>
+            123 Rue des Livres<br>
+            75000 Paris, France</p>
+          </div>
+
+          <div class="info-item">
+            <h3>📞 Téléphone</h3>
+            <p><a href="tel:+33123456789" class="contact-link">+33 1 23 45 67 89</a></p>
+          </div>
+
+          <div class="info-item">
+            <h3>✉️ Email</h3>
+            <p><a href="mailto:contact@blabla-book.fr" class="contact-link">contact@blabla-book.fr</a></p>
+          </div>
+
+          <div class="info-item">
+            <h3>🕒 Horaires d'ouverture</h3>
+            <p>Lundi - Vendredi : 9h00 - 18h00<br>
+            Samedi : 10h00 - 16h00<br>
+            Dimanche : Fermé</p>
+          </div>
+        </div>
+
+        <!-- Formulaire de contact -->
+        <div class="contact-form">
+          <h2>Envoyez-nous un message</h2>
+
+          <form class="form-container">
+            <div class="form-group">
+              <label for="name">Nom complet *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Sujet *</label>
+              <select id="subject" name="subject" required>
+                <option value="">Choisissez un sujet</option>
+                <option value="question">Question générale</option>
+                <option value="bug">Signaler un bug</option>
+                <option value="suggestion">Suggestion d'amélioration</option>
+                <option value="partenariat">Proposition de partenariat</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Décrivez votre demande..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Envoyer le message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="return-home">
+      <a href="index.html" class="submit-btn">Retour à l'accueil</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Blabla-book. Tous droits réservés.</p>
+    <p>
+      <a href="mentions-legales.html">Mentions légales</a> |
+      <a href="politique-confidentialite.html">Politique de confidentialité</a> |
+      <a href="contact.html">Contact</a>
+    </p>
+  </footer>
+</body>
+</html>

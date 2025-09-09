@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blabla-book - erreur</title>
+  <link rel="stylesheet" href="../css/reset.css">
+  <script defer src="../script/index.js"></script>
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <header>
+    <!-- Menu hamburger mobile (caché par défaut) -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+      <div class="mobile-menu">
+        <button class="mobile-menu-close">&times;</button>
+        <nav class="mobile-nav">
+          <a href="index.html">Accueil</a>
+          <a href="my-library.html">Ma Bibliothèque</a>
+          <a href="login.html">Se connecter</a>
+          <a href="register.html">Créer un compte</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Header principal -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    <h1>Blabla-book</h1>
+
+    <!-- Formulaire de recherche mobile (compact par défaut) -->
+    <div class="mobile-search-form" id="mobileSearchForm">
+      <input type="text" placeholder="Rechercher..." id="mobileSearchInput">
+      <button type="button" class="mobile-search-btn" id="mobileSearchBtn">🔍</button>
+    </div>
+
+    <!-- Navigation desktop -->
+    <nav class="desktop-nav">
+      <a href="index.html">Accueil</a>
+      <a href="my-library.html">Ma Bibliothèque</a>
+      <div class="search-box">
+        <input type="text" placeholder="Rechercher">
+        <button>🔍</button>
+      </div>
+      <li class="menu-deroulant">
+        <a href="#">Connexion</a>
+        <ul class="sous-menu">
+          <li><a href="login.html">Se connecter</a></li>
+          <li><a href="register.html">Créer un compte</a></li>
+        </ul>
+      </li>
+    </nav>
+  </header>
+
+  <main>
+    <div class="login-container">
+      <div class="form-section">
+        <form>
+          <h2>Oups... on dirait que ton livre n'est pas chez nous... Veux-tu le rajouter à notre collection ?</h2>
+
+          <div class="form-group">
+            <input type="text" id="title" placeholder="titre :" required>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="author" placeholder="Auteur :" required>
+          </div>
+
+          <div class="form-group">
+            <input type="text" id="genre" placeholder="genre :">
+          </div>
+          
+          <div class="form-group">
+            <input type="file" id="img-book" accept="image/*" required style="display: none;">
+            <label for="img-book" class="file-input-label">
+              <span class="file-input-text">Première de couverture : Choisir un fichier</span>
+            </label>
+          </div>
+          
+          <div class="form-group">
+            <input type="text" id="publication_date" placeholder="date de publication :" required>
+
+            <div class="form-group form-group-summary">
+              <textarea id="summary" placeholder="Résumé" rows="5" required></textarea>
+            </div>
+
+          </div>
+
+
+          <button type="submit" class="submit-btn">Continuer</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <a href="mention-legales.html">Mentions légales</a>
+    <a href="contact.html">Contact</a>
+    <a href="a-propos.html">A propos</a>
+  </footer>
+
+  <script>
+    // Script pour afficher le nom du fichier sélectionné
+    document.getElementById('img-book').addEventListener('change', function(e) {
+      const fileLabel = this.nextElementSibling.querySelector('.file-input-text');
+      if (this.files && this.files[0]) {
+        fileLabel.textContent = `Fichier sélectionné : ${this.files[0].name}`;
+        fileLabel.style.color = '#2c3e50';
+        fileLabel.style.fontStyle = 'normal';
+      } else {
+        fileLabel.textContent = 'Première de couverture : Choisir un fichier';
+        fileLabel.style.color = '#999';
+        fileLabel.style.fontStyle = 'italic';
+      }
+    });
+  </script>
+
+</body>
+
+</html>

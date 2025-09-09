@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blabla-book - Se connecter</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <script defer src="../script/index.js"></script>
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <header>
+    <!-- Menu hamburger mobile (caché par défaut) -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+      <div class="mobile-menu">
+        <button class="mobile-menu-close">&times;</button>
+        <nav class="mobile-nav">
+          <a href="index.html">Accueil</a>
+          <a href="my-library.html">Ma Bibliothèque</a>
+          <a href="login.html">Se connecter</a>
+          <a href="register.html">Créer un compte</a>
+        </nav>
+      </div>
+    </div>
+    
+    <!-- Header principal -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    <h1>Blabla-book</h1>
+    
+    <!-- Formulaire de recherche mobile (compact par défaut) -->
+    <div class="mobile-search-form" id="mobileSearchForm">
+      <input type="text" placeholder="Rechercher..." id="mobileSearchInput">
+      <button type="button" class="mobile-search-btn" id="mobileSearchBtn">🔍</button>
+    </div>
+    
+    <!-- Navigation desktop -->
+    <nav class="desktop-nav">
+      <a href="index.html">Accueil</a>
+      <a href="my-library.html">Ma Bibliothèque</a>
+      <div class="search-box">
+        <input type="text" placeholder="Rechercher">
+        <button>🔍</button>
+      </div>
+      <li class="menu-deroulant">
+      <a href="#">Connexion</a>
+      <ul class="sous-menu">
+          <li><a href="login.html">Se connecter</a></li>
+          <li><a href="register.html">Créer un compte</a></li>
+      </ul>
+      </li>
+    </nav>
+  </header>
+
+    <main>
+        <div class="login-container">
+            <div class="form-section">
+                <form>
+                    <h2>Connexion</h2>
+
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Email :" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" id="password" placeholder="Mot de passe :" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Continuer</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="mention-legales.html">Mentions légales</a>
+        <a href="contact.html">Contact</a>
+        <a href="a-propos.html">A propos</a>
+    </footer>
+
+</body>
+
+</html>

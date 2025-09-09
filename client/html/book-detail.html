@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blabla-book - Détail du Livre</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <script type="module" defer src="../script/book-detail.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/book-detail.css">
+</head>
+
+<body>
+  <header>
+    <!-- Menu hamburger mobile (caché par défaut) -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+      <div class="mobile-menu">
+        <button class="mobile-menu-close">&times;</button>
+        <nav class="mobile-nav">
+          <a href="index.html">Accueil</a>
+          <a href="my-library.html">Ma Bibliothèque</a>
+          <a href="login.html">Se connecter</a>
+          <a href="register.html">Créer un compte</a>
+        </nav>
+      </div>
+    </div>
+    
+    <!-- Header principal -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    <h1>Blabla-book</h1>
+    
+    <!-- Formulaire de recherche mobile (compact par défaut) -->
+    <div class="mobile-search-form" id="mobileSearchForm">
+      <input type="text" placeholder="Rechercher..." id="mobileSearchInput">
+      <button type="button" class="mobile-search-btn" id="mobileSearchBtn">🔍</button>
+    </div>
+    
+    <!-- Navigation desktop -->
+    <nav class="desktop-nav">
+      <a href="index.html">Accueil</a>
+      <a href="my-library.html">Ma Bibliothèque</a>
+      <div class="search-box">
+        <input type="text" placeholder="Rechercher">
+        <button>🔍</button>
+      </div>
+      <li class="menu-deroulant">
+      <a href="#">Connexion</a>
+      <ul class="sous-menu">
+          <li><a href="login.html">Se connecter</a></li>
+          <li><a href="register.html">Créer un compte</a></li>
+      </ul>
+      </li>
+    </nav>
+  </header>
+
+    <main class="book-details-page">
+        <div class="book-details-container">
+            <!-- Section couverture à gauche -->
+            <div class="left-section">
+                <div class="cover-container">
+                    <div class="cover-placeholder" id="book-cover">
+                      <li class="menu-deroulant">
+                        <a href="login.html">Connexion</a>
+                        <ul class="sous-menu">
+                          <li><a href="login.html">Se connecter</a></li>
+                          <li><a href="register.html">Créer un compte</a></li>
+                        </ul>
+                      </li>
+                        <div class="cover-label">Couverture du livre</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section détails à droite -->
+            <div class="right-section">
+                <div class="book-form">
+                    <div class="form-field">
+                        <span class="form-label">Titre :</span>
+                        <div class="book-input" id="book-title">Chargement...</div>
+                    </div>
+
+                    <div class="form-field">
+                        <span class="form-label">Auteur :</span>
+                        <div class="book-input" id="book-author">Chargement...</div>
+                    </div>
+
+                    <div class="form-field">
+                        <span class="form-label">Genres :</span>
+                        <div class="book-input" id="book-genres">Chargement...</div>
+                    </div>
+
+                    <div class="form-field">
+                        <span class="form-label">Année de publication :</span>
+                        <div class="book-input" id="book-year">Chargement...</div>
+                    </div>
+
+                    <div class="form-field summary-field">
+                        <span class="form-label">Résumé :</span>
+                        <div class="book-textarea" id="book-summary">Chargement du résumé...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="mention-legales.html">Mentions légales</a>
+        <a href="contact.html">Contact</a>
+        <a href="a-propos.html">À propos</a>
+    </footer>
+</body>
+
+</html>

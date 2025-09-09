@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blabla-book - Ma Bibliothèque</title>
+    <script defer src="../script/index.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/my-library.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+  <header>
+    <!-- Menu hamburger mobile (caché par défaut) -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+      <div class="mobile-menu">
+        <button class="mobile-menu-close">&times;</button>
+        <nav class="mobile-nav">
+          <a href="index.html">Accueil</a>
+          <a href="my-library.html">Ma Bibliothèque</a>
+          <a href="login.html">Se connecter</a>
+          <a href="register.html">Créer un compte</a>
+        </nav>
+      </div>
+    </div>
+    
+    <!-- Header principal -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    <h1>Blabla-book</h1>
+    
+    <!-- Formulaire de recherche mobile (compact par défaut) -->
+    <div class="mobile-search-form" id="mobileSearchForm">
+      <input type="text" placeholder="Rechercher..." id="mobileSearchInput">
+      <button type="button" class="mobile-search-btn" id="mobileSearchBtn">🔍</button>
+    </div>
+    
+    <!-- Navigation desktop -->
+    <nav class="desktop-nav">
+      <a href="index.html">Accueil</a>
+      <a href="my-library.html">Ma Bibliothèque</a>
+      <div class="search-box">
+        <input type="text" placeholder="Rechercher">
+        <button>🔍</button>
+      </div>
+      <li class="menu-deroulant">
+      <a href="#">Connexion</a>
+      <ul class="sous-menu">
+          <li><a href="login.html">Se connecter</a></li>
+          <li><a href="register.html">Créer un compte</a></li>
+      </ul>
+      </li>
+    </nav>
+  </header>
+
+    <main>
+        <!-- Section Mes livres à lire -->
+        <section class="library-section">
+            <div class="section-header">
+                <h2>Mes livres à lire :</h2>
+                <a href="#" class="view-all-link">voir tout :</a>
+            </div>
+            <div class="carousel-container">
+                <button class="carousel-btn carousel-prev" onclick="scrollCarousel('toRead', -1)">‹</button>
+                <div class="book-row" id="toRead">
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Croc-Blanc_9033.webp" alt="Croc-Blanc">
+                        <p>Croc-Blanc</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Dune-tome-1_3118.webp" alt="Dune">
+                        <p>Dune</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/seigneur-des-anneaux.jpg" alt="Le Seigneur des Anneaux">
+                        <p>Le Seigneur des Anneaux</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/l-alchimiste.webp" alt="L'Alchimiste">
+                        <p>L'Alchimiste</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/le petit prince.jpg" alt="Le Petit Prince">
+                        <p>Le Petit Prince</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Le-parfum_4595.webp" alt="Le Parfum">
+                        <p>Le Parfum</p>
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-next" onclick="scrollCarousel('toRead', 1)">›</button>
+            </div>
+        </section>
+
+        <!-- Section Mes livres lus -->
+        <section class="library-section">
+            <div class="section-header">
+                <h2>Mes livres lus :</h2>
+                <a href="#" class="view-all-link">voir tout :</a>
+            </div>
+            <div class="carousel-container">
+                <button class="carousel-btn carousel-prev" onclick="scrollCarousel('read', -1)">‹</button>
+                <div class="book-row" id="read">
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Le-tour-du-monde-en-quatre-vingts-jours_1211.webp" alt="Le Tour du Monde en 80 Jours">
+                        <p>Le Tour du Monde en 80 Jours</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Les-Trois-mousquetaires_9419.webp" alt="Les Trois Mousquetaires">
+                        <p>Les Trois Mousquetaires</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Les-Miserables-tome-1_3613.webp" alt="Les Misérables">
+                        <p>Les Misérables</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Le-Comte-de-Monte-Cristo-tome-1_1849.webp" alt="Le Comte de Monte-Cristo">
+                        <p>Le Comte de Monte-Cristo</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Premier-de-cordee_4064.webp" alt="Premier de Cordée">
+                        <p>Premier de Cordée</p>
+                    </div>
+                    <div class="book">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <img src="../img/Les-Fourmis_6089.webp" alt="Les Fourmis">
+                        <p>Les Fourmis</p>
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-next" onclick="scrollCarousel('read', 1)">›</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="mention-legales.html">Mentions légales</a>
+        <a href="contact.html">Contact</a>
+        <a href="a-propos.html">À propos</a>
+    </footer>
+
+</body>
+
+</html>

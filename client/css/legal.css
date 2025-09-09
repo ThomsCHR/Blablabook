@@ -1,0 +1,96 @@
+/* Titre principal de la page */
+.legal-title {
+  color: #2c3e50;
+  margin: 2rem 0;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+/* Conteneur principal du contenu */
+.legal-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 2rem;
+  max-width: 800px;
+}
+
+/* Sections des mentions légales */
+.legal-section {
+  margin-bottom: 2rem;
+}
+
+.legal-section h2 {
+  color: #34495e;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.legal-section h3 {
+  color: #5a6c7d;
+  margin: 1.2rem 0 0.8rem;
+  font-size: 1.1rem;
+}
+
+.legal-section p {
+  margin: 0.8rem 0;
+  line-height: 1.6;
+}
+
+.legal-section ul {
+  margin: 0.8rem 0 0 1.5rem;
+  padding: 0;
+}
+
+.legal-section li {
+  margin: 0.4rem 0;
+}
+
+/* Lien personnalisé pour les mentions légales */
+.legal-link {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.legal-link:hover {
+  color: #2c3e50;
+  text-decoration: underline;
+}
+
+/* Date de dernière mise à jour */
+.legal-update {
+  margin-top: 2rem;
+  font-style: italic;
+  color: #666;
+  text-align: center;
+}
+
+/* Bouton de retour */
+.return-home {
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 300px;
+}
+
+/* Adaptation pour mobile */
+@media (max-width: 768px) {
+  main {
+    padding: 0 1rem;
+  }
+
+  .legal-container {
+    padding: 1.5rem;
+    margin: 0;
+  }
+
+  .legal-title {
+    font-size: 1.8rem;
+  }
+
+  .return-home {
+    margin: 1.5rem auto;
+  }
+}

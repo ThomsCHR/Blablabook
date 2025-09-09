@@ -1,0 +1,215 @@
+/* ===== PAGE D'ACCUEIL - INDEX ===== */
+
+.banner {
+    font-family: "playfair display", serif;
+    background: url("../img/bibliothéque.webp") center/cover no-repeat;
+    padding: 60px;
+    text-align: center;
+    color: white;
+    font-size: 1.4em;
+    font-weight: bold;
+    border-radius: 15px;
+    margin: 20px 100px;
+    margin-top: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.voir-tout {
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.voir-tout:hover {
+    color: #34495e;
+    text-decoration: underline;
+}
+
+
+.section-header {
+    display: flex;
+    padding-top: 2rem;
+    justify-content: space-between;
+}
+
+.section-header h2 {
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.voir-tout:hover {
+    color: #34495e;
+    text-decoration: underline;
+}
+
+/* ===== RANGÉES DE LIVRES PAGE D'ACCUEIL ===== */
+.book-row {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 0;
+    margin-top: 25px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.book-row::-webkit-scrollbar {
+    height: 8px;
+}
+
+.book-row::-webkit-scrollbar-track {
+    background: rgba(44, 62, 80, 0.1);
+    border-radius: 4px;
+}
+
+.book-row::-webkit-scrollbar-thumb {
+    background: rgba(44, 62, 80, 0.3);
+    border-radius: 4px;
+}
+
+.book-row::-webkit-scrollbar-thumb:hover {
+    background: rgba(44, 62, 80, 0.5);
+}
+
+/* ===== MEDIA QUERIES PAGE D'ACCUEIL ===== */
+@media (max-width: 768px) {
+    .banner {
+        margin: 20px 20px;
+        padding: 40px 20px;
+        font-size: 1.2em;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner {
+        margin: 10px 10px;
+        padding: 30px 15px;
+        font-size: 1em;
+    }
+
+    .book-row {
+        gap: 1rem;
+        padding: 0.5rem 0;
+        margin-top: 15px;
+    }
+}
+
+/* ===== AJOUTS POUR LA FONCTIONNALITÉ "VOIR TOUT" ===== */
+
+/* Mode grille étendu pour desktop */
+.book-row.expanded {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 2rem;
+    overflow: visible !important;
+    justify-content: center;
+    padding: 2rem 0;
+    transition: all 0.5s ease;
+}
+
+/* Masquer les boutons de carousel quand étendu */
+.carousel-container .book-row.expanded ~ .carousel-btn,
+.carousel-container:has(.book-row.expanded) .carousel-btn {
+    display: none !important;
+}
+
+/* Animation pour les livres supplémentaires */
+.book.hidden-book {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.book-row.expanded .book.hidden-book {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Styles responsive pour le mode étendu */
+@media (max-width: 768px) {
+    /* Sur mobile, la grille reste en 3 colonnes même en mode étendu */
+    .book-row.expanded {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-row.expanded {
+        gap: 0.8rem;
+        padding: 0.8rem 0;
+    }
+    
+    /* Ajustement des livres sur très petits écrans */
+    .book-row.expanded .book {
+        width: 100%;
+    }
+    
+    .book-row.expanded .book img {
+        width: 80%;
+    }
+    
+    .book-row.expanded .book p {
+        font-size: 0.8rem;
+    }
+}
+
+/* ===== INDICATEUR VISUEL OPTIONNEL ===== */
+/* Vous pouvez ajouter ceci si vous voulez un indicateur */
+.expanded-indicator {
+    display: none;
+    background: rgba(44, 62, 80, 0.05);
+    border: 1px solid rgba(44, 62, 80, 0.1);
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    text-align: center;
+    font-style: italic;
+    color: #2c3e50;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.book-row.expanded + .expanded-indicator {
+    display: block;
+}
+
+/* Animation pour l'indicateur */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.expanded-indicator {
+    animation: fadeIn 0.3s ease;
+}
