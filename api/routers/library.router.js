@@ -5,6 +5,6 @@ import { authenticate, isAdmin } from "../middlewares/auth.middleware.js";
 export const libraryRouter = Router();
 
  
-libraryRouter.get("/:id/library", authenticate, libraryController.getAllUserBooks);
-libraryRouter.post("/:id/library", authenticate, libraryController.addBookToUser);
+libraryRouter.get("/user/:id/library", authenticate, libraryController.getAllUserBooks);
+libraryRouter.post("/user/:id/library", authenticate, libraryController.addBookToUser);
 
