@@ -8,3 +8,4 @@ export const libraryRouter = Router();
 libraryRouter.get("/:id/library", authenticate, libraryController.getAllUserBooks);
 libraryRouter.post("/:id/library", authenticate, libraryController.addBookToUser);
 
+libraryRouter.delete("/:id/library/:bookId", authenticate, libraryController.removeBookFromUser);

@@ -11,7 +11,7 @@
   let error = "";
   let fetchedForUserId = null;
 
-  // normalise un libellé de statut ("Lu", "a_lire", "a lire", "À lire", etc.)
+  // Normalise un libellé de statut ("Lu", "a_lire", "a lire", "À lire", etc.)
   function normStatus(raw) {
     return String(raw || "")
       .toLowerCase()
@@ -53,12 +53,12 @@
     if (!token) {
       loading = false;
       // Rediriger automatiquement vers la page de connexion si non connecté
-      push('/login');
+      push("/login");
       return;
     }
   });
 
-  // charge dès que l'utilisateur est prêt (et quand il change)
+  // Charge dès que l'utilisateur est prêt (et quand il change)
   $: if ($userStore?.id && $userStore.id !== fetchedForUserId) {
     fetchedForUserId = $userStore.id;
     loadBooksFor($userStore);
@@ -70,5 +70,10 @@
 {:else if error}
   <main class="library-page"><p style="color:#c00">{error}</p></main>
 {:else}
-  <MyLibraryView toRead={toReadBooks} read={readBooks} />
+  <!-- IMPORTANT: passer l'userId correct avec le $ -->
+  <MyLibraryView
+    userId={$userStore.id}
+    toRead={toReadBooks}
+    read={readBooks}
+  />
 {/if}
