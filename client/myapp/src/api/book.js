@@ -47,3 +47,10 @@ export function addBookToUser(userId, { title, status_id }) {
     body: JSON.stringify({ title, status_id }),
   });
 }
+export function removeBookFromUser(userId, bookId) {
+  const token = localStorage.getItem("token") || "";
+  return clientApi(`/${userId}/library/${bookId}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}

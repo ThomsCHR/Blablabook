@@ -89,10 +89,53 @@ export const libraryController = {
            .status(httpStatusCodes.INTERNAL_SERVER_ERROR)
            .json({ message: 'Internal server error' });
       }
-    }
-    
+    },
+
+    async removeBookFromUser(req, res) {
+      const userId = Number(req.params.id);
+      const bookId = Number(req.params.bookId);
+  
+      try {
+        if (!userId) {
+          return res
+            .status(httpStatusCodes.BAD_REQUEST)
+            .json({ message: "Missing userId" });
+        }
+        if (!bookId) {
+          return res
+            .status(httpStatusCodes.BAD_REQUEST)
+            .json({ message: "Missing bookId" });
+        }
+  
+        // Vérifier l'utilisateur
+        const user = await User.findByPk(userId);
+        if (!user) {
+          return res
+            .status(httpStatusCodes.NOT_FOUND)
+            .json({ message: "User not found" });
+        }
+  
+        // Vérifier le livre
+        const book = await Book.findByPk(bookId);
+        if (!book) {
+          return res
+            .status(httpStatusCodes.NOT_FOUND)
+            .json({ message: "Book not found" });
+        }
   
     
-};
+        await user.removeBook(book);
+  
+      
+        return res.send(204);
+      } catch (error) {
+        console.error("Error removing book from user:", error);
+        return res
+          .status(httpStatusCodes.INTERNAL_SERVER_ERROR)
+          .json({ message: "Internal server error" });
+      }
+    },
+  };
+  
 
 
