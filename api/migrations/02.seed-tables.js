@@ -4,11 +4,10 @@ import { sequelize, Book, Genre, Status, User } from "../models/index.js";
 // creation des listes
 console.log("🌱 Creation des books...");
 
-await book50.addGenre(genre4); // Manga
 
 // Ajout des associations pour les nouveaux genres
 // Horreur
-await book41.addGenre(genre9); // Shiningst book1 = await Book.create({ title: "Le Seigneur des Anneaux", author: "J.R.R. Tolkien", summary: "Dans un paisible village du Comté, le jeune Frodo est sur le point de recevoir un cadeau qui changera sa vie à jamais : l'Anneau de Pouvoir. Forgé par Sauron au coeur de la Montagne du Feu, on le croyait perdu depuis qu'un homme le lui avait arraché avant de le chasser hors du monde. À présent, de noirs présages s'étendent à nouveau sur la Terre du Milieu, les créatures maléfiques se multiplient et, dans les Montagnes de Brume, les Orques traquent les Nains. L'ennemi veut récupérer son bien.", image: "https://covers.openlibrary.org/b/id/3142911-M.jpg" });
+const book1 = await Book.create({ title: "Le Seigneur des Anneaux", author: "J.R.R. Tolkien", summary: "Dans un paisible village du Comté, le jeune Frodo est sur le point de recevoir un cadeau qui changera sa vie à jamais : l'Anneau de Pouvoir. Forgé par Sauron au coeur de la Montagne du Feu, on le croyait perdu depuis qu'un homme le lui avait arraché avant de le chasser hors du monde. À présent, de noirs présages s'étendent à nouveau sur la Terre du Milieu, les créatures maléfiques se multiplient et, dans les Montagnes de Brume, les Orques traquent les Nains. L'ennemi veut récupérer son bien.", image: "https://covers.openlibrary.org/b/id/3142911-M.jpg" });
 const book2 = await Book.create({ title: "1984", author: "George Orwell", summary: "Année 1984 en Océanie. 1984 ? C'est en tout cas ce qu'il semble à Winston, qui ne saurait toutefois en jurer. Le passé a été réinventé, et les événements les plus récents sont susceptibles d'être modifiés. Winston est lui-même chargé de récrire les archives qui contredisent le présent et les promesses de Big Brother. Grâce à une technologie de pointe, ce dernier sait tout, voit tout. Liberté est Servitude. Ignorance est Puissance. Telles sont les devises du régime. ", image: "https://covers.openlibrary.org/b/id/966097-M.jpg" });
 const book3 = await Book.create({ title: "Harry Potter à l'école des sorciers", author: "J.K. Rowling", summary: "Le jour de ses onze ans, Harry Potter, un orphelin élevé par un oncle et une tante qui le détestent, voit son existence bouleversée. Un géant vient le chercher pour l'emmener à Poudlard, une école de sorcellerie ! Voler en balai, jeter des sorts, combattre les trolls : Harry révèle de grands talents. Mais un mystère entoure sa naissance et l'effroyable V., le mage dont personne n'ose prononcer le nom. Titre recommandé par l'Éducation nationale en classe de 6e, 5e et 4e", image: "https://ia902309.us.archive.org/view_archive.php?archive=/20/items/l_covers_0008/l_covers_0008_49.zip&file=0008494529-L.jpg" });
 const book4 = await Book.create({ title: "Naruto", author: "Masashi Kishimoto", summary: "Naruto est un garçon un peu spécial. Il est toujours tout seul et son caractère fougueux ne l'aide pas vraiment à se faire apprécier dans son village. Malgré cela, il garde au fond de lui une ambition: celle de devenir un maître Hokage, la plus haute distinction dans l'ordre des ninjas, et ainsi obtenir la reconnaissance de ses pairs.", image: "https://ia903200.us.archive.org/view_archive.php?archive=/23/items/m_covers_0009/m_covers_0009_34.zip&file=0009340715-M.jpg" });
@@ -143,14 +142,18 @@ await book8.addGenre(genre7); // Le Petit Prince est un Roman
 await book9.addGenre(genre5); // La Peste est un livre de Philosophie
 await book10.addGenre(genre6); // Le Comte de Monte-Cristo est un livre Classique
 await book11.addGenre(genre7); // Madame Bovary est un Roman
+await book12.addGenre(genre6); // Crime et Châtiment est un livre Classique
+await book13.addGenre(genre6); // Germinal est un livre Classique
+await book14.addGenre(genre6); // Don Quichotte est un livre Classique
+await book15.addGenre(genre8); // L'Odyssée est une Épopée
 await book16.addGenre(genre6); // Classique
 await book17.addGenre(genre6); // Classique
 await book18.addGenre(genre5); // Philosophie
 await book19.addGenre(genre6); // Classique
 await book20.addGenre(genre7); // Roman
 await book21.addGenre(genre7); // Roman
-await book22.addGenre(genre7); // Roman
-await book23.addGenre(genre7); // Roman
+await book22.addGenre(genre9); // Roman
+await book23.addGenre(genre9); // Roman
 await book24.addGenre(genre7); // Roman
 await book25.addGenre(genre6); // Classique
 await book26.addGenre(genre6); // Classique
@@ -165,31 +168,19 @@ await book34.addGenre(genre2); // Science-Fiction
 await book35.addGenre(genre2); // Science-Fiction
 await book36.addGenre(genre2); // Science-Fiction
 await book37.addGenre(genre2); // Science-Fiction
-await book38.addGenre(genre2); // Science-Fiction
+await book38.addGenre(genre9); // Science-Fiction
 await book39.addGenre(genre2); // Science-Fiction
 await book40.addGenre(genre2); // Science-Fiction
-await book41.addGenre(genre7); // Roman
-await book42.addGenre(genre7); // Roman
-await book43.addGenre(genre7); // Roman
+await book41.addGenre(genre9); // Roman
+await book42.addGenre(genre9); // Roman
+await book43.addGenre(genre9); // Roman
 await book44.addGenre(genre1); // Fantasy
 await book45.addGenre(genre3); // Jeunesse
-await book46.addGenre(genre7); // Roman
-await book47.addGenre(genre7); // Roman
+await book46.addGenre(genre10); // Roman
+await book47.addGenre(genre10); // Roman
 await book48.addGenre(genre4); // Manga
 await book49.addGenre(genre4); // Manga
 await book50.addGenre(genre4); // Manga
-
-// Ajout des associations pour les nouveaux genres à voir avec la team car je n'ai pas vu ces nouvelles associations dans le seed
-// Horreur
-await book41.addGenre(genre9); // Shining
-await book42.addGenre(genre9); // Ça (It)
-await book43.addGenre(genre9); // Le Fléau
-
-// Policier
-await book46.addGenre(genre10); // Millénium
-await book47.addGenre(genre10); // Le Silence des agneaux
-
-// Biographie
 await book51.addGenre(genre11); // Steve Jobs
 await book52.addGenre(genre11); // Einstein : Sa vie, son œuvre
 

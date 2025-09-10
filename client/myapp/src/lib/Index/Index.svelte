@@ -84,9 +84,13 @@
 <!-- ========================= SECTION HTML ========================= -->
 
 <section class="banner">
+  <h1>
   Bienvenue sur Blabla-book, votre bibliothèque en ligne<br>
   pour découvrir et gérer vos livres préférés.
+  </h1>
+  <p>Que vous soyez passionné de lecture, à la recherche de nouvelles recommandations ou simplement désireux d’organiser votre collection, notre plateforme vous accompagne pas à pas. Créez votre propre bibliothèque virtuelle, ajoutez vos coups de cœur, suivez vos lectures en cours et explorez de nouveaux univers littéraires grâce à notre système de recommandations.</p>
 </section>
+
 
 <main>
   <!-- SECTION 1 : Mis en avant -->
