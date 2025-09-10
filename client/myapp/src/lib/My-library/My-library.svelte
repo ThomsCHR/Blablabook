@@ -1,5 +1,5 @@
 <script>
-  import { removeBookFromUser } from "../../api/book.js";
+  import { removeBookFromUser, updateBookStatus } from "../../api/book.js";
 
   // on garde les mêmes props + fonctions
   export let userId;                // nécessaire pour DELETE /:id/library/:bookId
@@ -29,6 +29,40 @@
       alert("Suppression impossible pour le moment.");
     }
   }
+
+  const STATUS = { TO_READ: 1, READ: 2 }; // adapte aux id de ta table Status
+
+  // 🔁 Toggle: "à lire" <-> "lu"
+  async function handleToggle(bookId, listName) {
+    if (!userId) {
+      alert("Utilisateur non identifié. Reconnecte-toi.");
+      return;
+    }
+
+    const nextStatusId = listName === "toRead" ? STATUS.READ : STATUS.TO_READ;
+
+    const backupToRead = [...toRead];
+    const backupRead = [...read];
+
+    try {
+      if (listName === "toRead") {
+        const book = toRead.find(b => b.id === bookId);
+        toRead = toRead.filter(b => b.id !== bookId);
+        if (book) read = [book, ...read];
+      } else {
+        const book = read.find(b => b.id === bookId);
+        read = read.filter(b => b.id !== bookId);
+        if (book) toRead = [book, ...toRead];
+      }
+
+      await updateBookStatus(userId, bookId, nextStatusId);
+    } catch (e) {
+      console.error(e);
+      toRead = backupToRead;
+      read = backupRead;
+      alert("Impossible de modifier le statut pour le moment.");
+    }
+  }
 </script>
 
 <main class="library-page">
@@ -47,12 +81,20 @@
         <div class="book-row" id="toRead">
           {#each toRead as book (book.id)}
             <a href={`#/BookDetail/${book.id}`} class="book">
-              <!-- petite croix -->
+              <!-- bouton suppression -->
               <button
                 class="remove-btn"
                 title="Retirer de ma bibliothèque"
                 on:click|preventDefault|stopPropagation={() => handleRemove(book.id, "toRead")}
               >×</button>
+
+              <!-- bouton modification statut -->
+              <button
+                class="status-btn"
+                title="Modifier le statut (marquer comme lu)"
+                aria-label="Modifier le statut (marquer comme lu)"
+                on:click|preventDefault|stopPropagation={() => handleToggle(book.id, "toRead")}
+              >✎</button>
 
               {#if book.image}
                 <img src={book.image} alt={book.title} />
@@ -83,12 +125,20 @@
         <div class="book-row" id="read">
           {#each read as book (book.id)}
             <a href={`#/BookDetail/${book.id}`} class="book">
-              <!-- petite croix -->
+              <!-- bouton suppression -->
               <button
                 class="remove-btn"
                 title="Retirer de ma bibliothèque"
                 on:click|preventDefault|stopPropagation={() => handleRemove(book.id, "read")}
               >×</button>
+
+              <!-- bouton modification statut -->
+              <button
+                class="status-btn"
+                title="Modifier le statut (repasser à lire)"
+                aria-label="Modifier le statut (repasser à lire)"
+                on:click|preventDefault|stopPropagation={() => handleToggle(book.id, "read")}
+              >✎</button>
 
               {#if book.image}
                 <img src={book.image} alt={book.title} />
@@ -180,7 +230,7 @@
   flex-shrink: 0; width: 170px; text-align: center; 
   text-decoration: none; color: inherit;
   display: block; transition: transform 0.2s ease;
-  position: relative; /* pour positionner la croix */
+  position: relative; /* pour positionner les boutons */
 }
 .book:hover { transform: translateY(-2px); }
 .book img {
@@ -236,6 +286,30 @@
 }
 .remove-btn:hover { background: rgba(0,0,0,0.8); transform: scale(1.05); }
 .remove-btn:active { transform: scale(0.97); }
+
+/* Bouton statut (toggle) — crayon en haut à gauche */
+.status-btn {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(44, 62, 80, 0.9);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  transition: transform .12s ease, background .15s ease, opacity .15s ease;
+  z-index: 2;
+}
+.status-btn:hover { background: rgba(44, 62, 80, 1); transform: translateY(-1px); }
+.status-btn:active { transform: translateY(0); }
 
 /* ===== MEDIA QUERIES (mêmes repères que l’index) ===== */
 @media (max-width: 768px) {

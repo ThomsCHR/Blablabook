@@ -11,13 +11,8 @@
   let error = "";
   let fetchedForUserId = null;
 
-  // Normalise un libellé de statut ("Lu", "a_lire", "a lire", "À lire", etc.)
-  function normStatus(raw) {
-    return String(raw || "")
-      .toLowerCase()
-      .normalize("NFD").replace(/\p{Diacritic}/gu, "")
-      .replace(/\s+/g, "_"); // "a lire" -> "a_lire"
-  }
+  // ⚠️ Mets ici les VRAIS IDs depuis ta table "status"
+  const STATUS = { TO_READ: 1, READ: 2 };
 
   async function loadBooksFor(u) {
     loading = true; error = "";
@@ -26,15 +21,16 @@
       if (!token) { error = "Utilisateur non connecté"; return; }
 
       const payload = await getAllUserBooks(u.id);
-
       const list = (Array.isArray(payload) ? payload : []).map(b => {
-        const statusName = typeof b.status === "string" ? b.status : (b.status?.name || "");
-        const s = normStatus(statusName);
-        const isRead = (s === "lu" || s === "read");
+        // ✅ On se base sur l'ID du statut (fiable), pas sur le nom
+        const statusId = Number(b.status?.id ?? b.status_id ?? b.statusId ?? 0);
+        const isRead = statusId === STATUS.READ;
+
         return {
           id: b.book_id ?? b.id,
           title: b.title,
           image: b.image || "",
+          statusId,  // <-- utile pour l’UI/optimistic update
           isRead
         };
       });
@@ -52,13 +48,11 @@
     const token = localStorage.getItem("token");
     if (!token) {
       loading = false;
-      // Rediriger automatiquement vers la page de connexion si non connecté
       push("/login");
       return;
     }
   });
 
-  // Charge dès que l'utilisateur est prêt (et quand il change)
   $: if ($userStore?.id && $userStore.id !== fetchedForUserId) {
     fetchedForUserId = $userStore.id;
     loadBooksFor($userStore);
@@ -70,7 +64,6 @@
 {:else if error}
   <main class="library-page"><p style="color:#c00">{error}</p></main>
 {:else}
-  <!-- IMPORTANT: passer l'userId correct avec le $ -->
   <MyLibraryView
     userId={$userStore.id}
     toRead={toReadBooks}

@@ -54,3 +54,15 @@ export function removeBookFromUser(userId, bookId) {
     headers: { Authorization: `Bearer ${token}` },
   });
 }
+
+export function updateBookStatus(userId, bookId, status_id) {
+  const token = localStorage.getItem("token") || "";
+  return clientApi(`/${userId}/library/${bookId}/status`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status_id }),
+  });
+}
