@@ -9,3 +9,4 @@ libraryRouter.get("/:id/library", authenticate, libraryController.getAllUserBook
 libraryRouter.post("/:id/library", authenticate, libraryController.addBookToUser);
 
 libraryRouter.delete("/:id/library/:bookId", authenticate, libraryController.removeBookFromUser);
+libraryRouter.put("/:id/library/:bookId/status", authenticate, libraryController.updateBookStatus);
