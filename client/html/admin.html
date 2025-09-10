@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blabla-book - Admin</title>
+    <script defer src="../script/index.js"></script>
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+
+  <body class="admin-page">
+    <header>
+      <!-- Menu hamburger mobile (caché par défaut) -->
+      <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu">
+          <button class="mobile-menu-close">&times;</button>
+          <nav class="mobile-nav">
+            <a href="index.html">Accueil</a>
+            <a href="my-library.html">Ma Bibliothèque</a>
+            <a href="login.html">Se connecter</a>
+            <a href="register.html">Créer un compte</a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Header principal -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      <h1>BlaBlaBook <span class="admin-badge">ADMIN</span></h1>
+
+      <!-- Formulaire de recherche mobile (compact par défaut) -->
+      <div class="mobile-search-form" id="mobileSearchForm">
+        <input type="text" placeholder="Rechercher..." id="mobileSearchInput" />
+        <button type="button" class="mobile-search-btn" id="mobileSearchBtn">
+          🔍
+        </button>
+      </div>
+
+      <!-- Navigation desktop -->
+      <nav class="desktop-nav">
+        <a href="index.html">Accueil</a>
+        <a href="my-library.html">Ma Bibliothèque</a>
+        <div class="search-box">
+          <input type="text" placeholder="Rechercher" />
+          <button>🔍</button>
+        </div>
+        <li class="menu-deroulant">
+          <a href="login.html">Connexion</a>
+          <ul class="sous-menu">
+            <li><a href="login.html">Se connecter</a></li>
+            <li><a href="register.html">Créer un compte</a></li>
+          </ul>
+        </li>
+      </nav>
+    </header>
+
+    <main>
+      <div class="admin-dashboard">
+        <!-- Sidebar navigation -->
+        <aside class="admin-sidebar">
+          <h3>Administration</h3>
+          <nav class="admin-nav">
+            <a
+              href="#"
+              class="admin-nav-item active"
+              onclick="showSection('dashboard')"
+              >📊 Tableau de bord</a
+            >
+            <a href="#" class="admin-nav-item" onclick="showSection('users')"
+              >👥 Utilisateurs</a
+            >
+          </nav>
+        </aside>
+
+        <!-- Main content area -->
+        <div class="admin-content">
+          <!-- Dashboard Section -->
+          <div id="dashboard-section" class="admin-section">
+            <div class="admin-header">
+              <h2>Tableau de bord</h2>
+            </div>
+
+            <!-- Statistics cards -->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-number">1,247</div>
+                <div class="stat-label">Utilisateurs actifs</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">8,932</div>
+                <div class="stat-label">Livres en base</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number">156</div>
+                <div class="stat-label">Nouveaux cette semaine</div>
+              </div>
+            </div>
+
+            <!-- Recent activity -->
+            <h4 style="color: #2c3e50; margin-bottom: 1rem">
+              Activité récente
+            </h4>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Utilisateur</th>
+                  <th>Date</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Inscription nouveau membre</td>
+                  <td>marie.dupont@email.com</td>
+                  <td>Il y a 2h</td>
+                  <td><span class="status-badge status-active">Actif</span></td>
+                </tr>
+                <tr>
+                  <td>Ajout livre "Le Petit Prince"</td>
+                  <td>admin</td>
+                  <td>Il y a 3h</td>
+                  <td>
+                    <span class="status-badge status-active">Validé</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Users Section -->
+          <div id="users-section" class="admin-section" style="display: none">
+            <div class="admin-header">
+              <h2>Gestion des utilisateurs</h2>
+            </div>
+
+            <div class="filter-section">
+              <h4>Filtres</h4>
+              <div class="filter-controls">
+                <input
+                  type="text"
+                  class="filter-input"
+                  placeholder="Rechercher un utilisateur..."
+                />
+                <select class="filter-input">
+                  <option>Tous les statuts</option>
+                  <option>Actifs</option>
+                  <option>Inactifs</option>
+                  <option>Suspendus</option>
+                </select>
+                <button class="action-btn">Rechercher</button>
+              </div>
+            </div>
+
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Utilisateur</th>
+                  <th>Email</th>
+                  <th>Inscription</th>
+                  <th>Livres</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Marie Dupont</td>
+                  <td>marie.dupont@email.com</td>
+                  <td>15/08/2024</td>
+                  <td>12</td>
+                  <td><span class="status-badge status-active">Actif</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn">Modifier</button>
+                      <button class="action-btn danger">Suspendre</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Jean Martin</td>
+                  <td>jean.martin@email.com</td>
+                  <td>22/07/2024</td>
+                  <td>8</td>
+                  <td><span class="status-badge status-active">Actif</span></td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="action-btn">Modifier</button>
+                      <button class="action-btn danger">Suspendre</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </main>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal example -->
+    <div class="modal-overlay" id="modal">
+      <div class="modal">
+        <h3>Confirmer l'action</h3>
+        <p>Êtes-vous sûr de vouloir effectuer cette action ?</p>
+        <div
+          style="
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+          "
+        >
+          <button class="action-btn" onclick="closeModal()">Annuler</button>
+          <button class="action-btn danger">Confirmer</button>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      // JavaScript pour l'administration
+      function showSection(sectionName) {
+        // Définir les titres pour chaque section
+        const sectionTitles = {
+          'dashboard': 'Tableau de bord',
+          'users': 'Gestion des utilisateurs'
+        };
+        
+        // Cacher toutes les sections
+        const sections = document.querySelectorAll('.admin-section');
+        sections.forEach(section => {
+          section.style.display = 'none';
+        });
+        
+        // Afficher la section sélectionnée
+        const targetSection = document.getElementById(sectionName + '-section');
+        if (targetSection) {
+          targetSection.style.display = 'block';
+        }
+        
+        // Mettre à jour le titre dans l'header
+        const headerTitle = document.querySelector('.admin-header h2');
+        if (headerTitle && sectionTitles[sectionName]) {
+          headerTitle.textContent = sectionTitles[sectionName];
+        }
+        
+        // Mettre à jour l'état actif dans la navigation
+        const navItems = document.querySelectorAll('.admin-nav-item');
+        navItems.forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        // Ajouter la classe active au bouton cliqué
+        if (event && event.target) {
+          event.target.classList.add('active');
+        }
+      }
+      
+      function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+      }
+      
+      function openModal() {
+        document.getElementById('modal').style.display = 'flex';
+      }
+      
+      // Fermer le modal en cliquant à l'extérieur
+      document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('modal');
+        if (modal) {
+          modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+              closeModal();
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -5,72 +5,93 @@
   import { getAllUserBooks } from "../api/book.js";
   import MyLibraryView from "../lib/My-library/My-library.svelte";
 
+  // Variables principales
   let toReadBooks = [];
   let readBooks = [];
   let loading = true;
   let error = "";
-  let fetchedForUserId = null;
 
-  // Normalise un libellé de statut ("Lu", "a_lire", "a lire", "À lire", etc.)
-  function normStatus(raw) {
-    return String(raw || "")
-      .toLowerCase()
-      .normalize("NFD").replace(/\p{Diacritic}/gu, "")
-      .replace(/\s+/g, "_"); // "a lire" -> "a_lire"
+  // Fonction simple pour vérifier si un livre est lu
+  function isBookRead(status) {
+    if (!status) return false;
+    
+    const statusText = typeof status === "string" ? status : status.name || "";
+    const normalizedStatus = statusText.toLowerCase();
+    
+    return normalizedStatus === "lu" || normalizedStatus === "read";
   }
 
-  async function loadBooksFor(u) {
-    loading = true; error = "";
+  // Charge tous les livres de l'utilisateur
+  async function loadUserBooks(user) {
+    loading = true;
+    error = "";
+
     try {
+      // Vérifier le token
       const token = localStorage.getItem("token");
-      if (!token) { error = "Utilisateur non connecté"; return; }
+      if (!token) {
+        error = "Vous devez être connecté";
+        return;
+      }
 
-      const payload = await getAllUserBooks(u.id);
+      // Récupérer les livres depuis l'API
+      const books = await getAllUserBooks(user.id);
+      
+      // Vérifier que nous avons bien un tableau
+      const bookList = Array.isArray(books) ? books : [];
 
-      const list = (Array.isArray(payload) ? payload : []).map(b => {
-        const statusName = typeof b.status === "string" ? b.status : (b.status?.name || "");
-        const s = normStatus(statusName);
-        const isRead = (s === "lu" || s === "read");
-        return {
-          id: b.book_id ?? b.id,
-          title: b.title,
-          image: b.image || "",
-          isRead
+      // Séparer les livres en deux listes
+      toReadBooks = [];
+      readBooks = [];
+
+      bookList.forEach(book => {
+        const bookData = {
+          id: book.book_id || book.id,
+          title: book.title,
+          image: book.image || "",
         };
+
+        if (isBookRead(book.status)) {
+          readBooks.push(bookData);
+        } else {
+          toReadBooks.push(bookData);
+        }
       });
 
-      toReadBooks = list.filter(b => !b.isRead);
-      readBooks   = list.filter(b =>  b.isRead);
-    } catch (e) {
-      error = e?.message || "Erreur de chargement";
+    } catch (err) {
+      error = "Erreur lors du chargement des livres";
+      console.error("Erreur:", err);
     } finally {
       loading = false;
     }
   }
 
+  // Vérifier la connexion au démarrage
   onMount(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       loading = false;
-      // Rediriger automatiquement vers la page de connexion si non connecté
-      push("/login");
+      push("/login"); // Rediriger vers la connexion
       return;
     }
   });
 
-  // Charge dès que l'utilisateur est prêt (et quand il change)
-  $: if ($userStore?.id && $userStore.id !== fetchedForUserId) {
-    fetchedForUserId = $userStore.id;
-    loadBooksFor($userStore);
+  // Charger les livres quand l'utilisateur est disponible
+  $: if ($userStore?.id) {
+    loadUserBooks($userStore);
   }
 </script>
 
+<!-- Interface utilisateur -->
 {#if loading}
-  <main class="library-page"><p>Chargement…</p></main>
+  <main class="library-page">
+    <p>Chargement de votre bibliothèque...</p>
+  </main>
 {:else if error}
-  <main class="library-page"><p style="color:#c00">{error}</p></main>
+  <main class="library-page">
+    <p style="color: red;">{error}</p>
+  </main>
 {:else}
-  <!-- IMPORTANT: passer l'userId correct avec le $ -->
   <MyLibraryView
     userId={$userStore.id}
     toRead={toReadBooks}
