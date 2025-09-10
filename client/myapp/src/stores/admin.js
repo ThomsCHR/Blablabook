@@ -12,6 +12,7 @@ export const adminStats = writable({
   totalUsers: 0,
   activeUsers: 0,
   totalBooks: 0,
+  totalBooksInLibraries: 0,
   pendingReports: 0
 });
 

@@ -199,6 +199,11 @@
                 <div class="stat-number">{stats.totalBooks || "0"}</div>
                 <div class="stat-label">Livres Total</div>
               </div>
+
+              <div class="stat-card">
+                <div class="stat-number">{stats.totalBooksInLibraries || "0"}</div>
+                <div class="stat-label">Livres en Bibliothèques</div>
+              </div>
             </div>
 
             <!-- Recent activity -->

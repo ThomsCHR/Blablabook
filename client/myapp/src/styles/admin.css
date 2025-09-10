@@ -111,7 +111,7 @@ main.admin-main {
 /* Stats cards - basés sur vos stat-card du profil */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Force les colonnes égales avec minmax */
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 colonnes égales pour 4 cartes */
   gap: 1rem; /* Réduit légèrement le gap pour plus d'espace pour les cartes */
   margin-bottom: 2.5rem;
   width: 100%; 
@@ -437,7 +437,7 @@ select.filter-input {
   }
 
   .stats-grid {
-    grid-template-columns: 1fr 1fr 1fr; /* Garde les 3 colonnes même sur tablettes */
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur tablettes pour 4 cartes */
     gap: 1rem; /* Réduit un peu l'espacement */
   }
 
@@ -489,9 +489,9 @@ select.filter-input {
     transform: translateX(0); /* Retire l'effet translateX sur mobile */
   }
 
-  /* Stats sur une ligne même sur mobile */
+  /* Stats en 2x2 sur mobile */
   .stats-grid {
-    grid-template-columns: 1fr 1fr 1fr; /* Force les 3 cartes sur la même ligne */
+    grid-template-columns: repeat(2, 1fr); /* 2x2 pour les 4 cartes sur mobile */
     gap: 0.8rem; /* Espacement réduit pour mobile */
   }
 
