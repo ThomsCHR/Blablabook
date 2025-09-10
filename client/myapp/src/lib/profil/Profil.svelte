@@ -104,12 +104,12 @@
 
         <div class="info-field">
           <input type="email" placeholder="Adresse mail" bind:value={form.email} disabled />
-          <button class="edit-btn" on:click|preventDefault={saveProfile} disabled>✏️</button>
+          <!--<button class="edit-btn" on:click|preventDefault={saveProfile} disabled>✏️</button> -->
         </div>
 
         <div class="info-field">
           <input type="text" placeholder="Pseudo" bind:value={form.username} disabled />
-          <button class="edit-btn" on:click|preventDefault={saveProfile} disabled>✏️</button>
+          <!--<button class="edit-btn" on:click|preventDefault={saveProfile} disabled>✏️</button>-->
         </div>
 
         <div class="action-buttons">

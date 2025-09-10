@@ -47,3 +47,22 @@ export function addBookToUser(userId, { title, status_id }) {
     body: JSON.stringify({ title, status_id }),
   });
 }
+export function removeBookFromUser(userId, bookId) {
+  const token = localStorage.getItem("token") || "";
+  return clientApi(`/${userId}/library/${bookId}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export function updateBookStatus(userId, bookId, status_id) {
+  const token = localStorage.getItem("token") || "";
+  return clientApi(`/${userId}/library/${bookId}/status`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status_id }),
+  });
+}

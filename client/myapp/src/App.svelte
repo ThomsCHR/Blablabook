@@ -184,13 +184,14 @@
         <button class="mobile-menu-close" on:click={toggleMobileMenu}>&times;</button>
         <nav class="mobile-nav">
           <a href="#/" on:click={toggleMobileMenu}>Accueil</a>
+          <a href="#/Collections" on:click={toggleMobileMenu}>Notre Collection</a>
           <a href="#/My-library" on:click={toggleMobileMenu}>Ma Bibliothèque</a>
           {#if $user}
             <a href="#/" on:click|preventDefault={() => { logout(); toggleMobileMenu(); }}>Se déconnecter</a>
           {:else}
             <a href="#/login" on:click={toggleMobileMenu}>Se connecter</a>
             <a href="#/register" on:click={toggleMobileMenu}>Créer un compte</a>
-          {/if}a
+          {/if}
         </nav>
       </div>
     </div>
@@ -201,8 +202,11 @@
     <!-- Bouton hamburger pour ouvrir le menu mobile -->
     <button class="mobile-menu-btn" on:click={toggleMobileMenu}>☰</button>
 
-    <!-- Titre du site -->
-    <h1><a href="#/">Blabla-book</a></h1>
+    <!-- Logo et titre du site test -->
+    <a href="#/" class="logo-container">
+      <img src="/logo.png" alt="Blabla-book" class="logo" />
+      <h1>Blabla-book</h1>
+    </a>
 
     <!-- Formulaire de recherche mobile -->
     <div class="mobile-search-form {mobileSearchOpen ? 'expanded' : ''}">
@@ -245,6 +249,7 @@
     <!-- Navigation desktop -->
     <nav class="desktop-nav">
       <a href="#/">Accueil</a>
+      <a href="#/Collections">Notre Collection</a>
       <a href="#/My-library">Ma Bibliothèque</a>
 
       <div class="search-box">

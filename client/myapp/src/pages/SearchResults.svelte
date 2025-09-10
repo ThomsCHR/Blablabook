@@ -1,8 +1,9 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
-  import { push, location } from "svelte-spa-router";
+  import { onMount } from "svelte";
+  import { push } from "svelte-spa-router";
   import { searchBooksByName, createBook } from "../api/book.js";
   import { user } from "../stores/user.js";
+  import { fetchOpenLibraryCover } from "../lib/openlibrary.js";
 
   let books = [];
   let loading = true;
@@ -39,7 +40,7 @@
     error = "";
     books = [];
     showAddBookForm = false; // reinitialiser le formulaire d'ajout
-    
+
     // Pré-remplir le titre du nouveau livre avec la requête de recherche
     newBook.title = searchQuery;
 
@@ -58,7 +59,7 @@
   });
 
   // Écouter les changements d'URL
-  $: if (typeof window !== 'undefined') {
+  $: if (typeof window !== "undefined") {
     const urlQuery = getQueryFromUrl();
     if (urlQuery !== query) {
       query = urlQuery;
@@ -66,11 +67,29 @@
     }
   }
 
-  function toggleAddBookForm() {
+  function resetForm() {
+    newBook = {
+      title: query, // Garder le titre de la recherche
+      author: "",
+      summary: "",
+      image: "",
+      genre: "",
+    };
+  }
+
+  async function toggleAddBookForm() {
     showAddBookForm = !showAddBookForm;
     if (showAddBookForm) {
-      // Réinitialiser le formulaire quand on l'ouvre nouvel ajout
       resetForm();
+      // Essayer de récupérer automatiquement une image (titre connu grâce à query)
+      const coverUrl = await fetchOpenLibraryCover({
+        title: newBook.title,
+        author: newBook.author,
+        size: "L",
+      });
+      if (coverUrl) {
+        newBook.image = coverUrl;
+      }
     }
   }
 
@@ -86,7 +105,6 @@
     isAddingBook = true;
 
     try {
-      // Utiliser la fonction createBook de votre API
       const bookData = {
         title: newBook.title.trim(),
         author: newBook.author.trim(),
@@ -121,20 +139,32 @@
     }
   }
 
-  function resetForm() {
-    newBook = {
-      title: query, // Garder le titre de la recherche
-      author: "",
-      summary: "",
-      image: "",
-      genre: "",
-    };
+  // --------- BONUS: debounce auto-fetch quand titre/auteur changent ----------
+  let fetchTimer;
+  function debounceFetchCover() {
+    clearTimeout(fetchTimer);
+    fetchTimer = setTimeout(async () => {
+      if (!newBook.title?.trim()) return;
+      const coverUrl = await fetchOpenLibraryCover({
+        title: newBook.title,
+        author: newBook.author,
+        size: "L",
+      });
+      if (coverUrl) newBook.image = coverUrl;
+    }, 500);
   }
 
-  // Fonction pour annuler et fermer le formulaire nouvel ajout
-  function cancelAddBook() {
-    showAddBookForm = false;
-    resetForm();
+  async function findCoverManually() {
+    const coverUrl = await fetchOpenLibraryCover({
+      title: newBook.title,
+      author: newBook.author,
+      size: "L",
+    });
+    if (coverUrl) {
+      newBook.image = coverUrl;
+    } else {
+      alert("Aucune couverture trouvée sur Open Library pour ces infos.");
+    }
   }
 </script>
 
@@ -161,7 +191,7 @@
             <p class="suggestion-text">
               Ce livre n'existe pas encore dans notre base de données.
             </p>
-            <button class="btn-primary" onclick={toggleAddBookForm}>
+            <button class="btn-primary" on:click={toggleAddBookForm}>
               Ajouter "{query}" à la base de données
             </button>
           </div>
@@ -173,10 +203,10 @@
               <br />Connectez-vous pour l'ajouter !
             </p>
             <div class="auth-buttons">
-              <button class="btn-primary" onclick={() => push("/login")}>
+              <button class="btn-primary" on:click={() => push("/login")}>
                 Se connecter
               </button>
-              <button class="btn-secondary" onclick={() => push("/register")}>
+              <button class="btn-secondary" on:click={() => push("/register")}>
                 Créer un compte
               </button>
             </div>
@@ -188,14 +218,16 @@
       {#if $user && showAddBookForm}
         <div class="add-book-form">
           <h3>Ajouter un nouveau livre</h3>
-          <form onsubmit={handleAddBook}>
+          <form on:submit|preventDefault={handleAddBook}>
             <div class="form-group">
               <label for="title">Titre *</label>
               <input
                 type="text"
                 id="title"
                 bind:value={newBook.title}
-                required
+                required=
+                {isAddingBook}
+                on:input={debounceFetchCover}
                 disabled={isAddingBook}
               />
             </div>
@@ -207,6 +239,7 @@
                 id="author"
                 bind:value={newBook.author}
                 required
+                on:input={debounceFetchCover}
                 disabled={isAddingBook}
               />
             </div>
@@ -214,6 +247,7 @@
             <div class="form-group">
               <label for="summary">Résumé *</label>
               <textarea
+                placeholder="Écrire un résumé du livre..."
                 id="summary"
                 bind:value={newBook.summary}
                 rows="4"
@@ -223,11 +257,12 @@
             </div>
 
             <div class="form-group">
-              <label for="genre">Genre</label>
+              <label for="genre">Genre *</label>
               <select
                 id="genre"
                 bind:value={newBook.genre}
                 disabled={isAddingBook}
+                required
               >
                 <option value="">Sélectionner un genre</option>
                 <option value="Biographie">Biographie</option>
@@ -246,13 +281,22 @@
 
             <div class="form-group">
               <label for="image">URL de l'image de couverture</label>
-              <input
-                type="url"
-                id="image"
-                bind:value={newBook.image}
-                placeholder="https://exemple.com/couverture.jpg"
-                disabled={isAddingBook}
-              />
+              <div style="display:flex; gap:8px; align-items:center;">
+                <input
+                  type="url"
+                  id="image"
+                  bind:value={newBook.image}
+                  placeholder="https://... (auto-rempli si trouvé)"
+                  disabled={isAddingBook}
+                  style="flex:1"
+                />
+                <button type="button" class="btn-secondary" on:click={findCoverManually} disabled={isAddingBook}>
+                  Trouver via Open Library
+                </button>
+              </div>
+              {#if newBook.image}
+                <img src={newBook.image} alt="Aperçu couverture" style="max-width:120px;margin-top:10px;border-radius:6px;border:1px solid rgba(44,62,80,0.2);" />
+              {/if}
             </div>
 
             <div class="form-actions">
@@ -266,7 +310,7 @@
               <button
                 type="button"
                 class="btn-secondary"
-                onclick={cancelAddBook}
+                on:click={() => { showAddBookForm = false; resetForm(); }}
                 disabled={isAddingBook}
               >
                 Annuler
@@ -281,8 +325,8 @@
       {#each books as book}
         <div
           class="book-card"
-          onclick={() => push(`/BookDetail/${book.id}`)}
-          onkeydown={(e) => e.key === "Enter" && push(`/BookDetail/${book.id}`)}
+          on:click={() => push(`/BookDetail/${book.id}`)}
+          on:keydown={(e) => e.key === "Enter" && push(`/BookDetail/${book.id}`)}
           role="button"
           tabindex="0"
         >
