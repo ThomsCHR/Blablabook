@@ -75,11 +75,15 @@
 @media (max-width: 480px) {
   .login-container {
     padding: 1.5rem;
-    max-width: 350px;
+    max-width: 300px;
+    align-items: center;
+    
   }
 
   .form-section h2 {
     font-size: 1.6rem;
+    align-items: center;
+    padding-right: 2rem;
   }
 
   .form-group input[type="email"],
