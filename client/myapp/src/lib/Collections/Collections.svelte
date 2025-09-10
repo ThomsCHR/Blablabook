@@ -184,16 +184,22 @@
   .pagination {
     display: flex;
     justify-content: center;
-    margin: 1rem 0;
+    margin: 1.5rem 0 2rem 0;
+    padding: 1rem;
     gap: 0.5rem;
   }
 
   .pagination button {
     padding: 0.4rem 0.8rem;
-    border: 1px solid #ccc;
+    border: 1px solid transparent;
     background: #c0d4e3;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  .pagination button:hover {
+    transform: translateY(-3px);
   }
 
   .pagination button.active {
