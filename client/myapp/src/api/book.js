@@ -5,7 +5,7 @@ export const getBookById = (id) => clientApi(`/book/${id}`, {});
 
 export function getAllUserBooks(userId) {
   const token = localStorage.getItem("token") || "";
-  return clientApi(`/${userId}/library`, {
+  return clientApi(`/user/${userId}/library`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 }
@@ -36,7 +36,7 @@ export async function createBook(bookData) {
 
 export function addBookToUser(userId, { title, status_id }) {
   const token = localStorage.getItem("token") || "";
-  return clientApi(`/${userId}/library`, {
+  return clientApi(`/user/${userId}/library`, {
 
     method: "POST",
     headers: {
