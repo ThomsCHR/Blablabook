@@ -184,7 +184,7 @@ await book48.addGenre(genre4); // Manga
 await book49.addGenre(genre4); // Manga
 await book50.addGenre(genre4); // Manga
 await book51.addGenre(genre11); // Steve Jobs
-await book52.addGenre(genre11); // Einstein : Sa vie, son œuvre
+
 
 console.log("✅ Genres associés aux books\n");
 
