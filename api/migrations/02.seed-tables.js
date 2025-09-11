@@ -102,6 +102,7 @@ const user5 = await User.create({ username: "Thomas", email: "Thomas@gmail.com",
 const user6 = await User.create({ username: "Frank", email: "frank@gmail.com", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
 const user7 = await User.create({ username: "Grace", email: "grace@gmail.com", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
 const user8 = await User.create({ username: "Youssef", email: "Youssef@gmail.com", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user9 = await User.create({ username: "ludo", email: "ludovic@got.gov", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$L7cuSyAvD7ebuXjNjDIEsA$j0R9AelNNMwX52gfb5PVhHkiCR02U+H/Z/fCtAlAGV0" }); // azerty1234
 
 
 console.log("✅ Nouveaux utilisateurs créés\n");
