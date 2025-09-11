@@ -38,12 +38,24 @@ export const authController = {
       // création
       const user = await User.create({ username, email, password: hash }); // on stocke le hash en base de données, pas le mot de passe en clair
 
-      // réponse sans le mot de passe
+      // Créer un token JWT pour connecter automatiquement l'utilisateur
+      const token = jwt.sign(
+        { user_id: user.id }, // informations à stocker dans le token
+        process.env.JWT_SECRET, // secret pour le chiffrement
+        { expiresIn: "1h" } // délai d'expiration
+      );
+
+      // réponse avec le token pour connexion automatique
       return res.status(httpStatusCodes.CREATED).json({
-        id: user.id, // retourne l'id de l'utilisateur créé
-        username: user.username, // retourne l'username de l'utilisateur créé
-        email: user.email, // retourne l'email de l'utilisateur créé
-        created_at: user.createdAt, // retourne la date de création de l'utilisateur
+        token, // token pour connexion automatique
+        user: {
+          id: user.id, // retourne l'id de l'utilisateur créé
+          username: user.username, // retourne l'username de l'utilisateur créé
+          email: user.email, // retourne l'email de l'utilisateur créé
+          role: user.role, // retourne le rôle de l'utilisateur
+          status: user.status, // retourne le statut de l'utilisateur (Actif par défaut)
+          created_at: user.createdAt, // retourne la date de création de l'utilisateur
+        }
       });
     } catch (e) {
       // gère le cas unique constraint si jamais
