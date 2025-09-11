@@ -25,7 +25,7 @@
         return;
       }
 
-      const status_id = kind === "read" ? 2 : 1;
+      const status_id = kind === "read" ? 1 : 2;
       saving = true;
 
       await addBookToUser(me.id, { title: book.title, status_id });
