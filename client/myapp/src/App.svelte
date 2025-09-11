@@ -173,6 +173,26 @@
       window.scrollTo({ top: 0, behavior: 'smooth' }); // Revenir en haut avec un délai
     }, 50);
   };
+
+// darktheme
+let dark = false;
+
+onMount(() => {
+  // Vérifie si déjà en dark mode via localStorage
+  dark = localStorage.getItem("theme") === "dark";
+  updateTheme();
+});
+
+function toggleTheme() {
+  dark = !dark;
+  localStorage.setItem("theme", dark ? "dark" : "light");
+  updateTheme();
+}
+
+function updateTheme() {
+  document.body.classList.toggle("dark", dark);
+
+}
 </script>
 
 {#if appReady}
@@ -183,6 +203,9 @@
     {#if mobileMenuOpen}
     <div class="mobile-menu-overlay active" on:click={toggleMobileMenu}>
       <div class="mobile-menu active" on:click|stopPropagation={() => {}}>
+        <!-- bouton pour le there dark -->
+         <button on:click={toggleTheme} style="position:absolute; top:33px; left:16px; z-index:1000;">
+          {dark ? "🌙" : "☀️"} </button>
         <button class="mobile-menu-close" on:click={toggleMobileMenu}>&times;</button>
         <nav class="mobile-nav">
           <a href="#/" on:click={toggleMobileMenu}>Accueil</a>
@@ -288,7 +311,14 @@
           </ul>
         </li>
       {/if}
+      <!-- Bouton pour basculer entre le mode clair et sombre -->
+    <button on:click={toggleTheme}>
+      {dark ? "🌙" : "☀️"}
+    </button>
     </nav>
+
+    
+
   </header>
 
   <main class:admin-main={$location === '/admin'}>
@@ -313,5 +343,19 @@
 {/if}
 
 <style>
-/* Vide → tout est déjà dans app.css */
+/* theme dark */
+button {
+  border-radius: 20px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: background-color 0.3s;
+}
+button:hover {
+  background-color: #e0e0e0;
+}
+header p {
+  cursor: pointer;
+}
 </style>
