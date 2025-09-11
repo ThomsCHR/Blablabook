@@ -186,6 +186,7 @@
         <button class="mobile-menu-close" on:click={toggleMobileMenu}>&times;</button>
         <nav class="mobile-nav">
           <a href="#/" on:click={toggleMobileMenu}>Accueil</a>
+          <a href="#/Collections" on:click={toggleMobileMenu}>Notre Collection</a>
           <a href="#/My-library" on:click={toggleMobileMenu}>Ma Bibliothèque</a>
           {#if $user}
             {#if $user.role === 'admin' || $user.isAdmin}
@@ -253,6 +254,7 @@
     <!-- Navigation desktop -->
     <nav class="desktop-nav">
       <a href="#/">Accueil</a>
+      <a href="#/Collections">Notre Collection</a>
       <a href="#/My-library">Ma Bibliothèque</a>
 
       <div class="search-box">

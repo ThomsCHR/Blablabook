@@ -13,7 +13,7 @@
         </div>
 
         <div class="form-group">
-          <input type="text" id="genre" placeholder="Genre :">
+          <input type="text" id="genre" placeholder="Genre :" required>
         </div>
         
         <div class="form-group">
