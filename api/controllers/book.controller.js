@@ -1,5 +1,5 @@
 import { Book, Genre, Status, User } from '../models/index.js';
-import { Op } from 'sequelize';
+import { Op, fn, col, where } from 'sequelize';
 import Joi from 'joi';
 import { updateBookSchema } from '../schemas/book.schemas.js'
 import { httpStatusCodes } from '../errors/http.errors.js';
@@ -104,34 +104,34 @@ export const bookController = {
     }
   },
 
-
   async create(req, res) {
-  // créer un livre dans la base de donnée
     try {
-      const { title, author, summary, image, genre, publication_date} = req.body;
-      if (!title || !author || !summary || !image || !genre ) { // Vérification des champs requis
-        return res.status(400).json({ error: 'title, author, summary, image, genre are required' });
+      const { title, author, summary, image, genre, publication_date } = req.body;
+  
+      if (!title || !author || !summary || !image || !genre) {
+        return res.status(400).json({ error: "Champs manquants" });
       }
-
-      // Résoudre le genre via son label
-      const genreRow = await Genre.findOne({ where: { label: genre } });
-      if (!genreRow) return res.status(httpStatusCodes.NOT_FOUND).json({ error: 'Unknown genre' });
-
-
-      // Créer le livre
-      const newBook = await Book.create({ title, author, summary, image, publication_date});
-      
-      // Associer le livre au genre
-      if (newBook.addGenre) await newBook.addGenre(genreRow);
-      res.status(201).json({
-        ...newBook.toJSON(),   // <-- ici on récupère juste les données du livre
-        genre: genreRow.label  // on ajoute le genre
+  
+      // Vérifier si déjà existant (insensible à la casse)
+      const exists = await Book.findOne({
+        where: {
+          [Op.and]: [
+            where(fn("LOWER", col("title")), title.trim().toLowerCase()), // sans tenir compte des espaces avant/après
+            where(fn("LOWER", col("author")), author.trim().toLowerCase()) 
+          ]
+        }
       });
-      
-
-    } catch (e) {
-      console.error(e);
-      res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
+  
+      if (exists) {
+        return res.status(409).json({ error: "Ce livre existe déjà" });
+      }
+  
+      const newBook = await Book.create({ title, author, summary, image, publication_date });
+  
+      return res.status(201).json(newBook);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Erreur serveur" });
     }
   },
 

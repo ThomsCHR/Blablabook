@@ -12,6 +12,9 @@
   let showAddBookForm = false;
   let isAddingBook = false;
 
+  // message d'erreur pour l'ajout (affiché dans la page)
+  let addError = "";
+
   // Formulaire d'ajout de livre
   let newBook = {
     title: "",
@@ -39,7 +42,7 @@
     loading = true;
     error = "";
     books = [];
-    showAddBookForm = false; // reinitialiser le formulaire d'ajout
+    showAddBookForm = false; // réinitialiser le formulaire d'ajout
 
     // Pré-remplir le titre du nouveau livre avec la requête de recherche
     newBook.title = searchQuery;
@@ -79,6 +82,7 @@
 
   async function toggleAddBookForm() {
     showAddBookForm = !showAddBookForm;
+    addError = ""; // reset message
     if (showAddBookForm) {
       resetForm();
       // Essayer de récupérer automatiquement une image (titre connu grâce à query)
@@ -96,9 +100,10 @@
   async function handleAddBook() {
     if (isAddingBook) return;
 
-    // Validation simple
+    // Validation simple (sans alert)
+    addError = "";
     if (!newBook.title || !newBook.author || !newBook.summary) {
-      alert("Veuillez remplir au moins le titre, l'auteur et le résumé");
+      addError = "Veuillez remplir au moins le titre, l'auteur et le résumé.";
       return;
     }
 
@@ -109,8 +114,8 @@
         title: newBook.title.trim(),
         author: newBook.author.trim(),
         summary: newBook.summary.trim(),
-        image: newBook.image.trim() || null,
-        genre: newBook.genre.trim() || null,
+        image: newBook.image?.trim() || null,
+        genre: newBook.genre?.trim() || null,
       };
 
       const addedBook = await createBook(bookData);
@@ -118,21 +123,24 @@
       // Reset form après succès nouvel ajout
       resetForm();
       showAddBookForm = false;
+      addError = "";
 
       // Rediriger vers la page du livre nouvellement créé
       push(`/BookDetail/${addedBook.id}`);
     } catch (error) {
       console.error("Erreur lors de l'ajout du livre:", error);
 
-      // Gestion d'erreurs améliorée
-      if (error.message && error.message.includes("401")) {
-        alert("Session expirée. Veuillez vous reconnecter.");
-      } else if (error.message && error.message.includes("400")) {
-        alert("Données invalides. Vérifiez les champs obligatoires.");
-      } else if (error.message && error.message.includes("404")) {
-        alert("Genre inconnu. Vérifiez l'orthographe du genre.");
+      // Affichage texte (pas d'alert)
+      if (error?.status === 409 || /existe déjà/i.test(error?.message || "") || (error?.message ?? "").includes("409")) {
+        addError = "Ce livre existe déjà pour cet auteur.";
+      } else if (error?.status === 401 || (error?.message ?? "").includes("401")) {
+        addError = "Session expirée. Veuillez vous reconnecter.";
+      } else if (error?.status === 400 || (error?.message ?? "").includes("400")) {
+        addError = "Données invalides. Vérifiez les champs obligatoires.";
+      } else if (error?.status === 404 || (error?.message ?? "").includes("404")) {
+        addError = "Genre inconnu. Vérifiez l'orthographe du genre.";
       } else {
-        alert(error.message || "Erreur lors de l'ajout du livre");
+        addError = error?.message || "Erreur lors de l'ajout du livre.";
       }
     } finally {
       isAddingBook = false;
@@ -163,6 +171,8 @@
     if (coverUrl) {
       newBook.image = coverUrl;
     } else {
+      // tu peux aussi afficher un message texte ici si tu veux éviter tout alert
+      // addError = "Aucune couverture trouvée sur Open Library pour ces infos.";
       alert("Aucune couverture trouvée sur Open Library pour ces infos.");
     }
   }
@@ -218,6 +228,13 @@
       {#if $user && showAddBookForm}
         <div class="add-book-form">
           <h3>Ajouter un nouveau livre</h3>
+
+          {#if addError}
+            <div class="banner error" role="alert" aria-live="assertive">
+              {addError}
+            </div>
+          {/if}
+
           <form on:submit|preventDefault={handleAddBook}>
             <div class="form-group">
               <label for="title">Titre *</label>
@@ -225,8 +242,7 @@
                 type="text"
                 id="title"
                 bind:value={newBook.title}
-                required=
-                {isAddingBook}
+                required
                 on:input={debounceFetchCover}
                 disabled={isAddingBook}
               />
@@ -310,7 +326,7 @@
               <button
                 type="button"
                 class="btn-secondary"
-                on:click={() => { showAddBookForm = false; resetForm(); }}
+                on:click={() => { showAddBookForm = false; resetForm(); addError = ""; }}
                 disabled={isAddingBook}
               >
                 Annuler
@@ -484,6 +500,19 @@
     font-weight: 600;
   }
 
+  .banner {
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    font-family: "playfair display", serif;
+    font-size: 0.95rem;
+  }
+  .banner.error {
+    background: rgba(231, 76, 60, 0.08);
+    border: 2px solid rgba(231, 76, 60, 0.3);
+    color: #c0392b;
+  }
+
   .form-group {
     margin-bottom: 1.5rem;
   }
@@ -618,7 +647,7 @@
     font-family: "playfair display", serif;
   }
 
-  /* Responsivité adaptée à votre style existant */
+  /* Responsivité */
   @media (max-width: 768px) {
     .search-results {
       padding: 1rem;
