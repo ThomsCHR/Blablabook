@@ -1,6 +1,8 @@
 <script>
     import { writable } from "svelte/store"; // sert à créer des stores réactifs comme error et success 
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000/api';
+
   let formData = {
     username: "",
     email: "",
@@ -16,7 +18,7 @@
     success.set(false);
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
+      const response = await fetch(`${BASE_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

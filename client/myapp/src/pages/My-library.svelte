@@ -10,24 +10,13 @@
   let readBooks = [];
   let loading = true;
   let error = "";
-
-
-  // Fonction simple pour vérifier si un livre est lu
-  function isBookRead(status) {
-    if (!status) return false;
-    
-    const statusText = typeof status === "string" ? status : status.name || "";
-    const normalizedStatus = statusText.toLowerCase();
-    
-    return normalizedStatus === "lu" || normalizedStatus === "read";
-  }
+  let fetchedForUserId = null;
 
   // ⚠️ Mets ici les VRAIS IDs depuis ta table "status"
   const STATUS = { TO_READ: 1, READ: 2 };
 
-
   // Charge tous les livres de l'utilisateur
-  async function loadUserBooks(user) {
+  async function loadBooksFor(user) {
     loading = true;
     error = "";
 
@@ -41,43 +30,30 @@
 
       // Récupérer les livres depuis l'API
       const books = await getAllUserBooks(user.id);
-      
-      // Vérifier que nous avons bien un tableau
       const bookList = Array.isArray(books) ? books : [];
-
 
       // Séparer les livres en deux listes
       toReadBooks = [];
       readBooks = [];
 
       bookList.forEach(book => {
-        const bookData = {
-          id: book.book_id || book.id,
-          title: book.title,
-          image: book.image || "",
-
-      const payload = await getAllUserBooks(u.id);
-      const list = (Array.isArray(payload) ? payload : []).map(b => {
-        // ✅ On se base sur l'ID du statut (fiable), pas sur le nom
-        const statusId = Number(b.status?.id ?? b.status_id ?? b.statusId ?? 0);
+        const statusId = Number(book.status?.id ?? book.status_id ?? 0);
         const isRead = statusId === STATUS.READ;
 
-        return {
-          id: b.book_id ?? b.id,
-          title: b.title,
-          image: b.image || "",
-          statusId,  // <-- utile pour l’UI/optimistic update
+        const bookData = {
+          id: book.book_id ?? book.id,
+          title: book.title,
+          image: book.image || "",
+          statusId,
           isRead
-
         };
 
-        if (isBookRead(book.status)) {
+        if (isRead) {
           readBooks.push(bookData);
         } else {
           toReadBooks.push(bookData);
         }
       });
-
     } catch (err) {
       error = "Erreur lors du chargement des livres";
       console.error("Erreur:", err);
@@ -95,10 +71,11 @@
       return;
     }
   });
- $: if ($userStore?.id && $userStore.id !== fetchedForUserId) {
+
+  // Charger les livres si l'utilisateur change
+  $: if ($userStore?.id && $userStore.id !== fetchedForUserId) {
     fetchedForUserId = $userStore.id;
     loadBooksFor($userStore);
-
   }
 </script>
 
