@@ -4,6 +4,8 @@
   import { user } from "../../stores/user.js";
   import { normalizeUser } from "../../utils/normalizeUser.js";
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000/api';
+
   let form = { email: "", password: "" };
   const error = writable(null);
   const success = writable(false);
@@ -16,7 +18,7 @@
   async function handleLogin() {
     error.set(null); success.set(false); loading.set(true);
     try {
-      const res = await fetch("http://localhost:3000/api/auth/login", {
+      const res = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: form.email, password: form.password })
@@ -30,7 +32,7 @@
 
       let u = normalizeUser(data); // ← d'abord depuis la réponse de login
       if (!u) {
-        const meRes = await fetch("http://localhost:3000/api/user/me", {
+        const meRes = await fetch(`${BASE_URL}/user/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const meData = await jsonOrEmpty(meRes);

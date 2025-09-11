@@ -68,7 +68,7 @@ export async function fetchUsers(page = 1, limit = 10, search = '') {
 
 export async function fetchRecentActivity(limit = 10) {
   try {
-    const activity = await getRecentActivity(limit);
+    const activity = await getRecentActivity();
     updateActivity(activity);
     return activity;
   } catch (error) {

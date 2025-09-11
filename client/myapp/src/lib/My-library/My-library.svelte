@@ -30,7 +30,7 @@
     }
   }
 
-  const STATUS = { TO_READ: 2, READ: 1 }; // adapte aux id de ta table Status
+  const STATUS = { READ: 1, TO_READ: 2 }; // adapte aux id de ta table Status
 
   // 🔁 Toggle: "à lire" <-> "lu"
   async function handleToggle(bookId, listName) {
@@ -39,7 +39,7 @@
       return;
     }
 
-    const nextStatusId = listName === "toRead" ? STATUS.TO_READ : STATUS.READ;
+    const nextStatusId = listName === "toRead" ? STATUS.READ : STATUS.TO_READ;
 
     const backupToRead = [...toRead];
     const backupRead = [...read];
