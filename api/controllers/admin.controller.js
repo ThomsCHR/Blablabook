@@ -36,14 +36,18 @@ export const getAdminStats = async (req, res) => {
       }
     });
 
-    console.log(`Stats calculées: ${totalUsers} users, ${totalBooks} books, ${activeUsers} actifs, ${recentSignups} nouveaux`);
+    // 5. Compter le nombre total de livres dans les bibliothèques utilisateurs
+    const totalBooksInLibraries = await UserBook.count();
+
+    console.log(`Stats calculées: ${totalUsers} users, ${totalBooks} books, ${activeUsers} actifs, ${recentSignups} nouveaux, ${totalBooksInLibraries} livres en biblio`);
 
     // Envoyer toutes les stats
     res.json({
       totalUsers,
       activeUsers,
       totalBooks,
-      recentSignups
+      recentSignups,
+      totalBooksInLibraries
     });
 
   } catch (error) {
