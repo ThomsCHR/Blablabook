@@ -94,14 +94,14 @@ console.log("✅ Status crées\n");
 
 // creation des users
 console.log("🌱 Creation des utilisateurs...");
-const user1 = await User.create({ username: "Alice", email: "alice@hotmail.fr", role: "admin", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user2 = await User.create({ username: "Bob", email: "bob@hotmail.fr", role: "member", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user3 = await User.create({ username: "Charlie", email: "charlie@gmail.com", role: "member", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user4 = await User.create({ username: "Diana", email: "diana@gmail.com", role: "member", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user5 = await User.create({ username: "Thomas", email: "Thomas@gmail.com", role: "admin", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user6 = await User.create({ username: "Frank", email: "frank@gmail.com", role: "member", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user7 = await User.create({ username: "Grace", email: "grace@gmail.com", role: "member", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user8 = await User.create({ username: "Youssef", email: "Youssef@gmail.com", role: "admin", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user1 = await User.create({ username: "Alice", email: "alice@hotmail.fr", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user2 = await User.create({ username: "Bob", email: "bob@hotmail.fr", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user3 = await User.create({ username: "Charlie", email: "charlie@gmail.com", role: "member", status: "Inactif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user4 = await User.create({ username: "Diana", email: "diana@gmail.com", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user5 = await User.create({ username: "Thomas", email: "Thomas@gmail.com", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user6 = await User.create({ username: "Frank", email: "frank@gmail.com", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user7 = await User.create({ username: "Grace", email: "grace@gmail.com", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+const user8 = await User.create({ username: "Youssef", email: "Youssef@gmail.com", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
 
 
 console.log("✅ Nouveaux utilisateurs créés\n");

@@ -77,6 +77,13 @@ export const authController = {
           .status(httpStatusCodes.UNAUTHORIZED)
           .json({ error: "Email ou mot de passe invalide" });
       }
+
+      // Pour vérifier si l'utilisateur est actif MAJ
+      if (user.status !== 'Actif') {
+        return res
+          .status(httpStatusCodes.UNAUTHORIZED)
+          .json({ error: "Compte désactivé. Contactez l'administrateur." });
+      }
   
       // Je suis certain d'avoir le bon utilisateur
       // et le bon mot de passe. Ici, je vais créer un token
