@@ -24,6 +24,128 @@ body {
   flex-direction: column;
 }
 
+/* Thème sombre */
+/* === MODE SOMBRE === */
+body.dark {
+  background: #1e1e1e; /* fond global */
+  color: #f0f0f0;      /* texte global */
+}
+
+/* Header sombre */
+body.dark header {
+  background: linear-gradient(to right, #2a2a2a, #1f1f1f);
+  border-bottom: 1px solid #444;
+}
+
+body.dark header h1 a,
+body.dark .logo-container h1 {
+  color: #f0f0f0;
+}
+
+body.dark header p {
+  color: #f0f0f0;
+}
+
+body.dark .logo {
+  background-color: #ffffff;
+}
+/* Navigation sombre */
+body.dark .desktop-nav a,
+body.dark .mobile-nav a {
+  color: #f0f0f0;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #666;
+}
+
+body.dark .desktop-nav a:hover,
+body.dark .mobile-nav a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Mobile menu sombre */
+body.dark .mobile-menu {
+  background: linear-gradient(to right, #2a2a2a, #1f1f1f);
+  border-right: 3px solid #444;
+}
+
+/* Boutons */
+body.dark .mobile-menu-btn,
+body.dark .submit-btn {
+  background: #333;
+  border: 2px solid #888;
+  color: #f0f0f0;
+}
+
+body.dark .mobile-menu-btn:hover,
+body.dark .submit-btn:hover {
+  background: #555;
+  color: #fff;
+}
+
+/* page détaillée du livre */
+body.dark .book-details-page {
+  background: #aaa;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+body.dark .collections-container {
+  background: #aaa;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+body.dark .collections-filters {
+  background: #aaa;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+body.dark .collections-books {
+  background: #aaa;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* Footer sombre */
+body.dark footer {
+  background: #1c1c1c;
+  color: #bbb;
+  border-top: 1px solid #444;
+}
+
+body.dark footer a {
+  color: #ccc;
+}
+
+body.dark footer a:hover {
+  color: #fff;
+}
+
+/* Livres */
+body.dark .book {
+  background: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+body.dark .book p {
+  color: #eee;
+}
+
+/* Formulaires */
+body.dark .form-group label,
+body.dark .checkbox-label {
+  color: #ddd;
+}
+
+body.dark .form-group input,
+body.dark .form-group textarea,
+body.dark .file-input-label {
+  background: #2a2a2a;
+  border: 2px solid #555;
+  color: #fff;
+}
+
+body.dark .form-group input::placeholder,
+body.dark .form-group textarea::placeholder {
+  color: #aaa;
+}
+
+
 /* ===== HEADER ET NAVIGATION ===== */
 header {
   background: linear-gradient(to right, #d4ebf2, #d9c6e5);
