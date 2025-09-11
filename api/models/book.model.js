@@ -30,6 +30,7 @@ Book.init(
   {
     sequelize,
     modelName: "Book",
-    tableName: "book"
+    tableName: "book",
+    indexes: [{ unique: true, fields: ["title", "author"], name: "book_title_author" }]
   },
 );
