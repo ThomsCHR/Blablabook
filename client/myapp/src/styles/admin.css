@@ -1,0 +1,651 @@
+/* ===== ADMIN CSS SIMPLIFIÉ ===== */
+/* Réutilise la majorité des styles de style.css */
+
+/* Override du main pour la page admin - marges équilibrées */
+main.admin-main {
+  padding: 0 50px !important; /* Marges équilibrées de 50px à gauche et droite */
+  width: 100vw !important; /* Utilise toute la largeur de la fenêtre */
+  max-width: none !important; /* Supprime les contraintes de largeur max */
+  margin: 0 !important; /* Supprime les marges */
+  box-sizing: border-box;
+}
+
+/* Badge Admin dans le header */
+.admin-badge {
+  background: #e74c3c;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Layout principal admin - maintenant simple grâce à main.admin-main */
+.admin-dashboard {
+  display: grid;
+  grid-template-columns: 250px 1fr; /* Sidebar + contenu */
+  gap: 1.5rem; /* Espace entre les colonnes */
+  min-height: calc(100vh - 120px);
+  padding: 1.5rem; /* Padding uniforme */
+  width: 100%; /* Utilise toute la largeur du main */
+  max-width: none;
+  box-sizing: border-box;
+}
+
+/* Sidebar - utilise les styles de formulaires existants */
+.admin-sidebar {
+  background: rgba(255, 255, 255, 0.9); /* Même style que les containers */
+  border-radius: 15px;
+  padding: 2rem; /* Padding réduit pour plus de compacité */
+  max-width: fit-content;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Même ombre que les autres éléments */
+  height: fit-content;
+  top: 60px; /* Ajusté avec la nouvelle hauteur */
+  margin: 0; /* Corrigé la valeur manquante */
+}
+
+.admin-sidebar h3 {
+  color: #2c3e50; /* Couleur consistante */
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid #d4ebf2; /* Utilise les couleurs de thème */
+  padding-bottom: 0.5rem;
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Navigation items - basés sur les boutons submit-btn */
+.admin-nav-item {
+  padding: 1rem 1.5rem; /* Plus de padding */
+  background: rgba(44, 62, 80, 0.1); /* Même style que submit-btn */
+  border: 2px solid transparent;
+  border-radius: 25px; /* Même border-radius que les boutons */
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem; 
+  transition: all 0.3s ease; /* Même transition que les éléments */
+  cursor: pointer;
+}
+
+.admin-nav-item:hover,
+.admin-nav-item.active {
+  background: #2c3e50; /* Même style que submit-btn:hover */
+  color: white;
+  border-color: #2c3e50;
+  transform: translateX(5px); /* Légère variation */
+}
+
+/* Content area - même style que vos containers */
+.admin-content {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 1.5rem; /* Padding réduit pour donner plus d'espace aux stats */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%; 
+  max-width: none; 
+  flex: 1; 
+  overflow-x: visible; /* Assure que le contenu ne soit pas coupé */
+  /* Suppression de margin-right pour utiliser tout l'espace */
+}
+
+.admin-header {
+  border-bottom: 2px solid #d4ebf2; /* Utilise la couleur de thème */
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-header h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Stats cards - basés sur vos stat-card du profil */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Force les colonnes égales avec minmax */
+  gap: 1rem; /* Réduit légèrement le gap pour plus d'espace pour les cartes */
+  margin-bottom: 2.5rem;
+  width: 100%; 
+  overflow: visible; 
+}
+
+.stat-card {
+  background: linear-gradient(to right, #d4ebf2, #d9c6e5);
+  border: 2px solid #2c3e50;
+  border-radius: 12px; /* Border-radius un peu agrandi */
+  padding: 1rem; /* Padding légèrement réduit */
+  text-align: center;
+  transition: transform 0.3s ease;
+  min-width: 0; /* Permet la flexibilité et évite l'overflow */
+  width: 100%; /* Utilise toute la largeur disponible */
+  box-sizing: border-box; /* Assure que le padding est inclus dans la largeur */
+}
+
+.stat-card:hover {
+  transform: translateY(-5px); /* Même effet que les livres */
+}
+
+.stat-number {
+  font-size: 1.8rem; /* Légèrement agrandi pour plus de lisibilité */
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 0.4rem; /* Un peu plus d'espace */
+}
+
+.stat-label {
+  color: #2c3e50;
+  font-size: 0.9rem; /* Un peu plus grand pour une meilleure lisibilité */
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Tableaux - style simplifié cohérent et plus compact */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  background: radial-gradient(circle at top left, #f9f9f9, #e0f7fa);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.8rem 0.5rem; /* Padding réduit pour un tableau plus compact */
+  text-align: center; /* Tout centré comme demandé */
+  border-bottom: 1px solid #eee;
+  vertical-align: middle; /* Centrage vertical */
+}
+
+.admin-table th {
+  background: #2c3e50; /* Couleur consistante */
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem; /* Légèrement plus petit pour un look plus compact */
+}
+
+.admin-table td {
+  font-size: 0.85rem; /* Texte légèrement plus petit pour compacité */
+}
+
+.admin-table tr:hover {
+  background: rgba(44, 62, 80, 0.05);
+}
+
+/* Amélioration du tableau pour les actions - plus compact */
+.admin-table td:last-child {
+  min-width: 180px; /* Largeur ajustée pour les nouveaux boutons */
+  padding: 0.8rem 0.3rem; /* Padding réduit sur les côtés */
+}
+
+/* Boutons d'action dans les tableaux - taille formulaire */
+.action-btn {
+  background: rgba(44, 62, 80, 0.1);
+  color: #2c3e50;
+  border: 2px solid #2c3e50;
+  border-radius: 15px;
+  padding: 0.4rem 0.8rem; /* Padding réduit pour taille formulaire */
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 0.2rem; /* Marge réduite entre boutons */
+  font-family: "playfair display", serif;
+  display: inline-block;
+  text-decoration: none;
+  min-width: 70px; /* Largeur réduite à taille formulaire */
+  text-align: center;
+  white-space: nowrap;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.2);
+}
+
+/* Bouton Modifier - Style bleu */
+.action-btn.edit {
+  background: rgba(52, 152, 219, 0.1);
+  min-width: 70px; /* Largeur réduite à taille formulaire */
+  padding: 0.4rem 0.8rem; /* Padding réduit pour taille formulaire */
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.action-btn.edit:hover {
+  background: radial-gradient(circle at top left, #85c1e9, #3498db);
+  color: white;
+  border-color: #3498db;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Bouton Supprimer - Style rouge */
+.action-btn.delete {
+  background: radial-gradient(circle at top left, #f9d6d5, #f1a09e);
+  min-width: 70px; /* Largeur réduite à taille formulaire */
+  padding: 0.4rem 0.8rem; /* Padding réduit pour taille formulaire */
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.action-btn.delete:hover {
+  background: #e74c3c;
+  color: white;
+  border-color: #e74c3c;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+/* Styles pour les autres boutons conservés */
+.action-btn.danger {
+  background: rgba(231, 76, 60, 0.1);
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.action-btn.danger:hover {
+  background: #e74c3c;
+  color: white;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+}
+
+.action-btn.success {
+  background: rgba(39, 174, 96, 0.1);
+  border-color: #27ae60;
+  color: #27ae60;
+}
+
+.action-btn.success:hover {
+  background: #27ae60;
+  color: white;
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.2);
+}
+
+/* Container pour les boutons d'action - plus compact */
+.action-buttons {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center; /* Centré comme demandé */
+}
+
+/* Section de filtres - basée sur les containers */
+.filter-section {
+  background: rgba(62, 129, 151, 0.2); /* Même style que les sections colorées */
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-section h4 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Inputs de filtre - basés sur les form-group input */
+.filter-input {
+  padding: 0.5rem 1rem;
+  border: 2px solid #2c3e50;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  background: white;
+  transition: all 0.3s ease;
+  font-family: "playfair display", serif;
+  font-weight: 600;
+  min-height: 38px;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/* Style spécifique pour les sélecteurs */
+.filter-input select,
+select.filter-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: white;
+  padding-right: 2.5rem;
+  min-width: 180px;
+}
+
+.filter-input:focus {
+  border-color: #34495e;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+  background: rgba(44, 62, 80, 0.02);
+}
+
+.filter-input:hover {
+  border-color: #34495e;
+  background: rgba(44, 62, 80, 0.02);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.15);
+}
+
+/* Badges de statut */
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  min-width: 65px;
+  border: 1px solid transparent;
+}
+
+.status-active {
+  background: radial-gradient(circle at top left, #d4edda, #a8e6a1);
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.status-inactive {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+  border-color: #ffeaa7;
+  animation: pulse-warning 2s infinite;
+}
+
+/* Modal - style simplifié cohérent */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(5px); /* Même effet que le menu mobile */
+}
+
+.modal {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.modal h3 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+/* Animation de section */
+.admin-section {
+  animation: fadeIn 0.3s ease-in-out;
+  padding: 3rem 0; /* Plus d'espace vertical pour les sections */
+  min-height: 700px; /* Hauteur minimale augmentée pour chaque section */
+  width: 100%; /* Utilise toute la largeur disponible */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE CORRIGÉ ===== */
+
+/* Tablettes et écrans moyens */
+@media (max-width: 1024px) {
+  .admin-dashboard {
+    grid-template-columns: 1fr; /* Passage en colonne unique */
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .admin-sidebar {
+    position: static; /* Retire le sticky */
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr 1fr; /* Garde les 3 colonnes même sur tablettes */
+    gap: 1rem; /* Réduit un peu l'espacement */
+  }
+
+  /* Ajustement des boutons sur tablette */
+  .action-btn.edit,
+  .action-btn.delete {
+    min-width: 65px;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.7rem;
+  }
+
+  .admin-table td:last-child {
+    min-width: 150px;
+  }
+}
+
+/* Smartphones */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    grid-template-columns: 1fr; /* Force en colonne */
+    gap: 1rem;
+    padding: 1rem; /* Même padding que main mobile */
+  }
+
+  .admin-sidebar {
+    position: static;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+
+  .admin-content {
+    padding: 1rem;
+  }
+
+  /* Navigation admin en grille horizontale sur mobile */
+  .admin-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .admin-nav-item {
+    padding: 0.6rem 0.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .admin-nav-item:hover {
+    transform: translateX(0); /* Retire l'effet translateX sur mobile */
+  }
+
+  /* Stats sur une ligne même sur mobile */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr 1fr; /* Force les 3 cartes sur la même ligne */
+    gap: 0.8rem; /* Espacement réduit pour mobile */
+  }
+
+  /* Filtres en colonne */
+  .filter-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-input {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Tableau responsive - plus compact */
+  .admin-table {
+    font-size: 0.75rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 0.5rem 0.3rem;
+    min-width: 70px;
+  }
+
+  .admin-header h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Boutons d'action mobile - taille formulaire conservée */
+  .action-btn.edit,
+  .action-btn.delete {
+    min-width: 60px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+    margin: 0.1rem;
+  }
+  
+  .action-buttons {
+    gap: 0.2rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Colonne actions mobile */
+  .admin-table td:last-child {
+    min-width: 140px;
+  }
+  
+  /* Responsive pour les champs de saisie */
+  .filter-input {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    min-height: 34px;
+  }
+  
+  select.filter-input {
+    min-width: 150px;
+    padding-right: 2.2rem;
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .admin-sidebar {
+    padding: 0.8rem;
+  }
+
+  .admin-content {
+    padding: 0.8rem;
+  }
+
+  .admin-header h2 {
+    font-size: 1.4rem;
+  }
+
+  /* Navigation admin en colonne sur très petits écrans */
+  .admin-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .admin-badge {
+    font-size: 0.6em;
+    padding: 0.15rem 0.4rem;
+    margin-left: 0.3rem;
+  }
+
+  /* Boutons très petits écrans */
+  .action-btn.edit,
+  .action-btn.delete {
+    min-width: 55px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.6rem;
+    margin: 0.05rem;
+  }
+  
+  .action-buttons {
+    gap: 0.15rem;
+  }
+
+  .admin-table td:last-child {
+    min-width: 120px;
+  }
+  
+  /* Responsive pour les champs de saisie */
+  .filter-input {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+    min-height: 30px;
+  }
+  
+  select.filter-input {
+    min-width: 120px;
+    padding-right: 2rem;
+  }
+}
+
+/* Media queries pour écrans plus larges - contenants agrandis */
+@media (min-width: 2140px) {
+  .admin-dashboard {
+    gap: 1.5rem; 
+    grid-template-columns: 270px 1fr; /* Sidebar un peu plus large sur grands écrans */
+    /* Utilise encore plus d'espace sur les grands écrans */
+    width: calc(100vw - 30px); /* Presque toute la largeur de l'écran */
+    left: -150px; /* Maintien du décalage pour récupérer l'espace */
+    padding: 1.5rem; /* Padding uniforme */
+  }
+  
+  .admin-content {
+    padding: 2.5rem; /* Plus de padding pour le contenu */
+    min-height: 700px;
+  }
+  
+  .admin-sidebar {
+    padding: 2rem; 
+  }
+  
+  .stats-grid {
+    gap: 1.5rem; /* Plus d'espace entre les cartes sur grands écrans */
+  }
+}
