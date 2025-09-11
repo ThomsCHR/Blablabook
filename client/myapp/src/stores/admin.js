@@ -4,7 +4,8 @@ import {
   getUsers, 
   deleteUser as apiDeleteUser,
   updateUserStatus as apiUpdateUserStatus,
-  getRecentActivity
+  getRecentActivity,
+  deleteBook as apiDeleteBook
 } from '../api/admin.js';
 
 // Store pour les données d'administration
@@ -102,6 +103,19 @@ export async function toggleUserStatus(userId, newStatus) {
     return true;
   } catch (error) {
     console.error('Erreur lors du changement de statut:', error);
+    return false;
+  }
+}
+
+// Fonction pour supprimer un livre (ADMIN SEULEMENT)
+export async function deleteBook(bookId) {
+  try {
+    console.log(`🗑️ Suppression du livre ID: ${bookId}`);
+    await apiDeleteBook(bookId);
+    console.log(`✅ Livre supprimé avec succès`);
+    return true;
+  } catch (error) {
+    console.error('❌ Erreur lors de la suppression du livre:', error);
     return false;
   }
 }

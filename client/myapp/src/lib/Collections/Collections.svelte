@@ -1,9 +1,30 @@
 <script>
+  import { user } from '../../stores/user.js';
+  import { deleteBook } from '../../stores/admin.js';
+  
   export let books = [];
 
   let activeFilter = "all";
   let currentPage = 1;
   const itemsPerPage = 20; // nombre de livres par page
+
+  // Vérifier si l'utilisateur est admin
+  $: isAdmin = $user?.role === 'admin';
+
+  // Fonction pour supprimer un livre (admin seulement)
+  async function handleDeleteBook(bookId, bookTitle) {
+    if (!isAdmin) return;
+    
+    if (confirm(`Êtes-vous sûr de vouloir supprimer le livre "${bookTitle}" de la collection ?`)) {
+      const success = await deleteBook(bookId);
+      if (success) {
+        // Recharger la page pour actualiser la liste
+        window.location.reload();
+      } else {
+        alert('Erreur lors de la suppression du livre');
+      }
+    }
+  }
 
   // Filtrage des livres selon le filtre actif
   $: filteredBooks =
@@ -145,6 +166,15 @@
         <div class="book-row expanded">
           {#each featured as book (book.id)}
             <div class="book" data-category="classique">
+              {#if isAdmin}
+                <button 
+                  class="admin-delete-btn" 
+                  on:click={() => handleDeleteBook(book.id, book.title)}
+                  title="Supprimer ce livre (Admin)"
+                >
+                  ✕
+                </button>
+              {/if}
               <a href={`#/BookDetail/${book.id}`}>
                 <img src={book.image} alt={book.title} />
                 <p><strong>{book.title}</strong></p>
@@ -216,5 +246,37 @@
   /* Ton style existant */
   .library-section .book-row {
     flex-wrap: wrap !important;
+  }
+
+  /* Style pour la croix de suppression admin */
+  .admin-delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .admin-delete-btn:hover {
+    background: #cc0000;
+    transform: scale(1.1);
+  }
+
+  /* Rendre le conteneur du livre relatif pour la position absolue de la croix */
+  .book {
+    position: relative;
   }
 </style>
