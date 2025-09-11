@@ -189,6 +189,7 @@
           <a href="#/Collections" on:click={toggleMobileMenu}>Notre Collection</a>
           <a href="#/My-library" on:click={toggleMobileMenu}>Ma Bibliothèque</a>
           {#if $user}
+          <a href="#/profil" on:click={toggleMobileMenu}>Mon profil</a>
             {#if $user.role === 'admin' || $user.isAdmin}
               <a href="#/admin" on:click={toggleMobileMenu}>Administration</a>
             {/if}
