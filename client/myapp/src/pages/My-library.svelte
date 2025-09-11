@@ -10,10 +10,24 @@
   let readBooks = [];
   let loading = true;
   let error = "";
+
+
+  // Fonction simple pour vérifier si un livre est lu
+  function isBookRead(status) {
+    if (!status) return false;
+    
+    const statusText = typeof status === "string" ? status : status.name || "";
+    const normalizedStatus = statusText.toLowerCase();
+    
+    return normalizedStatus === "lu" || normalizedStatus === "read";
+  }
+
+
   let fetchedForUserId = null;
 
   // ⚠️ Mets ici les VRAIS IDs depuis ta table "status"
   const STATUS = { TO_READ: 2, READ: 1 };
+
 
   // Charge tous les livres de l'utilisateur
   async function loadBooksFor(user) {
@@ -46,6 +60,7 @@
           image: book.image || "",
           statusId,
           isRead
+
         };
 
         if (isRead) {
@@ -72,10 +87,16 @@
     }
   });
 
+
+  // Charger les livres quand l'utilisateur est disponible
+  $: if ($userStore?.id) {
+    loadUserBooks($userStore);
+
   // Charger les livres si l'utilisateur change
   $: if ($userStore?.id && $userStore.id !== fetchedForUserId) {
     fetchedForUserId = $userStore.id;
     loadBooksFor($userStore);
+
   }
 </script>
 

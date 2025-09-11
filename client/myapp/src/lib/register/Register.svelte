@@ -1,5 +1,8 @@
 <script>
     import { writable } from "svelte/store"; // sert à créer des stores réactifs comme error et success 
+    import { push } from "svelte-spa-router"; // pour la redirection
+    import { user } from "../../stores/user.js"; // store utilisateur pour la connexion automatique
+    import { normalizeUser } from "../../utils/normalizeUser.js"; // pour normaliser les données utilisateur
 
   const BASE_URL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000/api';
 
@@ -25,8 +28,26 @@
       });
 
       if (response.ok) {
+        const data = await response.json();
+        
+        // Si un token est reçu, connecter automatiquement l'utilisateur
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          
+          // Mettre à jour le store utilisateur avec les données reçues
+          const normalizedUser = normalizeUser(data.user || data);
+          if (normalizedUser) {
+            user.set(normalizedUser);
+          }
+        }
+        
         success.set(true);
         formData = { username: "", email: "", password: "" };
+        
+        // Redirection vers la page d'accueil après 1.5 secondes
+        setTimeout(() => {
+          push("/");
+        }, 1500);
       } else {
         const data = await response.json().catch(() => ({}));
         error.set(data.error || data.message || "Une erreur est survenue.");
@@ -71,7 +92,7 @@
         {/if}
 
         {#if $success}
-          <p class="success">Inscription réussie !</p>
+          <p class="success">Compte créé avec succès ! Vous êtes maintenant connecté. Redirection...</p>
         {/if}
 
         <button type="submit" class="submit-btn">Continuer</button>

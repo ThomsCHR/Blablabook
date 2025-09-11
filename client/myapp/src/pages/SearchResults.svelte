@@ -541,6 +541,16 @@
     box-sizing: border-box;
   }
 
+  .form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 12px;
+    cursor: pointer;
+  }
+
   .form-group textarea {
     border-radius: 15px;
     min-height: 120px;
@@ -557,6 +567,7 @@
     background: white;
   }
 
+
   .form-group input:disabled,
   .form-group textarea:disabled,
   .form-group select:disabled {
@@ -564,6 +575,8 @@
     cursor: not-allowed;
     opacity: 0.6;
   }
+
+
 
   .form-actions {
     display: flex;

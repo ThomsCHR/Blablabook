@@ -2,6 +2,7 @@ import { User } from "../models/user.model.js";
 import { Book } from "../models/book.model.js";
 import { UserBook } from "../models/userbook.model.js";
 import { Op } from "sequelize";
+import { formatDate, formatTimeAgo } from "../utils/formatters.js";
 
 // ===== STATISTIQUES D'ADMINISTRATION =====
 export const getAdminStats = async (req, res) => {
@@ -485,20 +486,4 @@ export const deleteBook = async (req, res) => {
 
 // ===== FONCTIONS UTILITAIRES =====
 
-function formatDate(date) {
-  return new Date(date).toLocaleDateString('fr-FR');
-}
-
-function formatTimeAgo(date) {
-  const now = new Date();
-  const past = new Date(date);
-  const diffHours = Math.floor((now - past) / (1000 * 60 * 60));
-  
-  if (diffHours < 1) return 'Il y a moins d\'1h';
-  if (diffHours < 24) return `Il y a ${diffHours}h`;
-
-  const diffDays = Math.floor(diffHours / 24);
-  if (diffDays < 7) return `Il y a ${diffDays}j`;
-
-  return formatDate(date);
-}
+// suppression du code pour les tests unitaires --- IGNORE ---
