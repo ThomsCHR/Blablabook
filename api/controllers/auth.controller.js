@@ -5,7 +5,7 @@ import { User } from '../models/index.js'; // importe le modèle User
 import jwt from 'jsonwebtoken';
 import Joi from 'joi';
 import { registerSchema } from '../schemas/auth.schemas.js';
-import { HttpBadRequestError, HttpConflictError, httpStatusCodes, HttpUnauthorizedError } from '../errors/http.errors.js';
+import { HttpBadRequestError, HttpConflictError, httpStatusCodes } from '../errors/http.errors.js';
 import { loginSchema } from '../schemas/auth.schemas.js';
 
 export const authController = {
@@ -15,7 +15,7 @@ export const authController = {
 
       // champs requis
       if (!username || !email || !password) {
-        throw new HttpBadRequestError('Tous les champs (username, email, mot de passe) sont requis'); // 400 = bad request
+        throw new HttpBadRequestError(httpStatusCodes.BAD_REQUEST); // 400 = bad request
       }
 
       // doublons username/email ?
@@ -76,6 +76,13 @@ export const authController = {
         return res
           .status(httpStatusCodes.UNAUTHORIZED)
           .json({ error: "Email ou mot de passe invalide" });
+      }
+
+      // Pour vérifier si l'utilisateur est actif MAJ
+      if (user.status !== 'Actif') {
+        return res
+          .status(httpStatusCodes.UNAUTHORIZED)
+          .json({ error: "Compte désactivé. Contactez l'administrateur." });
       }
   
       // Je suis certain d'avoir le bon utilisateur

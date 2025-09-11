@@ -64,7 +64,11 @@ Genre.belongsToMany(Book, {
  */
 UserBook.belongsTo(Book, { foreignKey: "book_id", as: "book" });
 UserBook.belongsTo(Status, { foreignKey: "status_id", as: "status" });
+// USERBOOK <-> USER (belongsTo & hasMany nécessaires pour les includes)
+UserBook.belongsTo(User, { foreignKey: "user_id", as: "user" });
 Book.hasMany(UserBook,     { foreignKey: "book_id",   as: "userBooks" });
+// USER <-> USERBOOK (hasMany nécessaires pour les includes)
+User.hasMany(UserBook,     { foreignKey: "user_id",   as: "userBooks" });
 Status.hasMany(UserBook,   { foreignKey: "status_id", as: "userBooksWithStatus" });
 
 export {

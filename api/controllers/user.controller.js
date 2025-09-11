@@ -11,7 +11,7 @@ export const profileController = {
       }
       const user = await User.findByPk(userId, {
         
-        attributes: ['id', 'username', 'email'],
+        attributes: ['id', 'username', 'email', 'role'],
       });
   
       if (!user) {
@@ -22,6 +22,7 @@ export const profileController = {
         id: user.id,
         username: user.username,
         email: user.email,
+        role: user.role,
       });
     } catch (e) {
       console.error(e);

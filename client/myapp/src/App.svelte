@@ -25,6 +25,7 @@
   import About from './pages/about.svelte';
   import Collections from './pages/Collections.svelte';
   import SearchResults from './pages/SearchResults.svelte';
+  import Admin from './pages/Admin.svelte';
 
   // Configuration des routes
   const routes = {
@@ -40,6 +41,7 @@
     '/register': Register, // Route pour l'inscription
     '/about': About, // Route pour la page À propos
     '/Collections': Collections, // Route pour les collections
+    '/admin': Admin, // Route pour l'administration
     '*': Error // Route par défaut pour les erreurs
   };
 
@@ -187,6 +189,9 @@
           <a href="#/Collections" on:click={toggleMobileMenu}>Notre Collection</a>
           <a href="#/My-library" on:click={toggleMobileMenu}>Ma Bibliothèque</a>
           {#if $user}
+            {#if $user.role === 'admin' || $user.isAdmin}
+              <a href="#/admin" on:click={toggleMobileMenu}>Administration</a>
+            {/if}
             <a href="#/" on:click|preventDefault={() => { logout(); toggleMobileMenu(); }}>Se déconnecter</a>
           {:else}
             <a href="#/login" on:click={toggleMobileMenu}>Se connecter</a>
@@ -267,6 +272,9 @@
           <p>{$user.username}</p>
           <ul class="sous-menu">
             <li><a href="#/profil">Mon profil</a></li>
+            {#if $user.role === 'admin' || $user.isAdmin}
+              <li><a href="#/admin">Administration</a></li>
+            {/if}
             <li><a href="#/" on:click|preventDefault={logout}>Se déconnecter</a></li>
           </ul>
         </li>
@@ -282,7 +290,7 @@
     </nav>
   </header>
 
-  <main>
+  <main class:admin-main={$location === '/admin'}>
     <PageTransition key={currentRoute}>
       <Router {routes} />
     </PageTransition>
