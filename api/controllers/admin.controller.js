@@ -492,9 +492,13 @@ function formatDate(date) {
 function formatTimeAgo(date) {
   const now = new Date();
   const past = new Date(date);
-  const diffHours = Math.floor((now - past) / (1000 * 60 * 60));
+  const diffMs = now - past;
   
-  if (diffHours < 1) return 'Il y a moins d\'1h';
+  const diffMinutes = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  
+  if (diffMinutes < 1) return 'À l\'instant';
+  if (diffMinutes < 60) return `Il y a ${diffMinutes} min`;
   if (diffHours < 24) return `Il y a ${diffHours}h`;
 
   const diffDays = Math.floor(diffHours / 24);
