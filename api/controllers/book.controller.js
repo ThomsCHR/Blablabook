@@ -1,24 +1,24 @@
-import { Book, Genre, Status, User } from '../models/index.js';
+import { Book, Genre } from '../models/index.js';
 import { Op, fn, col, where } from 'sequelize';
 import Joi from 'joi';
-import { updateBookSchema } from '../schemas/book.schemas.js'
+import { updateBookSchema } from '../schemas/book.schemas.js';
 import { httpStatusCodes } from '../errors/http.errors.js';
 
 export const bookController = { 
-  // récupérer tous les livres de la base de donnée avec leur genre
+  // récupérer tous les livres avec leur(s) genre(s)
   async getAll(req, res) {
     try {
       const books = await Book.findAll({
         include: [
           {
             model: Genre,
-            as: "genres",             // correspond à l'alias défini dans index.js
+            as: "genres",
             through: { attributes: [] },
           },
         ],
         order: [
           ["title", "ASC"],
-          [{ model: Genre, as: "genres" }, "label", "ASC"], // alias obligatoire ici aussi
+          [{ model: Genre, as: "genres" }, "label", "ASC"],
         ],
       });
 
@@ -30,157 +30,153 @@ export const bookController = {
         .json({ error: "Internal Server Error" });
     }
   },
-  
 
-
-
-  // récupérer un livre par son titre 
+  // récupérer un livre par son titre
   async getByTitle(req, res) {
     try {
-      const {title} = req.params
-      const book = await Book.findOne({where: {title}})
-      if (!title) {
-        res.status(httpStatusCodes.NOT_FOUND).json('Book not found')
+      const { title } = req.params;
+      const book = await Book.findOne({ where: { title } });
+      if (!book) {
+        return res.status(httpStatusCodes.NOT_FOUND).json("Book not found");
       }
       res.status(httpStatusCodes.OK).json(book);
     } catch (error) {
-      console.error('Error fetching book:', error);
-      res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).json({error: 'Internal Server Error'});
+      console.error("Error fetching book:", error);
+      res
+        .status(httpStatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: "Internal Server Error" });
     }
   },
 
-  // rechercher des livres par titre (recherche partielle) -- Ludovic --
+  // recherche partielle par titre
   async searchByTitle(req, res) {
-  try {
-    const { query } = req.query;
+    try {
+      const { query } = req.query;
 
-    if (!query?.trim()) {
-      return res.status(httpStatusCodes.BAD_REQUEST).json({ error: 'Query parameter is required' });
+      if (!query?.trim()) {
+        return res
+          .status(httpStatusCodes.BAD_REQUEST)
+          .json({ error: "Query parameter is required" });
+      }
+
+      const books = await Book.findAll({
+        where: {
+          title: { [Op.iLike]: `%${query.trim()}%` },
+        },
+        include: [{ model: Genre, as: "genres", through: { attributes: [] } }],
+        order: [["title", "ASC"]],
+      });
+
+      res.json(books);
+    } catch (error) {
+      console.error("Error searching books:", error);
+      res
+        .status(httpStatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: "Internal Server Error" });
     }
+  },
 
-    const books = await Book.findAll({
-      where: {
-        title: { [Op.iLike]: `%${query.trim()}%` }
-      },
-      include: [{
-        model: Genre,
-        as: "genres",
-        through: { attributes: [] }
-      }],
-      order: [["title", "ASC"]]
-    });
-
-    res.json(books); // renvoyer la liste des livres trouvés
-  } catch (error) {
-    console.error('Error searching books:', error);
-    res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
-  }
-},
-
-  // récupérer un livre par son id avec son genre
-  async getById(req,res) {
+  // récupérer un livre par id avec ses genres
+  async getById(req, res) {
     try {
       const { id } = req.params;
       const book = await Book.findByPk(id, {
         include: [
-          {
-            model: Genre,
-            as: "genres",             // correspond à l'alias défini dans index.js
-            through: { attributes: [] },
-          },
-        ],
-        order: [
-          ["title", "ASC"],
-          [{ model: Genre, as: "genres" }, "label", "ASC"], // alias obligatoire ici aussi
+          { model: Genre, as: "genres", through: { attributes: [] } },
         ],
       });
       if (!book) {
-        return res.status(httpStatusCodes.NOT_FOUND).json({ error: 'Book not found' });
+        return res
+          .status(httpStatusCodes.NOT_FOUND)
+          .json({ error: "Book not found" });
       }
       res.status(httpStatusCodes.OK).json(book);
     } catch (error) {
-      console.error('Error fetching book:', error);
-      res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).json({error: 'Internal Server Error'});
+      console.error("Error fetching book:", error);
+      res
+        .status(httpStatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: "Internal Server Error" });
     }
   },
 
+  // créer un livre + associer un genre (via son label)
   async create(req, res) {
     try {
       const { title, author, summary, image, genre, publication_date } = req.body;
-  
-      if (!title || !author || !summary || !image || !genre) {
-        return res.status(400).json({ error: "Champs manquants" });
+
+      if (!title || !author || !summary || !genre) {
+        return res.status(400).json({
+          error: "title, author, summary et genre sont requis",
+        });
       }
-  
-      // Vérifier si déjà existant (insensible à la casse)
+
+      // vérifier doublon (title+author insensible à la casse)
       const exists = await Book.findOne({
         where: {
           [Op.and]: [
-            where(fn("LOWER", col("title")), title.trim().toLowerCase()), // sans tenir compte des espaces avant/après
-            where(fn("LOWER", col("author")), author.trim().toLowerCase()) 
-          ]
-        }
+            where(fn("LOWER", col("title")), title.trim().toLowerCase()),
+            where(fn("LOWER", col("author")), author.trim().toLowerCase()),
+          ],
+        },
       });
-  
       if (exists) {
         return res.status(409).json({ error: "Ce livre existe déjà" });
       }
-  
-      const newBook = await Book.create({ title, author, summary, image, publication_date });
-  
-      return res.status(201).json(newBook);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Erreur serveur" });
+
+      // chercher le genre via son label (insensible à la casse)
+      const genreRow = await Genre.findOne({
+        where: where(fn("LOWER", col("label")), genre.trim().toLowerCase()),
+      });
+      if (!genreRow) {
+        return res.status(httpStatusCodes.NOT_FOUND).json({ error: "Unknown genre" });
+      }
+
+      // créer le livre
+      const newBook = await Book.create({
+        title: title.trim(),
+        author: author.trim(),
+        summary: summary.trim(),
+        image: image?.trim() || null,
+        publication_date: publication_date ?? null,
+      });
+
+      // associer au genre
+      await newBook.addGenre(genreRow);
+
+      // recharger avec include
+      const bookWithGenres = await Book.findByPk(newBook.id, {
+        include: [{ model: Genre, as: "genres", through: { attributes: [] } }],
+      });
+
+      return res.status(201).json(bookWithGenres);
+    } catch (e) {
+      console.error(e);
+      res
+        .status(httpStatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: "Internal Server Error" });
     }
   },
 
-  
-    
+  // modifier un livre
   async updateById(req, res) {
-  // modifier un livre par son id
-    // récuperer le titre de la liste souhaitée
     const { id } = req.params;
-
-    // récupérer et valider les données du corps de la requête
     const data = Joi.attempt(req.body, updateBookSchema);
-
-    // récupérer le livre qui porte ce titre
     const book = await Book.findByPk(id);
-
-    // si le livre n'existe pas
     if (!book) {
-      // il faut envoyer une erreur explicite au client
-      res.status(httpStatusCodes.NOT_FOUND).json("livre non trouvé");
+      return res.status(httpStatusCodes.NOT_FOUND).json("livre non trouvé");
     }
-
-    // mettre à jour les données du livre avec les données du corps de la requête
     await book.update(data);
-
-    // envoyer la liste mise à jour au client en json
     res.status(httpStatusCodes.OK).json(book);
   },
 
-
+  // supprimer un livre
   async deleteById(req, res) {
-  // supprimer un livre par son id
-    const { id } = req.params; // ecriture déstructurée (destructuring)
-
-    // récupérer le livre qui porte cet id
+    const { id } = req.params;
     const book = await Book.findByPk(id);
-
-    // si le livre n'existe pas
     if (!book) {
-      // il faut envoyer une erreur explicite au client
-      res.status(httpStatusCodes.NOT_FOUND).json("Book not found");
+      return res.status(httpStatusCodes.NOT_FOUND).json("Book not found");
     }
-
-    // supprimer ce livre
-    book.destroy();
-
-    // réponse standard REST : status 204 no content
+    await book.destroy();
     res.status(httpStatusCodes.NO_CONTENT).json();
   },
-}
-
-
+};
