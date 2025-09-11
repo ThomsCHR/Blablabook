@@ -86,7 +86,7 @@ export const getUsers = async (req, res) => {
       limit: parseInt(limit),
       offset: offset,
       order: [['created_at', 'DESC']],
-      attributes: ['id', 'username', 'email', 'role', 'created_at', 'updated_at'],
+      attributes: ['id', 'username', 'email', 'role', 'status', 'created_at', 'updated_at'],
       include: [{
         model: UserBook,
         as: "userBooks",
@@ -101,7 +101,7 @@ export const getUsers = async (req, res) => {
       name: user.username,
       email: user.email,
       role: user.role,
-      status: 'Actif', // Peut être amélioré avec un vrai champ status
+      status: user.status, // Utiliser le vrai champ status de la DB
       joinDate: formatDate(user.created_at),
       booksCount: user.userBooks ? user.userBooks.length : 0,
       lastActivity: user.updated_at
@@ -267,13 +267,15 @@ export const updateUserStatus = async (req, res) => {
     }
 
     // Ici on pourrait ajouter un champ 'status' dans la base de données
-    // Pour l'instant, on renvoie juste une réponse de succès
+    // Mettre à jour le statut de l'utilisateur
+    await user.update({ status: status });
+    
     res.json({ 
       message: 'Statut utilisateur mis à jour avec succès',
       user: {
         id: user.id,
         username: user.username,
-        status: status
+        status: user.status
       }
     });
 
