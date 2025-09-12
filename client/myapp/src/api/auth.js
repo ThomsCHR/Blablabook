@@ -149,7 +149,6 @@ function createUserObject(data) {
 export function clearAuthData() {
   console.log('Nettoyage complet des données d\'authentification');
   localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(USER_ROLE_KEY);
   user.set(null);
 }
 
