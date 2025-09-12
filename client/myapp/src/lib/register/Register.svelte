@@ -80,7 +80,7 @@
           <label class="checkbox-label">
             <input type="checkbox" id="accept-terms" required />
             <span class="checkmark"></span>
-            j'accepte les
+            J'accepte les
             <a href="#/Mentions" target="_blank">conditions d'utilisations</a>
             et la
             <a href="#/Politic" target="_blank">politique de confidentialité</a>
