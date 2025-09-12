@@ -86,7 +86,7 @@
                 class="remove-btn"
                 title="Retirer de ma bibliothèque"
                 on:click|preventDefault|stopPropagation={() => handleRemove(book.id, "toRead")}
-              >×</button>
+              >🗑️</button>
 
               <!-- bouton modification statut -->
               <button
@@ -94,7 +94,7 @@
                 title="Modifier le statut (marquer comme lu)"
                 aria-label="Modifier le statut (marquer comme lu)"
                 on:click|preventDefault|stopPropagation={() => handleToggle(book.id, "toRead")}
-              >✎</button>
+              >🔄</button>
 
               {#if book.image}
                 <img src={book.image} alt={book.title} />
@@ -130,7 +130,7 @@
                 class="remove-btn"
                 title="Retirer de ma bibliothèque"
                 on:click|preventDefault|stopPropagation={() => handleRemove(book.id, "read")}
-              >×</button>
+              >🗑️</button>
 
               <!-- bouton modification statut -->
               <button
@@ -138,7 +138,7 @@
                 title="Modifier le statut (repasser à lire)"
                 aria-label="Modifier le statut (repasser à lire)"
                 on:click|preventDefault|stopPropagation={() => handleToggle(book.id, "read")}
-              >✎</button>
+              >🔄</button>
 
               {#if book.image}
                 <img src={book.image} alt={book.title} />
@@ -272,7 +272,7 @@
   height: 28px;
   border: none;
   border-radius: 999px;
-  background: rgba(0,0,0,0.6);
+  background: white;
   color: #fff;
   font-size: 18px;
   line-height: 1;
@@ -296,7 +296,7 @@
   height: 28px;
   border: none;
   border-radius: 8px;
-  background: rgba(44, 62, 80, 0.9);
+  background: white;
   color: #fff;
   font-size: 16px;
   line-height: 1;
