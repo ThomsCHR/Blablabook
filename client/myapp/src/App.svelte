@@ -219,7 +219,6 @@ function updateTheme() {
             <a href="#/" on:click|preventDefault={() => { logout(); toggleMobileMenu(); }}>Se déconnecter</a>
           {:else}
             <a href="#/login" on:click={toggleMobileMenu}>Se connecter</a>
-            <a href="#/register" on:click={toggleMobileMenu}>Créer un compte</a>
           {/if}
         </nav>
       </div>

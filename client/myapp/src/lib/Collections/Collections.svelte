@@ -1,6 +1,7 @@
 <script>
   import { user } from '../../stores/user.js';
   import { deleteBook } from '../../stores/admin.js';
+  import { onMount } from 'svelte';
   
   export let books = [];
 
@@ -59,6 +60,21 @@
     currentPage = page;
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  // remonter en haut de la page
+  let showScrollTop = false;
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  onMount(() => {
+    const handleScroll = () => {
+      showScrollTop = window.scrollY > 300; // apparaît après 300px de scroll
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 </script>
 
 <main>
@@ -207,6 +223,11 @@
       {/if}
     </div>
   </section>
+  {#if showScrollTop}
+  <button class="scroll-top-btn" on:click={scrollToTop} title="Remonter en haut">
+    ⬆
+  </button>
+  {/if}
 </main>
 
 <style>
@@ -279,4 +300,31 @@
   .book {
     position: relative;
   }
+
+  /* Bouton remonter en haut */
+  .scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.scroll-top-btn:hover {
+  background: #555;
+  transform: translateY(-3px);
+}
+
 </style>
