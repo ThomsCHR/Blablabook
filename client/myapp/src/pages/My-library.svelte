@@ -5,55 +5,43 @@
   import { getAllUserBooks } from "../api/book.js";
   import MyLibraryView from "../lib/My-library/My-library.svelte";
 
-  // Variables principales
   let toReadBooks = [];
   let readBooks = [];
   let loading = true;
   let error = "";
   let fetchedForUserId = null;
 
-  // ⚠️ Mets ici les VRAIS IDs depuis ta table "status"
   const STATUS = { TO_READ: 2, READ: 1 };
 
-  // Charge tous les livres de l'utilisateur
   async function loadBooksFor(user) {
     loading = true;
     error = "";
 
     try {
-      // Vérifier le token
       const token = localStorage.getItem("token");
       if (!token) {
         error = "Vous devez être connecté";
         return;
       }
 
-      // Récupérer les livres depuis l'API
       const books = await getAllUserBooks(user.id);
-      const bookList = Array.isArray(books) ? books : [];
 
-      // Séparer les livres en deux listes
-      toReadBooks = [];
-      readBooks = [];
+      const normalized = (Array.isArray(books) ? books : [])
+        .filter(b => b && (b.book_id ?? b.id)) // supprime null / undefined
+        .map(b => {
+          const statusId = Number(b.status?.id ?? b.status_id ?? 0);
+          return {
+            id: b.book_id ?? b.id,
+            title: b.title ?? "",
+            image: b.image ?? "",
+            statusId,
+            isRead: statusId === STATUS.READ
+          };
+        });
 
-      bookList.forEach(book => {
-        const statusId = Number(book.status?.id ?? book.status_id ?? 0);
-        const isRead = statusId === STATUS.READ;
+      toReadBooks = normalized.filter(b => !b.isRead);
+      readBooks   = normalized.filter(b =>  b.isRead);
 
-        const bookData = {
-          id: book.book_id ?? book.id,
-          title: book.title,
-          image: book.image || "",
-          statusId,
-          isRead
-        };
-
-        if (isRead) {
-          readBooks.push(bookData);
-        } else {
-          toReadBooks.push(bookData);
-        }
-      });
     } catch (err) {
       error = "Erreur lors du chargement des livres";
       console.error("Erreur:", err);
@@ -62,35 +50,39 @@
     }
   }
 
-  // Vérifier la connexion au démarrage
   onMount(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       loading = false;
-      push("/login"); // Rediriger vers la connexion
+      push("/login");
       return;
     }
   });
 
-  // Charger les livres si l'utilisateur change
   $: if ($userStore?.id && $userStore.id !== fetchedForUserId) {
     fetchedForUserId = $userStore.id;
     loadBooksFor($userStore);
   }
 </script>
 
-<!-- Interface utilisateur -->
 {#if loading}
   <main class="library-page">
     <p>Chargement de votre bibliothèque...</p>
   </main>
+
 {:else if error}
   <main class="library-page">
     <p style="color: red;">{error}</p>
   </main>
+
+{:else if !$userStore?.id}
+  <main class="library-page">
+    <p>Vous devez être connecté.</p>
+  </main>
+
 {:else}
   <MyLibraryView
-    userId={$userStore.id}
+    userId={$userStore?.id ?? null}
     toRead={toReadBooks}
     read={readBooks}
   />

@@ -1,13 +1,14 @@
 <script>
   import { removeBookFromUser, updateBookStatus } from "../../api/book.js";
 
-  // on garde les mêmes props + fonctions
-  export let userId;                // nécessaire pour DELETE /:id/library/:bookId
-  export let toRead = [];           // [{ id, title, image }]
-  export let read   = [];           // [{ id, title, image }]
+  export let userId;
+  export let toRead = [];
+  export let read   = [];
 
-  if (!Array.isArray(toRead)) toRead = [];
-  if (!Array.isArray(read)) read = [];
+  // ✅ garde seulement les livres valides
+  const isBook = (b) => b && (b.id !== undefined && b.id !== null);
+  $: toRead = Array.isArray(toRead) ? toRead.filter(isBook) : [];
+  $: read   = Array.isArray(read)   ? read.filter(isBook)   : [];
 
   function scrollCarousel(carouselId, direction) {
     const el = document.getElementById(carouselId);
@@ -22,17 +23,16 @@
     }
     try {
       await removeBookFromUser(userId, bookId);
-      if (listName === "toRead")  toRead = toRead.filter(b => b.id !== bookId);
-      if (listName === "read")    read   = read.filter(b => b.id !== bookId);
+      if (listName === "toRead") toRead = toRead.filter(b => b && b.id !== bookId);
+      if (listName === "read")   read   = read.filter(b => b && b.id !== bookId);
     } catch (e) {
       console.error(e);
       alert("Suppression impossible pour le moment.");
     }
   }
 
-  const STATUS = { READ: 1, TO_READ: 2 }; // adapte aux id de ta table Status
+  const STATUS = { READ: 1, TO_READ: 2 };
 
-  // 🔁 Toggle: "à lire" <-> "lu"
   async function handleToggle(bookId, listName) {
     if (!userId) {
       alert("Utilisateur non identifié. Reconnecte-toi.");
@@ -46,12 +46,12 @@
 
     try {
       if (listName === "toRead") {
-        const book = toRead.find(b => b.id === bookId);
-        toRead = toRead.filter(b => b.id !== bookId);
+        const book = toRead.find(b => b && b.id === bookId);
+        toRead = toRead.filter(b => b && b.id !== bookId);
         if (book) read = [book, ...read];
       } else {
-        const book = read.find(b => b.id === bookId);
-        read = read.filter(b => b.id !== bookId);
+        const book = read.find(b => b && b.id === bookId);
+        read = read.filter(b => b && b.id !== bookId);
         if (book) toRead = [book, ...toRead];
       }
 
@@ -79,16 +79,14 @@
       <div class="carousel-container">
         <button class="carousel-btn carousel-prev" on:click={() => scrollCarousel('toRead', -1)}>‹</button>
         <div class="book-row" id="toRead">
-          {#each toRead as book (book.id)}
+          {#each toRead as book (book?.id)}
             <a href={`#/BookDetail/${book.id}`} class="book">
-              <!-- bouton suppression -->
               <button
                 class="remove-btn"
                 title="Retirer de ma bibliothèque"
                 on:click|preventDefault|stopPropagation={() => handleRemove(book.id, "toRead")}
               >×</button>
 
-              <!-- bouton modification statut -->
               <button
                 class="status-btn"
                 title="Modifier le statut (marquer comme lu)"
@@ -97,11 +95,11 @@
               >✎</button>
 
               {#if book.image}
-                <img src={book.image} alt={book.title} />
+                <img src={book.image} alt={book.title ?? "Couverture"} />
               {:else}
                 <div class="no-cover">Sans couverture</div>
               {/if}
-              <p class="book-title">{book.title}</p>
+              <p class="book-title">{book.title ?? "Sans titre"}</p>
             </a>
           {/each}
         </div>
@@ -123,16 +121,14 @@
       <div class="carousel-container">
         <button class="carousel-btn carousel-prev" on:click={() => scrollCarousel('read', -1)}>‹</button>
         <div class="book-row" id="read">
-          {#each read as book (book.id)}
+          {#each read as book (book?.id)}
             <a href={`#/BookDetail/${book.id}`} class="book">
-              <!-- bouton suppression -->
               <button
                 class="remove-btn"
                 title="Retirer de ma bibliothèque"
                 on:click|preventDefault|stopPropagation={() => handleRemove(book.id, "read")}
               >×</button>
 
-              <!-- bouton modification statut -->
               <button
                 class="status-btn"
                 title="Modifier le statut (repasser à lire)"
@@ -141,11 +137,11 @@
               >✎</button>
 
               {#if book.image}
-                <img src={book.image} alt={book.title} />
+                <img src={book.image} alt={book.title ?? "Couverture"} />
               {:else}
                 <div class="no-cover">Sans couverture</div>
               {/if}
-              <p class="book-title">{book.title}</p>
+              <p class="book-title">{book.title ?? "Sans titre"}</p>
             </a>
           {/each}
         </div>
@@ -154,6 +150,7 @@
     {/if}
   </section>
 </main>
+
 
 <style>
  /* ===== PAGE BIBLIOTHÈQUE ===== */
