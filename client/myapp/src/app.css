@@ -129,16 +129,10 @@ body.dark .book p {
 /* Formulaires */
 body.dark .form-group label,
 body.dark .checkbox-label {
-  color: #ddd;
+  color: #100131;
 }
 
-body.dark .form-group input,
-body.dark .form-group textarea,
-body.dark .file-input-label {
-  background: #2a2a2a;
-  border: 2px solid #555;
-  color: #fff;
-}
+
 
 body.dark .form-group input::placeholder,
 body.dark .form-group textarea::placeholder {

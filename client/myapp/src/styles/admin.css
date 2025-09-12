@@ -8,7 +8,9 @@ main.admin-main {
   max-width: none !important; /* Supprime les contraintes de largeur max */
   margin: 0 !important; /* Supprime les marges */
   box-sizing: border-box;
+  color: #2c3e50 !important; /* Couleur de texte principale */
 }
+
 
 /* Badge Admin dans le header */
 .admin-badge {

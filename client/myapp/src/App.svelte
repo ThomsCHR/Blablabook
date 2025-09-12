@@ -218,7 +218,7 @@ function updateTheme() {
             {/if}
             <a href="#/" on:click|preventDefault={() => { logout(); toggleMobileMenu(); }}>Se déconnecter</a>
           {:else}
-            <a href="#/login" on:click={toggleMobileMenu}>Se connecter</a>git 
+            <a href="#/login" on:click={toggleMobileMenu}>Se connecter</a>
           {/if}
         </nav>
       </div>
