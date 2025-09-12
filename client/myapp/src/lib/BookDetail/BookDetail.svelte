@@ -6,6 +6,7 @@
   let menuOpen = false;
   let saving = false;
   let error = "";
+  let confirmation = ""; // message temporaire
 
   function setLocalStatus(kind) {
     book = { ...book, _status: kind === "read" ? "Lu" : "À lire" };
@@ -32,6 +33,10 @@
 
       setLocalStatus(kind);
       menuOpen = false;
+
+      // confirmation
+      confirmation = `« ${book.title} » a bien été ajouté dans ta bibliothèque !`;
+      setTimeout(() => (confirmation = ""), 3000);
     } catch (e) {
       console.error("[BookDetail] setStatus error:", e);
       error = e?.message || "Impossible d'ajouter ce livre.";
@@ -67,7 +72,13 @@
               disabled={saving}
               title="Ajouter à ma bibliothèque"
             >
-              {saving ? "…" : "+"}
+              {#if saving}
+                …
+              {:else if book?._status}
+                ✔
+              {:else}
+                +
+              {/if}
             </button>
             {#if menuOpen}
               <ul class="book-menu-dropdown" role="menu">
@@ -129,6 +140,10 @@
           <h2>Résumé</h2>
           <p>{book?.summary || "Aucun résumé disponible"}</p>
         </div>
+
+        {#if confirmation}
+          <div class="confirmation-message">{confirmation}</div>
+        {/if}
       </div>
     </div>
   </div>
@@ -233,5 +248,23 @@
   .book-summary p {
     line-height: 1.6;
     color: #2c3e50;
+  }
+
+  /* Message de confirmation */
+  .confirmation-message {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #dff0d8;
+    color: #3c763d;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    animation: fadeInOut 3s forwards;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
   }
 </style>
