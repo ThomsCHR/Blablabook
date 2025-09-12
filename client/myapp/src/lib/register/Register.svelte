@@ -87,6 +87,11 @@
           </label>
         </div>
 
+        <div class="login-redirection-link">
+          <span>Déjà un compte ? <a href="#/login">Se connecter</a> </span>
+        </div>
+
+
         {#if $error}
           <p class="error">{$error}</p>
         {/if}

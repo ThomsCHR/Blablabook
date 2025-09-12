@@ -785,6 +785,20 @@ footer a {
   transition: all 0.3s ease;
 }
 
+/* register/login */
+
+.login-redirection-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+.login-redirection-link a {
+  color: #2c3e50;
+  text-decoration: underline;
+  font-weight: 500;
+}
 /* ===== MEDIA QUERIES RESPONSIVE ===== */
 
 /* Mobile First - Maquette exacte */
