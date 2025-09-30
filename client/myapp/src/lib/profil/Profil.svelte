@@ -122,6 +122,3 @@
 </main>
 {/if}
 
-<style>
-  
-</style>

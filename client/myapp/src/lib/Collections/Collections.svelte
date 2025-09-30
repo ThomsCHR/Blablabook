@@ -229,7 +229,3 @@
   </button>
   {/if}
 </main>
-
-<style>
-  
-</style>

@@ -103,7 +103,3 @@
     <a href="index.html" class="submit-btn">Retour à l'accueil</a>
   </div>
 </main>
-
-<style>
-
-</style>

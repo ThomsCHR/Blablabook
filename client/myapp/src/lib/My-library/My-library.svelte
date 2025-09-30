@@ -150,8 +150,3 @@
     {/if}
   </section>
 </main>
-
-
-<style>
-
-</style>
