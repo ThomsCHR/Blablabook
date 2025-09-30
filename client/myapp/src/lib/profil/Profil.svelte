@@ -123,13 +123,5 @@
 {/if}
 
 <style>
-  .stats-container{
-    display:flex; gap:16px; margin:12px 0 0; flex-wrap:wrap;
-  }
-  .stat-item{
-    min-width:120px; padding:12px; border:1px solid #eee; border-radius:10px; background:#fff;
-    text-align:center;
-  }
-  .stat-number{ font-size:28px; font-weight:700; line-height:1; }
-  .stat-label{ color:#666; margin-top:6px; }
+  
 </style>

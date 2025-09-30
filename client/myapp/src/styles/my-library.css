@@ -5,17 +5,22 @@
   padding: 20px;
 }
 
+/* Panneau */
 .library-section {
-  margin-bottom: 50px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border: 2px solid rgba(44, 62, 80, 0.1);
-  backdrop-filter: blur(10px);
+  margin: 40px 0;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(44, 62, 80, 0.12);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
-
+.library-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  border-color: rgba(44, 62, 80, 0.2);
+}
 .library-section p {
   font-size: 1.1rem;
   color: #2c3e50;
@@ -24,167 +29,177 @@
   text-align: center;
 }
 
-.library-section:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-  border-color: rgba(44, 62, 80, 0.2);
-}
-
+/* En-tête */
 .library-section .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid rgba(44, 62, 80, 0.1);
+  padding-top: 1.5rem;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(44, 62, 80, 0.15);
+  padding-bottom: 12px;
 }
-
 .library-section .section-header h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #2c3e50;
   margin: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
 }
-
-.view-all-link {
+.library-section .view-all-link {
   color: #3498db;
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.3s ease;
 }
-
-.view-all-link:hover {
+.library-section .view-all-link:hover {
   color: #2980b9;
   text-decoration: underline;
 }
 
-/* Conteneur spécifique pour la bibliothèque */
+/* Rangée de livres (carrousel horizontal) */
 .library-section .book-row {
   display: flex;
+  flex-wrap: nowrap;
   gap: 2rem;
   padding: 1rem 0;
   margin-top: 0;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  justify-content: flex-start;
   align-items: center;
-  flex-wrap: nowrap;
-  
+  justify-content: flex-start;
 }
-
-.library-section .book-row::-webkit-scrollbar {
-  height: 8px;
-}
-
+.library-section .book-row::-webkit-scrollbar { height: 8px; }
 .library-section .book-row::-webkit-scrollbar-track {
   background: rgba(44, 62, 80, 0.1);
   border-radius: 4px;
 }
-
 .library-section .book-row::-webkit-scrollbar-thumb {
   background: rgba(44, 62, 80, 0.3);
   border-radius: 4px;
 }
-
 .library-section .book-row::-webkit-scrollbar-thumb:hover {
   background: rgba(44, 62, 80, 0.5);
 }
 
-/* Conteneur du carrousel */
+/* Boutons carrousel */
 .carousel-container {
   position: relative;
   display: flex;
   align-items: center;
   gap: 15px;
 }
-
 .carousel-btn {
   background: rgba(44, 62, 80, 0.8);
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.5rem; font-weight: bold;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   z-index: 10;
   flex-shrink: 0;
 }
-
 .carousel-btn:hover {
   background: rgba(44, 62, 80, 1);
   transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+.carousel-btn:active { transform: scale(0.95); }
+
+/* Carte livre */
+.library-section .book {
+  position: relative;
+  flex-shrink: 0;
+  width: 170px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s ease;
+}
+.library-section .book:hover { transform: translateY(-2px); }
+.library-section .book img {
+  width: 170px; height: 240px; object-fit: cover;
+  border-radius: 10px; display: block; margin: 0 auto;
+  box-shadow: 0 14px 28px rgba(0,0,0,.18);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.library-section .book:hover img {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(0,0,0,.22);
+}
+.library-section .no-cover {
+  width: 170px; height: 240px;
+  background: #f0f0f0; color: #888;
+  border-radius: 10px; display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 14px 28px rgba(0,0,0,.1);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.library-section .book:hover .no-cover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(0,0,0,.15);
+}
+.library-section .book-title {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: #2c3e50;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
-.carousel-btn:active {
-  transform: scale(0.95);
+/* Actions sur la carte */
+.remove-btn {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 28px; height: 28px;
+  border: none; border-radius: 999px;
+  background: #fff; color: #333; /* lisible sur fond blanc */
+  font-size: 18px; line-height: 1; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  transition: transform .12s ease, background .15s ease, opacity .15s ease, color .15s ease;
+  z-index: 2;
 }
+.remove-btn:hover { background: rgba(0,0,0,0.8); color:#fff; transform: scale(1.05); }
+.remove-btn:active { transform: scale(0.97); }
 
-/* ===== MEDIA QUERIES PAGE BIBLIOTHÈQUE ===== */
+.status-btn {
+  position: absolute;
+  top: 6px; left: 6px;
+  width: 28px; height: 28px;
+  border: none; border-radius: 8px;
+  background: #fff; color: #333;
+  font-size: 16px; line-height: 1; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+  transition: transform .12s ease, background .15s ease, opacity .15s ease, color .15s ease;
+  z-index: 2;
+}
+.status-btn:hover { background: rgba(44, 62, 80, 1); color:#fff; transform: translateY(-1px); }
+.status-btn:active { transform: translateY(0); }
+
+/* ===== MEDIA QUERIES ===== */
 @media (max-width: 768px) {
-  .library-page {
-    padding: 15px;
-  }
+  .library-page { padding: 16px; }
+  .library-section { margin: 28px 0; padding: 18px; }
+  .library-section .section-header { flex-direction: column; gap: 15px; text-align: center; }
+  .library-section .section-header h2 { font-size: 1.3rem; }
 
-  .library-section {
-    margin-bottom: 30px;
-    padding: 20px;
-    border-radius: 15px;
-  }
+  .library-section .book-row { gap: 1rem; padding: 0.5rem 0; }
+  .library-section .book { width: 140px; }
+  .library-section .book img, .library-section .no-cover { width: 140px; height: 200px; }
+  .library-section .book-title { font-size: 0.8rem; }
 
-  .library-section .section-header {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-  }
-
-  .library-section .section-header h2 {
-    font-size: 1.3rem;
-  }
-
-  .library-section .book-row {
-    gap: 1rem;
-    padding: 0.5rem 0;
-  }
-
-  .library-section .book {
-    flex-shrink: 0;
-    width: 140px;
-  }
-
-  .carousel-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 1.3rem;
-  }
-
-  .carousel-container {
-    gap: 10px;
-  }
+  .carousel-btn { width: 36px; height: 36px; font-size: 1.1rem; }
+  .carousel-container { gap: 10px; }
 }
 
 @media (max-width: 480px) {
-  .library-section .book {
-    width: 120px;
- 
-  }
-
-  .library-section .book-row {
-    gap: 0.5rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  .library-section .book { width: 120px; }
+  .library-section .book img, .library-section .no-cover { width: 120px; height: 170px; }
+  .library-section .book-title { font-size: 0.78rem; }
 }
