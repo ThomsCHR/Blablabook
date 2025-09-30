@@ -102,28 +102,5 @@
 </div>
 
 <style>
-.register-link {
-  text-align: center;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(44, 62, 80, 0.1);
-}
 
-.register-link p {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-  margin: 0;
-}
-
-.register-link a {
-  color: #2c3e50;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.register-link a:hover {
-  color: #34495e;
-  text-decoration: underline;
-}
 </style>
