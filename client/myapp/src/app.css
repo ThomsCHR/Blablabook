@@ -10,6 +10,7 @@
 @import '../src/styles/collections.css';
 @import '../src/styles/profil.css';
 @import '../src/styles/admin.css';
+@import '../src/styles/SearchResults.css';
 
 /* ===== STYLES GLOBAUX ===== */
 body {
@@ -651,34 +652,11 @@ header h1 a {
 
 }
 
-.cover-placeholder {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-end;
-}
 
 .book-menu-trigger:hover {
   background-color: #66C266;
 }
 
-.book-menu-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 0.3rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: 0.2rem;
-  padding: 0.3rem 0;
-  list-style: none;
-  min-width: 120px;
-  z-index: 100;
-}
-
-.book-menu-dropdown li {
-  margin: 0;
-}
 
 .book-status-btn {
   width: 100%;
@@ -1142,18 +1120,7 @@ footer a {
   color: #34495e;
 }
 
-.form-group input[type="email"],
-.form-group input[type="password"],
-.form-group input[type="text"] {
-  width: 100%;
-  padding: 15px 20px;
-  border: 2px solid #2c3e50;
-  border-radius: 25px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.9);
-  box-sizing: border-box;
-}
+
 
 .form-group textarea,
 .form-group-summary textarea {

@@ -182,7 +182,7 @@
     width: 100% !important; /* Prend toute la largeur */
     max-width: none !important; /* Supprime toute limitation */
   }
-
+ 
   /* Bouton "Retour à l'accueil" */
   .return-home {
     margin: 1.5rem auto;
