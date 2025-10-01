@@ -117,9 +117,7 @@ export function isLoggedIn() {
 
 // 5. VÉRIFIER SI L'UTILISATEUR EST ADMIN
 export function isAdmin() {
-  // On pourrait stocker le rôle dans localStorage aussi pour simplifier
-  // Mais pour la sécurité, il vaut mieux vérifier côté serveur
-  return false; // Simplifié pour le moment
+  return false; 
 }
 
 // 6. RÉCUPÉRER LE TOKEN ACTUEL

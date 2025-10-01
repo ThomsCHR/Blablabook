@@ -3,7 +3,6 @@
 
   <div class="contact-container">
     <div class="contact-grid">
-      <!-- Informations de contact -->
       <div class="contact-info">
         <h2>Nos coordonnées</h2>
 
@@ -31,8 +30,6 @@
           Dimanche : Fermé</p>
         </div>
       </div>
-
-      <!-- Formulaire de contact -->
       <div class="contact-form">
         <h2>Envoyez-nous un message</h2>
 

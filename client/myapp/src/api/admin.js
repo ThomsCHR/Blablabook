@@ -201,10 +201,7 @@ export async function deleteBook(bookId) {
 export function isUserAdmin() {
   const token = getToken();
   if (!token) return false;
-  
-  // Note: Dans une vraie app, il faudrait décoder le JWT
-  // Pour simplifier, on fait un appel API pour vérifier
-  return true; // Simplifié pour le développeur junior
+  return true;
 }
 
 // FONCTION UTILITAIRE: Gérer les erreurs d'API de façon simple

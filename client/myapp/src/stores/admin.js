@@ -30,15 +30,15 @@ export const activeSection = writable('dashboard');
 export function updateStats(stats) {
   adminStats.set(stats);
 }
-
+// Met à jour la liste des utilisateurs
 export function updateUsers(users) {
   adminUsers.set(users);
 }
-
+// Met à jour l'activité récente
 export function updateActivity(activity) {
   recentActivity.set(activity);
 }
-
+// Met à jour la section active
 export function setActiveSection(section) {
   activeSection.set(section);
 }
@@ -55,6 +55,7 @@ export async function fetchAdminStats() {
   }
 }
 
+// Fonction pour charger les utilisateurs avec pagination et recherche
 export async function fetchUsers(page = 1, limit = 10, search = '') {
   try {
     const result = await getUsers(page, limit, search);
@@ -65,7 +66,7 @@ export async function fetchUsers(page = 1, limit = 10, search = '') {
     throw error;
   }
 }
-
+// Fonction pour charger l'activité récente
 export async function fetchRecentActivity(limit = 10) {
   try {
     const activity = await getRecentActivity();

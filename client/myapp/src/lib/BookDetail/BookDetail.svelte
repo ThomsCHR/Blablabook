@@ -1,78 +1,125 @@
 <script>
+  
   import { user as userStore } from "../../stores/user.js";
   import { addBookToUser } from "../../api/book.js";
 
-  export let book; // { id, title, author, image, ... }
-  let menuOpen = false;
-  let saving = false;
-  let error = "";
-  let confirmation = ""; // message temporaire
+  
+  export let book; // objet livre : { id, title, author, image, genres, publication_date, summary, ... }
 
-  function setLocalStatus(kind) {
-    book = { ...book, _status: kind === "read" ? "Lu" : "À lire" };
+  
+  let isMenuOpen = false;          // le petit menu "+ / Lu / À lire"
+  let isSaving = false;            // on empêche les clics pendant l'enregistrement
+  let errorMessage = "";           // message d'erreur si l'ajout échoue
+  let confirmationMessage = "";    // message temporaire de succès
+
+  
+  const BOOK_STATUS = {
+    READ: { key: "read", label: "Lu", id: 1 },
+    TO_READ: { key: "to_read", label: "À lire", id: 2 }
+  };
+
+  // Rediriger vers la page de login
+  function redirectToLogin() {
+    // version hash-based pour rester compatible avec ton router
+    window.location.hash = "#/login";
   }
 
-  async function setStatus(kind) {
+// Récupérer le token d'authentification dans le localStorage
+  function getAuthToken() {
+    return localStorage.getItem("token");
+  }
+
+// Vérifier si l'utilisateur est connecté
+  function isLoggedIn() {
+    const me = $userStore;
+    return Boolean(me?.id && getAuthToken());
+  }
+
+// Afficher un message de confirmation temporaire
+  function showConfirmation(title) {
+    confirmationMessage = `« ${title} » a bien été ajouté dans ta bibliothèque !`;
+    // On efface le message après 3 sec (UI légère)
+    setTimeout(() => (confirmationMessage = ""), 3000);
+  }
+
+// Mettre à jour le statut local du livre (optimiste)
+  function setLocalStatus(statusObj) {
+    // On met à jour uniquement l'affichage local (optimiste)
+    book = { ...book, _status: statusObj.label };
+  }
+
+  // Générer le style CSS pour la couverture
+  function getCoverStyle(imageUrl) {
+    if (!imageUrl) return "";
+    return `background-image:url(${imageUrl});background-size:cover;background-position:center;`;
+  }
+
+  
+  async function handleSetStatus(desiredStatus) {
+    // desiredStatus est l'un des objets de BOOK_STATUS (READ ou TO_READ)
     try {
-      error = "";
-      const me = $userStore;
-      if (!me?.id) {
-        window.location.hash = "#/login";
-        return;
-      }
-      const token = localStorage.getItem("token");
-      if (!token) {
-        window.location.hash = "#/login";
+      errorMessage = "";
+
+      // 1) Vérifier l'authentification
+      if (!isLoggedIn()) {
+        redirectToLogin();
         return;
       }
 
-      const status_id = kind === "read" ? 1 : 2;
-      saving = true;
+      // 2) Récupérer l'utilisateur et préparer la requête
+      const currentUser = $userStore; // lecture du store Svelte
+      const status_id = desiredStatus.id;
 
-      await addBookToUser(me.id, { title: book.title, status_id });
+      isSaving = true;
 
-      setLocalStatus(kind);
-      menuOpen = false;
+      // 3) Appeler l'API pour enregistrer le livre chez l'utilisateur
+      await addBookToUser(currentUser.id, {
+        title: book.title,
+        status_id
+      });
 
-      // confirmation
-      confirmation = `« ${book.title} » a bien été ajouté dans ta bibliothèque !`;
-      setTimeout(() => (confirmation = ""), 3000);
-    } catch (e) {
-      console.error("[BookDetail] setStatus error:", e);
-      error = e?.message || "Impossible d'ajouter ce livre.";
-      alert(error);
+      // 4) Mettre à jour l'UI (optimiste + feedback)
+      setLocalStatus(desiredStatus);
+      isMenuOpen = false;
+      showConfirmation(book.title);
+    } catch (err) {
+      console.error("[BookDetail] handleSetStatus error:", err);
+      errorMessage = err?.message || "Impossible d'ajouter ce livre.";
+      alert(errorMessage); // feedback basique et visible
     } finally {
-      saving = false;
+      isSaving = false;
     }
   }
 </script>
 
 <main class="book-details-page">
   <div class="book-details-container">
-    <!-- Couverture -->
+    
     <div class="left-section">
       <div class="cover-container">
         <div
           class="cover-placeholder"
-          style={book?.image
-            ? `background-image:url(${book.image});background-size:cover;background-position:center;`
-            : ""}
+          style={getCoverStyle(book?.image)}
         >
-          <!-- Conteneur englobant pour le menu dropdown -->
+          
           <div
             class="book-menu"
             role="button"
             tabindex="0"
-            on:mouseenter={() => (menuOpen = true)}
-            on:mouseleave={() => (menuOpen = false)}
-            on:keydown={(e) => e.key === "Enter" && (menuOpen = !menuOpen)}
+            on:mouseenter={() => (isMenuOpen = true)}
+            on:mouseleave={() => (isMenuOpen = false)}
+            on:click={() => (isMenuOpen = !isMenuOpen)}
+            on:keydown={(e) => e.key === "Enter" && (isMenuOpen = !isMenuOpen)}
+            aria-haspopup="menu"
+            aria-expanded={isMenuOpen}
           >
             <button
               class="book-menu-trigger"
-              disabled={saving}
+              disabled={isSaving}
               title="Ajouter à ma bibliothèque"
+              aria-label="Ajouter à ma bibliothèque"
             >
-              {#if saving}
+              {#if isSaving}
                 …
               {:else if book?._status}
                 ✔
@@ -80,31 +127,33 @@
                 +
               {/if}
             </button>
-            {#if menuOpen}
+
+            {#if isMenuOpen}
               <ul class="book-menu-dropdown" role="menu">
                 <li>
                   <button
                     class="book-status-btn"
                     role="menuitem"
-                    on:click={() => setStatus("to_read")}
-                    disabled={saving}
+                    on:click={() => handleSetStatus(BOOK_STATUS.TO_READ)}
+                    disabled={isSaving}
                   >
-                    À lire
+                    {BOOK_STATUS.TO_READ.label}
                   </button>
                 </li>
                 <li>
                   <button
                     class="book-status-btn"
                     role="menuitem"
-                    on:click={() => setStatus("read")}
-                    disabled={saving}
+                    on:click={() => handleSetStatus(BOOK_STATUS.READ)}
+                    disabled={isSaving}
                   >
-                    Lu
+                    {BOOK_STATUS.READ.label}
                   </button>
                 </li>
               </ul>
             {/if}
           </div>
+
           {#if !book?.image}
             <div class="cover-label">Pas de couverture</div>
           {/if}
@@ -112,7 +161,7 @@
       </div>
     </div>
 
-    <!-- Infos (pas un formulaire, juste présentation) -->
+    
     <div class="right-section">
       <div class="book-info">
         <h1 class="book-title">{book?.title || "Titre inconnu"}</h1>
@@ -123,8 +172,8 @@
         {#if book?.genres?.length}
           <p class="book-genres">
             <span class="label">Genres :</span>
-            {#each book.genres as g, i}
-              <span class="chip">{g.label}</span>
+            {#each book.genres as genre}
+              <span class="chip">{genre.label}</span>
             {/each}
           </p>
         {/if}
@@ -141,8 +190,8 @@
           <p>{book?.summary || "Aucun résumé disponible"}</p>
         </div>
 
-        {#if confirmation}
-          <div class="confirmation-message">{confirmation}</div>
+        {#if confirmationMessage}
+          <div class="confirmation-message">{confirmationMessage}</div>
         {/if}
       </div>
     </div>
