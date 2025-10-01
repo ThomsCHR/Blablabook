@@ -1,7 +1,9 @@
 import { writable } from "svelte/store";
 
+// Store pour la bibliothèque d’un utilisateur
 const LS_KEY = "library:v1";
 
+// Charge depuis le localStorage
 function loadFromLS() {
   try {
     const raw = localStorage.getItem(LS_KEY);
@@ -14,6 +16,7 @@ function loadFromLS() {
   }
 }
 
+// Création du store
 function createLibraryStore() {
   const initial = loadFromLS() || { userId: null, toRead: [], read: [] };
   const { subscribe, set, update } = writable(initial);

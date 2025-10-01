@@ -1,4 +1,5 @@
 // accepte { user: {...} } ou direct { id, ... }
+// Sert à nettoyer et uniformiser les données utilisateur
 export function normalizeUser(data) {
   const u = data?.user ?? data;
   if (!u || typeof u !== "object") return null;
