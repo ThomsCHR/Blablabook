@@ -2,24 +2,29 @@
 
 .banner {
     font-family: "playfair display", serif;
-    background: url("../styles/img/bibliothéque.webp") center/cover no-repeat;
-    padding: 60px;
+    background: url("../styles/img/imagebiblio.png") center 60% / cover no-repeat;
+    padding: 90px 70px; /* espace autour du texte */
     text-align: center;
-    color: white;
-    font-size: 1.4em;
+    color: #fff;
+    font-size: 1.8em;
     font-weight: bold;
     border-radius: 15px;
     margin: 20px 100px;
     margin-top: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    min-height: 220px; /* nouvelle hauteur minimale → image plus grande */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centre le texte verticalement */
 }
- .banner p {
+
+.banner p {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     text-align: center;
-    font-size: 0.8em;
-    line-height: 1.5em;
+    font-size: 1em;
+    line-height: 1.7em;
 }
+
+
 .sous-banner {
     font-family: sans-serif;
     background: rgba(255, 255, 255, 0.7);
