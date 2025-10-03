@@ -156,7 +156,7 @@ button:disabled {
 
 .form-group label {
     display: block;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     font-weight: 600;
     color: #2c3e50;
     font-family: "playfair display", serif;

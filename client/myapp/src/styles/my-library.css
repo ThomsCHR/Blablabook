@@ -151,7 +151,7 @@
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
-/* Actions sur la carte */
+/* Boutons d'action sur chaque livre */
 .remove-btn {
   position: absolute;
   top: 6px; right: 6px;

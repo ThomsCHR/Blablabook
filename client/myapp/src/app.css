@@ -635,45 +635,6 @@ header h1 a {
 }
 
 
-.book-menu {
-  position: relative;
-  display: inline-block;
-}
-
-.book-menu-trigger {
-  background-color: #2CA02C;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1.2rem;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  
-
-}
-
-
-.book-menu-trigger:hover {
-  background-color: #66C266;
-}
-
-
-.book-status-btn {
-  width: 100%;
-  padding: 0.5rem 1rem;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.book-status-btn:hover {
-  background-color: #f0f0f0;
-}
-
-
-
 @keyframes fadeDown {
   from {
     opacity: 0;
@@ -1071,56 +1032,8 @@ footer a {
 }
 
 /* ===== FORMULAIRES COMMUNS ===== */
-.form-group {
-  margin-bottom: 1.5rem;
-}
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #2c3e50;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-/* Styles pour la checkbox d'acceptation des conditions */
-.checkbox-group {
-  margin: 1.5rem 0;
-  text-align: center;
-}
-
-.checkbox-label {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: .5rem;
-  color: #2c3e50;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  cursor: pointer;
-  text-align: center;
-}
-
-.checkbox-label input[type="checkbox"] {
-  margin: 0;
-  margin-top: 0.2rem;
-  margin-right: 0.5rem;
-  width: 18px;
-  height: 18px;
-  accent-color: #2c3e50;
-  cursor: pointer;
-}
-
-.checkbox-label a {
-  color: #2c3e50;
-  text-decoration: underline;
-  font-weight: 500;
-}
-
-.checkbox-label a:hover {
-  color: #34495e;
-}
-
-
+/* style pour l'input du résumé */
 
 .form-group textarea,
 .form-group-summary textarea {
@@ -1167,18 +1080,26 @@ input[type="file"]:not(:placeholder-shown) + .file-input-label .file-input-text 
   font-style: normal;
 }
 
+/* Boutons */
 .submit-btn {
-  width: 100%;
-  padding: 15px;
   background: rgba(44, 62, 80, 0.2);
   color: #2c3e50;
   border: 2px solid #2c3e50;
   border-radius: 25px;
+  padding: 15px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1,5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.submit-btn:hover {
+  background: #2c3e50;
+  color: white;
 }
 
 /* ===== MEDIA QUERIES GLOBAUX ===== */
