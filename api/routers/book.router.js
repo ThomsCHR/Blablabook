@@ -6,7 +6,7 @@ export const bookRouter = Router();
 
 // routes publiques 
 bookRouter.get("/book", bookController.getAll);
-bookRouter.get("/book/search", bookController.searchByTitle); // nouvelle route de recherche
+bookRouter.get("/book/search", bookController.searchByTitle);
 bookRouter.get("/book/title/:title", bookController.getByTitle);
 bookRouter.get("/book/:id", bookController.getById);
 

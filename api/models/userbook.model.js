@@ -3,6 +3,7 @@ import { sequelize } from "./sequelize.client.js";
 
 export class UserBook extends Model {}
 
+// Table intérmédiaire 
 UserBook.init(
   {
     id: {

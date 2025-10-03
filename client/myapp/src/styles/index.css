@@ -11,7 +11,7 @@
     border-radius: 15px;
     margin: 20px 100px;
     margin-top: 2rem;
-    min-height: 220px; /* nouvelle hauteur minimale → image plus grande */
+    min-height: 220px; 
     display: flex;
     flex-direction: column;
     justify-content: center; /* centre le texte verticalement */

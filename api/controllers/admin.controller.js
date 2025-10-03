@@ -4,7 +4,7 @@ import { UserBook } from "../models/userbook.model.js";
 import { Op } from "sequelize";
 import { formatDate, formatTimeAgo } from "../utils/formatters.js";
 
-// ===== STATISTIQUES D'ADMINISTRATION =====
+// statistiques globales pour le tableau de bord admin
 export const getAdminStats = async (req, res) => {
   try {
     console.log('Récupération des statistiques admin...');
@@ -61,7 +61,7 @@ export const getAdminStats = async (req, res) => {
   }
 };
 
-// ===== LISTE DES UTILISATEURS AVEC RECHERCHE =====
+// liste des utilisateurs avec pagination et recherche
 export const getUsers = async (req, res) => {
   try {
     const { search = '', page = 1, limit = 50 } = req.query;
@@ -102,7 +102,7 @@ export const getUsers = async (req, res) => {
       name: user.username,
       email: user.email,
       role: user.role,
-      status: user.status, // Utiliser le vrai champ status de la DB
+      status: user.status,
       joinDate: formatDate(user.created_at),
       booksCount: user.userBooks ? user.userBooks.length : 0,
       lastActivity: user.updated_at
@@ -131,7 +131,7 @@ export const getUsers = async (req, res) => {
   }
 };
 
-// ===== ACTIVITÉ RÉCENTE =====
+
 export const getRecentActivity = async (req, res) => {
   try {
     const { limit = 10 } = req.query;
@@ -207,7 +207,6 @@ export const getRecentActivity = async (req, res) => {
   }
 };
 
-// ===== DÉTAILS D'UN UTILISATEUR =====
 export const getUserDetails = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -252,7 +251,6 @@ export const getUserDetails = async (req, res) => {
   }
 };
 
-// ===== METTRE À JOUR LE STATUT D'UN UTILISATEUR =====
 export const updateUserStatus = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -260,14 +258,13 @@ export const updateUserStatus = async (req, res) => {
     
     console.log(`Changement statut utilisateur ${userId} vers: ${status}`);
 
-    // Pour l'instant, on garde cette fonction simple
-    // Dans une vraie app, on pourrait avoir des statuts comme: actif, suspendu, banni, etc.
+  
     const user = await User.findByPk(userId);
     if (!user) {
       return res.status(404).json({ error: 'Utilisateur introuvable' });
     }
 
-    // Ici on pourrait ajouter un champ 'status' dans la base de données
+  
     // Mettre à jour le statut de l'utilisateur
     await user.update({ status: status });
     
@@ -288,7 +285,6 @@ export const updateUserStatus = async (req, res) => {
   }
 };
 
-// ===== SUPPRIMER UN UTILISATEUR =====
 export const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -345,7 +341,6 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-// ===== METTRE À JOUR LE RÔLE D'UN UTILISATEUR =====
 export const updateUserRole = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -404,7 +399,6 @@ export const updateUserRole = async (req, res) => {
   }
 };
 
-// ===== LISTE DES LIVRES (pour section admin) =====
 export const getBooks = async (req, res) => {
   try {
     console.log('Récupération liste des livres admin...');
@@ -440,7 +434,6 @@ export const getBooks = async (req, res) => {
   }
 };
 
-// ===== SUPPRIMER UN LIVRE =====
 export const deleteBook = async (req, res) => {
   try {
     const bookId = req.params.id;
@@ -483,7 +476,3 @@ export const deleteBook = async (req, res) => {
     });
   }
 };
-
-// ===== FONCTIONS UTILITAIRES =====
-
-// suppression du code pour les tests unitaires --- IGNORE ---

@@ -25,7 +25,6 @@ User.init(
       defaultValue: "member", // valeur par défaut
     },
 
-    // je n'avais pas mis a jour le model pour le status actif / inactif
     status: {
       type: DataTypes.STRING,
       allowNull: false,

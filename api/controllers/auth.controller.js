@@ -1,4 +1,3 @@
-// controllers/auth.controller.js
 import argon2 from 'argon2'; // sert à hasher les mots de passe
 import { Op } from 'sequelize'; // sert à faire des requêtes avec des opérateurs (OR, AND, etc.) via sequelize
 import { User } from '../models/index.js'; // importe le modèle User
@@ -18,7 +17,7 @@ export const authController = {
         throw new HttpBadRequestError(httpStatusCodes.BAD_REQUEST); // 400 = bad request
       }
 
-      // doublons username/email ?
+      // doublons username/email 
       const exists = await User.findOne({
         where: { [Op.or]: [{ username }, { email }] }, // savoir si l'username OU l'email existe déjà
         attributes: ['username','email'] 
@@ -29,12 +28,7 @@ export const authController = {
       }
 
       // hash du mot de passe
-
       const hash = await argon2.hash(password);
-
-
-
-
       // création
       const user = await User.create({ username, email, password: hash }); // on stocke le hash en base de données, pas le mot de passe en clair
 
@@ -74,16 +68,10 @@ export const authController = {
       // On va chercher si l'utilisateur existe...
       const user = await User.findOne({ where: { email } });
   
-      // je vais vérifier si l'utilisateur possède bien le même mot
-      // de passe haché que celui qui a été renseigné dans le formulaire
-      // de connexion
       const passwordVerify = await argon2.verify(user.password, password);
       console.log(user);
       console.log(passwordVerify);
   
-      // Si l'utilisateur n'a pas le bon mot de passe
-      // OU si l'utilisateur n'existe pas en BDD
-      // je retourne l'erreur équivalente
       if (!user || !passwordVerify) {
         return res
           .status(httpStatusCodes.UNAUTHORIZED)
@@ -97,12 +85,10 @@ export const authController = {
           .json({ error: "Compte désactivé. Contactez l'administrateur." });
       }
   
-      // Je suis certain d'avoir le bon utilisateur
-      // et le bon mot de passe. Ici, je vais créer un token
       const token = jwt.sign(
-        { user_id: user.id }, // Ici, j'indique les informations à stocker dans le token
-        process.env.JWT_SECRET, // Le secret pour le chiffrement
-        { expiresIn: "1h" } // Options du token comme le délai d'expiration
+        { user_id: user.id }, 
+        process.env.JWT_SECRET, 
+        { expiresIn: "1h" } 
       );
   
       // Si tout marche bien, on va l'indiquer à notre utilisateur

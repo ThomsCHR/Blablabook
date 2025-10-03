@@ -1,5 +1,3 @@
-/* ===== ADMIN CSS SIMPLIFIÉ ===== */
-/* Réutilise la majorité des styles de style.css */
 
 /* Override du main pour la page admin - marges équilibrées */
 main.admin-main {
@@ -44,8 +42,8 @@ main.admin-main {
   max-width: fit-content;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Même ombre que les autres éléments */
   height: fit-content;
-  top: 60px; /* Ajusté avec la nouvelle hauteur */
-  margin: 0; /* Corrigé la valeur manquante */
+  top: 60px; 
+  margin: 0; 
 }
 
 .admin-sidebar h3 {
@@ -164,9 +162,9 @@ main.admin-main {
 .admin-table th,
 .admin-table td {
   padding: 0.8rem 0.5rem; /* Padding réduit pour un tableau plus compact */
-  text-align: center; /* Tout centré comme demandé */
+  text-align: center; 
   border-bottom: 1px solid #eee;
-  vertical-align: middle; /* Centrage vertical */
+  vertical-align: middle; 
 }
 
 .admin-table th {
@@ -422,7 +420,6 @@ select.filter-input {
   }
 }
 
-/* ===== RESPONSIVE CORRIGÉ ===== */
 
 /* Tablettes et écrans moyens */
 @media (max-width: 1024px) {
