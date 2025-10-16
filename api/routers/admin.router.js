@@ -12,35 +12,28 @@ import {
 } from "../controllers/admin.controller.js";
 import { authenticate, isAdmin } from "../middlewares/auth.middleware.js";
 
-const router = Router();
+export const adminrouter = Router();
 
 
-router.use(authenticate);
-router.use(isAdmin);
+adminrouter.use(authenticate);
 
+adminrouter.use(isAdmin);
 
-router.get('/stats', getAdminStats);
+adminrouter.get('/stats', getAdminStats);
 
-router.get('/users', getUsers);
+adminrouter.get('/users', getUsers);
 
+adminrouter.get('/users/:id', getUserDetails);
 
-router.get('/users/:id', getUserDetails);
+adminrouter.delete('/users/:id', deleteUser);
 
+adminrouter.patch('/users/:id/status', updateUserStatus);
 
-router.delete('/users/:id', deleteUser);
+adminrouter.patch('/users/:id/role', updateUserRole);
 
-router.patch('/users/:id/status', updateUserStatus);
+adminrouter.get('/activity', getRecentActivity);
 
+adminrouter.get('/books', getBooks);
 
-router.patch('/users/:id/role', updateUserRole);
+adminrouter.delete('/books/:id', deleteBook);
 
-
-router.get('/activity', getRecentActivity);
-
-
-router.get('/books', getBooks);
-
-
-router.delete('/books/:id', deleteBook);
-
-export { router as adminRouter };

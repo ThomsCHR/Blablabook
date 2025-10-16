@@ -25,9 +25,8 @@ export function authenticate(req, res, next) {
   }
 }
 
-/**
- * Autorise uniquement les admins
- */
+ // Autorise uniquement les admins
+
 export async function isAdmin(req, res, next) {
   try {
     if (!req.user?.id) { // vérifie que l'utilisateur est authentifié

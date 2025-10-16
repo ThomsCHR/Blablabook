@@ -5,13 +5,12 @@ import { User } from "./user.model.js";
 import { UserBook } from "./userbook.model.js";
 import { sequelize } from "./sequelize.client.js";
 
-/**
- * USER <-> BOOK (many-to-many via UserBook)
- */
+// USER <-> BOOK (many-to-many via UserBook)
+
 User.belongsToMany(Book, { 
   through: UserBook, 
   as: "books", 
-  foreignKey: "user_id",   // champ dans user_book
+  foreignKey: "user_id",  // champ dans user_book
   otherKey: "book_id"
 });
 
@@ -22,9 +21,9 @@ Book.belongsToMany(User, {
   otherKey: "user_id" 
 });
 
-/**
- * USER <-> BOOK (one-to-many, livres créés par un user)
- */
+
+// USER <-> BOOK (one-to-many, livres créés par un user)
+ 
 User.hasMany(Book, { 
   foreignKey: "user_id",   // champ dans book
   sourceKey: "id",         // PK de User
@@ -37,9 +36,8 @@ Book.belongsTo(User, {
   as: "creator"
 });
 
-/**
- * BOOK <-> GENRE (many-to-many via book_genre)
- */
+// BOOK <-> GENRE (many-to-many via book_genre)
+
 Book.belongsToMany(Genre, { 
   through: "book_genre", 
   as: "genres", 
@@ -54,14 +52,11 @@ Genre.belongsToMany(Book, {
   otherKey: "book_id"
 });
 
-/**
- * BOOK <-> STATUS (many-to-many via user_book)
- */
+// BOOK <-> STATUS (many-to-many via user_book)
+ 
 
-
-/**
- * USERBOOK <-> BOOK & STATUS (belongsTo nécessaires pour les includes)
- */
+// USERBOOK <-> BOOK & STATUS (belongsTo nécessaires pour les includes)
+ 
 UserBook.belongsTo(Book, { foreignKey: "book_id", as: "book" });
 UserBook.belongsTo(Status, { foreignKey: "status_id", as: "status" });
 // USERBOOK <-> USER (belongsTo & hasMany nécessaires pour les includes)

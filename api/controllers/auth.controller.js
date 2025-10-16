@@ -1,6 +1,6 @@
-import argon2 from 'argon2'; // sert à hasher les mots de passe
+import argon2 from 'argon2'; 
 import { Op } from 'sequelize'; // sert à faire des requêtes avec des opérateurs (OR, AND, etc.) via sequelize
-import { User } from '../models/index.js'; // importe le modèle User
+import { User } from '../models/index.js'; 
 import jwt from 'jsonwebtoken';
 import Joi from 'joi';
 import { registerSchema } from '../schemas/auth.schemas.js';

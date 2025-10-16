@@ -15,7 +15,7 @@ export const getAdminStats = async (req, res) => {
     // 2. Compter tous les livres
     const totalBooks = await Book.count();
     
-    // 3. Compter les utilisateurs actifs (qui ont au moins un livre)
+    // 3. Compter les utilisateurs actifs
     const activeUsers = await User.count({
       include: [{
         model: UserBook,
@@ -56,7 +56,7 @@ export const getAdminStats = async (req, res) => {
     console.error('Stack trace:', error.stack);
     res.status(500).json({ 
       error: 'Erreur lors de la récupération des statistiques',
-      details: error.message // Toujours afficher les détails pour debug
+      details: error.message 
     });
   }
 };
