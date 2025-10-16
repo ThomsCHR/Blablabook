@@ -1,14 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { sequelize, Book, Genre, Status, User } from "../models/index.js";
 
 // creation des listes
 console.log("🌱 Creation des books...");
 
-
-
-
-// Ajout des associations pour les nouveaux genres
-// Horreur
 const book1 = await Book.create({ title: "Le Seigneur des Anneaux", author: "J.R.R. Tolkien", summary: "Il y a bien longtemps, dans les terres du Milieu, le Seigneur des Ténèbres Sauron forgea l'Anneau Unique, un artefact de pouvoir absolu capable de dominer tous les autres anneaux de pouvoir. Cependant, l'Anneau fut perdu lors d'une grande bataille et disparut pendant des siècles. Des années plus tard, il est retrouvé par un hobbit nommé Frodon Sacquet, qui se voit confier la mission périlleuse de détruire l'Anneau en le jetant dans les flammes de la Montagne du Destin, là où il a été forgé. Accompagné de ses fidèles amis Sam, Merry et Pippin, ainsi que d'un groupe hétéroclite comprenant Aragorn, Gandalf, Legolas, Gimli et Boromir, Frodon entreprend un voyage épique à travers des terres dangereuses et enchantées. Leur quête les mène à affronter des créatures terrifiantes telles que les Nazgûls, des serviteurs de Sauron, ainsi que des orcs et autres monstres. En chemin, ils rencontrent des alliés précieux comme les elfes de la Lothlórien et les hommes du Rohan. Cependant, la tentation de l'Anneau pèse lourdement sur Frodon, qui doit lutter contre son influence maléfique tout au long de leur périple. Le destin du monde repose sur leurs épaules alors qu'ils affrontent des épreuves inimaginables pour accomplir leur mission et sauver la Terre du Milieu du joug de Sauron.", image: "https://covers.openlibrary.org/b/id/8231856-M.jpg" });
 
 const book2 = await Book.create({ title: "1984", author: "George Orwell", summary: "Année 1984 en Océanie. 1984 ? C'est en tout cas ce qu'il semble à Winston, qui ne saurait toutefois en jurer. Le passé a été réinventé, et les événements les plus récents sont susceptibles d'être modifiés. Winston est lui-même chargé de récrire les archives qui contredisent le présent et les promesses de Big Brother. Grâce à une technologie de pointe, ce dernier sait tout, voit tout. Liberté est Servitude. Ignorance est Puissance. Telles sont les devises du régime. ", image: "https://covers.openlibrary.org/b/id/966097-M.jpg" });
@@ -150,47 +144,45 @@ await book12.addGenre(genre6); // Crime et Châtiment est un livre Classique
 await book13.addGenre(genre6); // Germinal est un livre Classique
 await book14.addGenre(genre6); // Don Quichotte est un livre Classique
 await book15.addGenre(genre8); // L'Odyssée est une Épopée
-await book16.addGenre(genre6); // Classique
-await book17.addGenre(genre6); // Classique
-await book18.addGenre(genre5); // Philosophie
-await book19.addGenre(genre6); // Classique
-await book20.addGenre(genre7); // Roman
-await book21.addGenre(genre7); // Roman
-await book22.addGenre(genre9); // Roman
-await book23.addGenre(genre9); // Roman
-await book24.addGenre(genre7); // Roman
-await book25.addGenre(genre6); // Classique
-await book26.addGenre(genre6); // Classique
-await book27.addGenre(genre6); // Classique
-await book28.addGenre(genre6); // Classique
-await book29.addGenre(genre6); // Classique
-await book30.addGenre(genre6); // Classique
-await book31.addGenre(genre7); // Roman
-await book32.addGenre(genre2); // Science-Fiction
-await book33.addGenre(genre2); // Science-Fiction
-await book34.addGenre(genre2); // Science-Fiction
-await book35.addGenre(genre2); // Science-Fiction
-await book36.addGenre(genre2); // Science-Fiction
-await book37.addGenre(genre2); // Science-Fiction
-await book38.addGenre(genre9); // Science-Fiction
-await book39.addGenre(genre2); // Science-Fiction
-await book40.addGenre(genre2); // Science-Fiction
-await book41.addGenre(genre9); // Roman
-await book42.addGenre(genre9); // Roman
-await book43.addGenre(genre9); // Roman
-await book44.addGenre(genre1); // Fantasy
-await book45.addGenre(genre3); // Jeunesse
-await book46.addGenre(genre10); // Roman
-await book47.addGenre(genre10); // Roman
-await book48.addGenre(genre4); // Manga
-await book49.addGenre(genre4); // Manga
-await book50.addGenre(genre4); // Manga
-await book51.addGenre(genre11); // Steve Jobs
+await book16.addGenre(genre6); 
+await book17.addGenre(genre6); 
+await book18.addGenre(genre5); 
+await book19.addGenre(genre6); 
+await book20.addGenre(genre7); 
+await book21.addGenre(genre7); 
+await book22.addGenre(genre9); 
+await book23.addGenre(genre9);
+await book24.addGenre(genre7); 
+await book25.addGenre(genre6); 
+await book26.addGenre(genre6); 
+await book27.addGenre(genre6); 
+await book28.addGenre(genre6); 
+await book29.addGenre(genre6); 
+await book30.addGenre(genre6); 
+await book31.addGenre(genre7); 
+await book32.addGenre(genre2); 
+await book33.addGenre(genre2); 
+await book34.addGenre(genre2); 
+await book35.addGenre(genre2); 
+await book36.addGenre(genre2); 
+await book37.addGenre(genre2); 
+await book38.addGenre(genre9); 
+await book39.addGenre(genre2); 
+await book40.addGenre(genre2); 
+await book41.addGenre(genre9); 
+await book42.addGenre(genre9); 
+await book43.addGenre(genre9); 
+await book44.addGenre(genre1); 
+await book45.addGenre(genre3); 
+await book46.addGenre(genre10); 
+await book47.addGenre(genre10); 
+await book48.addGenre(genre4); 
+await book49.addGenre(genre4); 
+await book50.addGenre(genre4); 
+await book51.addGenre(genre11); 
 
 
 console.log("✅ Genres associés aux books\n");
-
-
 
 // ferme manuellement la connexion
 await sequelize.close();

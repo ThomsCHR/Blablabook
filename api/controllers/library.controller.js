@@ -1,9 +1,8 @@
-// controllers/library.controller.js
 import { Book, User, Status, UserBook } from '../models/index.js';
 import { httpStatusCodes } from '../errors/http.errors.js';
 
 export const libraryController = {
-  // POST /api/:id/library   body: { book_id? , title? , status_id }
+  
   async addBookToUser(req, res) {
     const userId = Number(req.params.id);
     const { book_id, title, status_id } = req.body || {};
@@ -24,7 +23,7 @@ export const libraryController = {
       const status = await Status.findByPk(Number(status_id));
       if (!status) return res.status(httpStatusCodes.NOT_FOUND).json({ message: 'Status not found' });
 
-      // Upsert dans la table pivot (évite les doublons, met à jour le statut si déjà présent)
+      
       const row = { user_id: user.id, book_id: book.id, status_id: status.id };
       await UserBook.upsert(row);
 
@@ -38,7 +37,7 @@ export const libraryController = {
     }
   },
 
-  // GET /api/:id/library
+ 
   async getAllUserBooks(req, res) {
     const userId = Number(req.params.id);
 
@@ -69,7 +68,6 @@ export const libraryController = {
     }
   },
 
-  // DELETE /api/:id/library/:bookId
   async removeBookFromUser(req, res) {
     const userId = Number(req.params.id);
     const bookId = Number(req.params.bookId);
@@ -92,7 +90,7 @@ export const libraryController = {
     }
   },
 
-  // PATCH /api/:id/library/:bookId/status   body: { status_id }
+
   async updateBookStatus(req, res) {
     const userId = Number(req.params.id);
     const bookId = Number(req.params.bookId);

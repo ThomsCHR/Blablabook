@@ -29,20 +29,20 @@
 
   // Configuration des routes
   const routes = {
-    '/': Index, // Route pour la page d'accueil
-    '/Politic': Politic, // Route pour la page Politique
-    '/Mentions': Mentions, // Route pour les mentions légales
-    '/Contact': Contact, // Route pour la page Contact
-    '/My-library': MyLibrary, // Route pour la bibliothèque personnelle
-    '/profil': Profil, // Route pour le profil utilisateur
-    '/BookDetail/:id': BookDetail, // Route pour les détails d'un livre
-    '/search': SearchResults, // Route pour les résultats de recherche
-    '/login': Login, // Route pour la connexion
-    '/register': Register, // Route pour l'inscription
-    '/about': About, // Route pour la page À propos
-    '/Collections': Collections, // Route pour les collections
-    '/admin': Admin, // Route pour l'administration
-    '*': Error // Route par défaut pour les erreurs
+    '/': Index, 
+    '/Politic': Politic, 
+    '/Mentions': Mentions, 
+    '/Contact': Contact, 
+    '/My-library': MyLibrary, 
+    '/profil': Profil, 
+    '/BookDetail/:id': BookDetail, 
+    '/search': SearchResults, 
+    '/login': Login,
+    '/register': Register, 
+    '/about': About, 
+    '/Collections': Collections, 
+    '/admin': Admin, 
+    '*': Error 
   };
 
   // Suivi de la route actuelle pour les transitions

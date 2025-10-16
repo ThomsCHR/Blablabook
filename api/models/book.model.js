@@ -17,11 +17,6 @@ Book.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    publication_date: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      validate: { min: 0 }
-    },
     summary: {
       type: DataTypes.TEXT,
       allowNull: false,

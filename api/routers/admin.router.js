@@ -12,37 +12,28 @@ import {
 } from "../controllers/admin.controller.js";
 import { authenticate, isAdmin } from "../middlewares/auth.middleware.js";
 
-const router = Router();
+export const adminrouter = Router();
 
-// Toutes les routes nécessitent une authentification et des permissions admin
-router.use(authenticate);
-router.use(isAdmin);
 
-// GET /api/admin/stats - Récupérer les statistiques d'administration
-router.get('/stats', getAdminStats);
+adminrouter.use(authenticate);
 
-// GET /api/admin/users - Récupérer la liste des utilisateurs (avec pagination et recherche)
-router.get('/users', getUsers);
+adminrouter.use(isAdmin);
 
-// GET /api/admin/users/:id - Récupérer les détails d'un utilisateur
-router.get('/users/:id', getUserDetails);
+adminrouter.get('/stats', getAdminStats);
 
-// DELETE /api/admin/users/:id - Supprimer un utilisateur
-router.delete('/users/:id', deleteUser);
+adminrouter.get('/users', getUsers);
 
-// PATCH /api/admin/users/:id/status - Mettre à jour le statut d'un utilisateur
-router.patch('/users/:id/status', updateUserStatus);
+adminrouter.get('/users/:id', getUserDetails);
 
-// PATCH /api/admin/users/:id/role - Mettre à jour le rôle d'un utilisateur
-router.patch('/users/:id/role', updateUserRole);
+adminrouter.delete('/users/:id', deleteUser);
 
-// GET /api/admin/activity - Récupérer l'activité récente
-router.get('/activity', getRecentActivity);
+adminrouter.patch('/users/:id/status', updateUserStatus);
 
-// GET /api/admin/books - Récupérer tous les livres (avec pagination et recherche)
-router.get('/books', getBooks);
+adminrouter.patch('/users/:id/role', updateUserRole);
 
-// DELETE /api/admin/books/:id - Supprimer un livre
-router.delete('/books/:id', deleteBook);
+adminrouter.get('/activity', getRecentActivity);
 
-export { router as adminRouter };
+adminrouter.get('/books', getBooks);
+
+adminrouter.delete('/books/:id', deleteBook);
+
