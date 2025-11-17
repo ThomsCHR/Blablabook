@@ -1,6 +1,6 @@
 import { sequelize, Book, Genre, Status, User } from "../models/index.js";
 
-// creation des listes
+// creation des livres
 console.log("🌱 Creation des books...");
 
 const book1 = await Book.create({ title: "Le Seigneur des Anneaux", author: "J.R.R. Tolkien", summary: "Il y a bien longtemps, dans les terres du Milieu, le Seigneur des Ténèbres Sauron forgea l'Anneau Unique, un artefact de pouvoir absolu capable de dominer tous les autres anneaux de pouvoir. Cependant, l'Anneau fut perdu lors d'une grande bataille et disparut pendant des siècles. Des années plus tard, il est retrouvé par un hobbit nommé Frodon Sacquet, qui se voit confier la mission périlleuse de détruire l'Anneau en le jetant dans les flammes de la Montagne du Destin, là où il a été forgé. Accompagné de ses fidèles amis Sam, Merry et Pippin, ainsi que d'un groupe hétéroclite comprenant Aragorn, Gandalf, Legolas, Gimli et Boromir, Frodon entreprend un voyage épique à travers des terres dangereuses et enchantées. Leur quête les mène à affronter des créatures terrifiantes telles que les Nazgûls, des serviteurs de Sauron, ainsi que des orcs et autres monstres. En chemin, ils rencontrent des alliés précieux comme les elfes de la Lothlórien et les hommes du Rohan. Cependant, la tentation de l'Anneau pèse lourdement sur Frodon, qui doit lutter contre son influence maléfique tout au long de leur périple. Le destin du monde repose sur leurs épaules alors qu'ils affrontent des épreuves inimaginables pour accomplir leur mission et sauver la Terre du Milieu du joug de Sauron.", image: "https://covers.openlibrary.org/b/id/8231856-M.jpg" });
@@ -12,7 +12,6 @@ const book5 = await Book.create({ title: "Dune", author: "Frank Herbert", summar
 const book6 = await Book.create({ title: "L'Étranger", author: "Albert Camus", summary: "Quand la sonnerie a encore retenti, que la porte du box s'est ouverte, c'est le silence de la salle qui est monté vers moi, le silence, et cette singulière sensation que j'ai eue lorsque j'ai constaté que le jeune journaliste avait détourné les yeux. Je n'ai pas regardé du côté de Marie. Je n'en ai pas eu le temps parce que le président m'a dit dans une forme bizarre que j'aurais la tête tranchée sur une place publique au nom du peuple français...,", image: "https://images.epagine.fr/002/9782070212002_1_75.jpg" });
 const book7 = await Book.create({ title: "Les Misérables", author: "Victor Hugo", summary: "« Je m'appelle Jean Valjean. Je suis un galérien. J'ai passé dix-neuf ans au bagne. Je suis libéré depuis quatre jours et en route pour Pontarlier qui est ma destination. Quatre jours que je marche depuis Toulon. Aujourd'hui j'ai fait douze lieues à pied. Ce soir en arrivant dans ce pays, j'ai été dans une auberge, on m'a renvoyé à cause de mon passeport jaune que j'avais montré à la mairie. J'ai été à une autre auberge. On m'a dit : - Va-t'en!  »", image: "https://covers.openlibrary.org/b/id/15003375-L.jpg" });
 const book8 = await Book.create({ title: "Le Petit Prince", author: "Antoine de Saint-Exupéry", summary: "J'ai ainsi vécu seul, sans personne avec qui parler véritablement, jusqu'à une panne dans le désert du Sahara, il y a six ans. Quelque chose s'était cassé dans mon moteur. Et comme je n'avais avec moi ni mécanicien, ni passagers, je me préparai à essayer de réussir, tout seul, une réparation difficile. C'était pour moi une question de vie ou de mort. J'avais à peine de l'eau à boire pour huit jours. Le premier soir je me suis donc endormi sur le sable à mille milles de toute terre habitée. ", image: "https://m.media-amazon.com/images/I/71IF1ngy57L._UF1000,1000_QL80_.jpg" });
-const book9 = await Book.create({ title: "La Peste", author: "Albert Camus", summary: " - Naturellement, vous savez ce que c'est, Rieux ? - J'attends le résultat des analyses. - Moi, je le sais. Et je n'ai pas besoin d'analyses. J'ai fait une partie de ma carrière en Chine, et j'ai vu quelques cas à Paris, il y a une vingtaine d'années. Seulement, on n'a pas osé leur donner un nom, sur le moment... Et puis, comme disait un confrère : C'est impossible, tout le monde sait qu'elle a disparu de l'Occident.", image: "https://ia802309.us.archive.org/view_archive.php?archive=/20/items/l_covers_0008/l_covers_0008_29.zip&file=0008296472-L.jpg" });
 const book10 = await Book.create({ title: "Le Comte de Monte-Cristo", author: "Alexandre Dumas", summary: "Comment devenir comte de Monte-Cristo quand on est simple marin ? Ce roman est le récit d'une transformation, de celles qui affectent les créatures acculées au changement : la métamorphose. Espérant modestement devenir capitaine, Edmond Dantès se heurtera pourtant à la conspiration la plus lâche. Dans les geôles du château d'If, où il a été injustement jeté, Edmond entame la mue d'un être rivé à la plus dévorante des passions : la vengeance. ", image: "https://m.media-amazon.com/images/I/71ZcP22phyL._UF1000,1000_QL80_.jpg" });
 const book11 = await Book.create({ title: "Madame Bovary", author: "Gustave Flaubert", summary: "C'est l'histoire d'une femme mal mariée, de son médiocre époux, de ses amants égoïstes et vains, de ses rêves, de ses chimères, de sa mort. C'est l'histoire d'une province étroite, dévote et bourgeoise. C'est, aussi, l'histoire du roman français. Rien, dans ce tableau, n'avait de quoi choquer la société du Second Empire.", image: "https://ia600505.us.archive.org/view_archive.php?archive=/25/items/m_covers_0010/m_covers_0010_99.zip&file=0010998605-M.jpg" });
 const book12 = await Book.create({ title: "Crime et Châtiment", author: "Fiodor Dostoïevski", summary: "A  Saint-Pétersbourg, en 1865, Raskolnikov, un jeune noble sombre et altier, renfermé mais aussi généreux, a interrompu ses études faute d’argent. Endetté auprès de sa logeuse qui lui loue une étroite mansarde, il se sent écrasé par sa pauvreté. Mais il se croit aussi appelé à un grand avenir et, dédaigneux de la loi morale, se pense fondé à commettre un crime : ce qu’il va faire bientôt – de manière crapuleuse. ", image: "https://covers.openlibrary.org/b/id/13643709-L.jpg" });
@@ -92,11 +91,9 @@ const user2 = await User.create({ username: "Bob", email: "bob@hotmail.fr", role
 const user3 = await User.create({ username: "Charlie", email: "charlie@gmail.com", role: "member", status: "Inactif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
 const user4 = await User.create({ username: "Diana", email: "diana@gmail.com", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
 const user5 = await User.create({ username: "Thomas", email: "Thomas@gmail.com", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user6 = await User.create({ username: "Frank", email: "frank@gmail.com", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
 const user7 = await User.create({ username: "Grace", email: "grace@gmail.com", role: "member", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
 const user8 = await User.create({ username: "Youssef", email: "Youssef@gmail.com", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
-const user9 = await User.create({ username: "ludo", email: "ludovic@got.gov", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$L7cuSyAvD7ebuXjNjDIEsA$j0R9AelNNMwX52gfb5PVhHkiCR02U+H/Z/fCtAlAGV0" }); // azerty1234
-const user10 = await User.create({ username: "damien", email: "damien@got.gov", role: "admin", status: "Actif", password: "$argon2id$v=19$m=65536,t=3,p=4$A5k8hA5iedzpz29gkhaILQ$yxb2/F7f102YuwHYGxIYCPoGUj6Giz7oixzaMlpiLNM" }); // Passw0rd
+
 
 
 console.log("✅ Nouveaux utilisateurs créés\n");
@@ -107,7 +104,6 @@ console.log("✅ Utilisateurs crées\n");
 
 // association des users aux books
 console.log("🌱 Association des users aux books...");
-// on utilise les "specials methods" de sequelize pour ajouter des associations
 await user1.addBook(book1, { through: { statusId: status1.id } }); // Alice a lu Le Seigneur des Anneaux
 await user1.addBook(book2, { through: { statusId: status2.id } }); // Alice a à lire 1984
 await user2.addBook(book2, { through: { statusId: status1.id } }); // Bob a lu 1984
@@ -117,8 +113,6 @@ await user4.addBook(book5, { through: { statusId: status1.id } }); // Diana a lu
 await user4.addBook(book6, { through: { statusId: status2.id } }); // Diana a à lire L'Étranger
 await user5.addBook(book7, { through: { statusId: status1.id } }); // Thomas a lu Les Misérables
 await user5.addBook(book8, { through: { statusId: status2.id } }); // Thomas a à lire Le Petit Prince
-await user6.addBook(book9, { through: { statusId: status1.id } }); // Frank a lu La Peste
-await user6.addBook(book10, { through: { statusId: status2.id } }); // Frank a à lire Le Comte de Monte-Cristo
 await user7.addBook(book11, { through: { statusId: status1.id } }); // Grace a lu Madame Bovary
 await user7.addBook(book12, { through: { statusId: status2.id } }); // Grace a à lire Crime et Châtiment
 await user8.addBook(book13, { through: { statusId: status1.id } }); // Youssef a lu Germinal
@@ -137,7 +131,6 @@ await book5.addGenre(genre2); // Dune est un livre de Science-Fiction
 await book6.addGenre(genre5); // L'Étranger est un livre de Philosophie
 await book7.addGenre(genre6); // Les Misérables est un livre Classique
 await book8.addGenre(genre7); // Le Petit Prince est un Roman
-await book9.addGenre(genre5); // La Peste est un livre de Philosophie
 await book10.addGenre(genre6); // Le Comte de Monte-Cristo est un livre Classique
 await book11.addGenre(genre7); // Madame Bovary est un Roman
 await book12.addGenre(genre6); // Crime et Châtiment est un livre Classique

@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Sert à retrouver le chemin absolu du dossier courant
-const clientDistPath = path.join(__dirname, "../client/myapp/dist"); // Chemin vers le dossier 'dist' de l'application front-end
+const clientDistPath = path.join(__dirname, "../client/dist"); // Chemin vers le dossier 'dist' de l'application front-end
 const app = express(); // création de l'application express
 const PORT = process.env.PORT || 3000;
 

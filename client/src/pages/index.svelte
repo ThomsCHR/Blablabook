@@ -9,7 +9,7 @@
 
   onMount(async () => {
     try {
-      books = await allBooks();  // vient de ton clientApi
+      books = await allBooks();  // vient du clientApi
     } catch (e) {
       error = e?.message ?? 'Erreur de chargement';
     } finally {
