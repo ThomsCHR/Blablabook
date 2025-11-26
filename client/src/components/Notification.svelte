@@ -59,13 +59,13 @@
     <div class="notification-content">
       <div class="notification-icon">
         {#if type === 'success'}
-          ✅
+          
         {:else if type === 'error'}
-          ❌
+          
         {:else if type === 'warning'}
           ⚠️
         {:else if type === 'info'}
-          ℹ️
+          
         {/if}
       </div>
       <span class="notification-message">{message}</span>
