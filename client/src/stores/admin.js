@@ -113,10 +113,10 @@ export async function deleteBook(bookId) {
   try {
     console.log(`🗑️ Suppression du livre ID: ${bookId}`);
     await apiDeleteBook(bookId);
-    console.log(`✅ Livre supprimé avec succès`);
+    console.log(` Livre supprimé avec succès`);
     return true;
   } catch (error) {
-    console.error('❌ Erreur lors de la suppression du livre:', error);
+    console.error(' Erreur lors de la suppression du livre:', error);
     return false;
   }
 }
